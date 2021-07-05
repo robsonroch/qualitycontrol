@@ -44,6 +44,10 @@ public class Funcionario implements Serializable{
 		this.cpf = cpf;
 	}
 	
+	public Funcionario(String nomeCompleto) {
+		this.nomeCompleto = nomeCompleto;
+	}
+	
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
