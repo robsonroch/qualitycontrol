@@ -33,10 +33,7 @@ public class Notificacao implements Serializable{
 	@ManyToOne
 	@JoinColumn(name="funcionarioId")
 	private Funcionario responsavelDetecção;
-	//private TypeMissConformity tipo;
 	//private Boolean isRecidivism;
 	//private String descricao;
 	
-	
-
 }

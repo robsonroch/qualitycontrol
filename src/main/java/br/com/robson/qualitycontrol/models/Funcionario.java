@@ -32,9 +32,9 @@ public class Funcionario implements Serializable{
 	private String cpf;
 
 	private boolean ativo;
-	
+		
 	@OneToMany(mappedBy = "id.funcionario")
-	private Set<Alocacao> alocacoes = new HashSet<Alocacao>();
+	private Set<Alocacao> setoresAlocados = new HashSet<Alocacao>();
 	
 	public Funcionario(Integer id, String nomeCompleto, String email, String cpf) {
 		super();
@@ -42,6 +42,10 @@ public class Funcionario implements Serializable{
 		this.nomeCompleto = nomeCompleto;
 		this.email = email;
 		this.cpf = cpf;
+	}
+	
+	public Funcionario(String nomeCompleto) {
+		this.nomeCompleto = nomeCompleto;
 	}
 	
 	@Override

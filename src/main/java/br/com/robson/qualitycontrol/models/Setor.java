@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -13,7 +14,6 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 
 import lombok.Data;
-import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
 @Data
@@ -30,9 +30,9 @@ public class Setor implements Serializable{
 	private String nome;
 	//@Exclude
 	//private Funcionario chefe;
-
+	
 	@OneToMany(mappedBy = "id.setor")
-	private Set<Alocacao> alocacoes = new HashSet<Alocacao>();
+	private Set<Alocacao> funcionariosAlocados = new HashSet<Alocacao>();
 	
 	public Setor(Integer setorId, String nome, Funcionario chefe) {
 		super();
@@ -42,12 +42,7 @@ public class Setor implements Serializable{
 	}		
 	
 	public List<Funcionario> getFuncionarios(){
-		List<Funcionario> funcionariosAtuais = new ArrayList<>();
-		
-		for(Alocacao alocado: alocacoes) {
-			funcionariosAtuais.add(alocado.getFuncionario());
-		}
-		
-		return funcionariosAtuais;
+								
+		return funcionariosAlocados.stream().filter(Alocacao::isAtual).map(Alocacao::getFuncionario).collect(Collectors.toList());
 	}
 }

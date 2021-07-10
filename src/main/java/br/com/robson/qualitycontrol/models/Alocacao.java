@@ -3,8 +3,13 @@ package br.com.robson.qualitycontrol.models;
 import java.io.Serializable;
 import java.util.Date;
 
+import javax.persistence.DiscriminatorColumn;
+import javax.persistence.DiscriminatorType;
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
+import javax.persistence.Inheritance;
+import javax.persistence.InheritanceType;
+import javax.persistence.Table;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -14,12 +19,16 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 @Entity
+@Table(name = "SETOR_EMPREGADO")
+@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
+@DiscriminatorColumn(name="tipoAlocacao", 
+discriminatorType = DiscriminatorType.STRING)
 public class Alocacao implements Serializable{
 
 	private static final long serialVersionUID = 1L;
 	
 	private Date dataSaida;
-	
+		
 	@EmbeddedId
 	private AlocacaoPK id = new AlocacaoPK();
 	
@@ -35,7 +44,11 @@ public class Alocacao implements Serializable{
 	public Setor getSetor() {
 		return this.id.getSetor();
 	}
-
+	
+	public boolean isAtual() {
+		return this.dataSaida == null;
+	}
+	
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
