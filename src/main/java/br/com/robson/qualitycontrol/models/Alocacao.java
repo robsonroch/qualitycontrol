@@ -10,6 +10,7 @@ import javax.persistence.Entity;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
 import javax.persistence.Table;
+import javax.persistence.UniqueConstraint;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -19,7 +20,11 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 @Entity
-@Table(name = "SETOR_EMPREGADO")
+@Table(name = "SETOR_EMPREGADO", 
+uniqueConstraints= { @UniqueConstraint(columnNames={"dataSaida", "dataEntrada", "funcionarioId"}),
+		@UniqueConstraint(columnNames={"dataSaida", "dataEntrada", "setorId", "tipoQA"}),
+		@UniqueConstraint(columnNames={"dataSaida", "dataEntrada", "setorId", "tipoChefe"})
+})
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 @DiscriminatorColumn(name="tipoAlocacao", 
 discriminatorType = DiscriminatorType.STRING)
