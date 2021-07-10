@@ -13,24 +13,26 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
 @Data
+@Builder
 @Entity
 @NoArgsConstructor
-public class Setor implements Serializable{
+@AllArgsConstructor
+@EqualsAndHashCode(callSuper=true)
+public class Setor extends BaseEntity<Long> implements Serializable{
 
 	private static final long serialVersionUID = 1L;
 	
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long id;
-
+	@EqualsAndHashCode.Exclude
 	private String nome;
-	//@Exclude
-	//private Funcionario chefe;
-	
+		
+	@EqualsAndHashCode.Exclude
 	@OneToMany(mappedBy = "id.setor")
 	private Set<Alocacao> funcionariosAlocados = new HashSet<Alocacao>();
 	
