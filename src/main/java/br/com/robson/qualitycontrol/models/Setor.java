@@ -25,7 +25,7 @@ public class Setor implements Serializable{
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Integer setorId;
+	private Long id;
 
 	private String nome;
 	//@Exclude
@@ -34,9 +34,9 @@ public class Setor implements Serializable{
 	@OneToMany(mappedBy = "id.setor")
 	private Set<Alocacao> funcionariosAlocados = new HashSet<Alocacao>();
 	
-	public Setor(Integer setorId, String nome, Funcionario chefe) {
+	public Setor(Long setorId, String nome, Funcionario chefe) {
 		super();
-		this.setorId = setorId;
+		this.id = setorId;
 		this.nome = nome;
 		//this.chefe = chefe;
 	}		
