@@ -13,7 +13,6 @@ public class RequestToFuncionario implements ConvertToModel<Funcionario>{
 		
 		FuncionarioRequest request = (FuncionarioRequest) origin;
 		 Funcionario func = Funcionario.builder()
-		.ativo(true)
 		.cpf(request.getCpf())
 		.nomeCompleto(request.getNome().concat(" ").concat(request.getSobreNome()))
 		.email(request.getEmail()).build();

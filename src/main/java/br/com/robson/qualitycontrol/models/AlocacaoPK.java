@@ -11,15 +11,18 @@ import javax.persistence.InheritanceType;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-@EqualsAndHashCode
+@Data
+@EqualsAndHashCode(callSuper = false)
 @Embeddable
-@Getter
-@Setter
+@AllArgsConstructor
+@NoArgsConstructor
 public class AlocacaoPK implements Serializable{
 
 	private static final long serialVersionUID = 1L;
@@ -31,6 +34,7 @@ public class AlocacaoPK implements Serializable{
 	@JoinColumn(name="setorId")
 	private Setor setor;
 	
+	@EqualsAndHashCode.Exclude
 	private Date dataEntrada = new Date();
 
 }

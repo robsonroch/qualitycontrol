@@ -19,10 +19,10 @@ import br.com.robson.qualitycontrol.models.builders.ConvertToModel;
 public class Servico<T extends BaseEntity<I>, I> {
 
 	@Autowired
-	private JpaRepository<T, I> repo;
+	protected JpaRepository<T, I> repo;
 	
 	@Autowired
-	private ConvertToModel<T> builderModel;
+	protected ConvertToModel<T> builderModel;
 		
 	private Class<T> elementType;
 	
@@ -31,7 +31,7 @@ public class Servico<T extends BaseEntity<I>, I> {
 		elementType = (Class<T>) ((ParameterizedType) getClass().getGenericSuperclass()).getActualTypeArguments()[0];	
 	}
 
-	public T find(I id) {
+	public T findById(I id) {
 		Optional<T> obj = repo.findById( id);
 				
 		return obj.orElseThrow(() -> new ObjectNotFoundException(
@@ -59,7 +59,7 @@ public class Servico<T extends BaseEntity<I>, I> {
 	}
 	
 	public void delete(I id) {
-		find(id);
+		findById(id);
 		try {
 			repo.deleteById(id);
 		}

@@ -20,7 +20,6 @@ import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
 @Data
-@Builder
 @Entity
 @NoArgsConstructor
 @AllArgsConstructor
@@ -36,11 +35,11 @@ public class Setor extends BaseEntity<Long> implements Serializable{
 	@OneToMany(mappedBy = "id.setor")
 	private Set<Alocacao> funcionariosAlocados = new HashSet<Alocacao>();
 	
-	public Setor(Long setorId, String nome, Funcionario chefe) {
+	@Builder
+	public Setor(Long id, String nome) {
 		super();
-		this.id = setorId;
+		this.id = id;
 		this.nome = nome;
-		//this.chefe = chefe;
 	}		
 	
 	public List<Funcionario> getFuncionarios(){

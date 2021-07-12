@@ -2,6 +2,7 @@ package br.com.robson.qualitycontrol.models;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.GregorianCalendar;
 
 import javax.persistence.DiscriminatorColumn;
 import javax.persistence.DiscriminatorType;
@@ -12,6 +13,7 @@ import javax.persistence.InheritanceType;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -21,22 +23,20 @@ import lombok.Setter;
 @NoArgsConstructor
 @Entity
 @Table(name = "SETOR_EMPREGADO", 
-uniqueConstraints= { @UniqueConstraint(columnNames={"dataSaida", "dataEntrada", "funcionarioId"}),
-		@UniqueConstraint(columnNames={"dataSaida", "dataEntrada", "setorId", "tipoQA"}),
-		@UniqueConstraint(columnNames={"dataSaida", "dataEntrada", "setorId", "tipoChefe"})
-})
+uniqueConstraints= @UniqueConstraint(name ="alocacao_unica", columnNames={"dataSaida", "funcionarioId"}))
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 @DiscriminatorColumn(name="tipoAlocacao", 
 discriminatorType = DiscriminatorType.STRING)
-public class Alocacao implements Serializable{
+public class Alocacao extends BaseEntity<AlocacaoPK> implements Serializable{
 
 	private static final long serialVersionUID = 1L;
 	
-	private Date dataSaida;
-		
+	private Date dataSaida = new GregorianCalendar(3000, 1 - 1, 1).getTime();
+			
 	@EmbeddedId
 	private AlocacaoPK id = new AlocacaoPK();
 	
+	@Builder
 	public Alocacao(Funcionario funcionario, Setor setor) {
 		this.id.setFuncionario(funcionario);
 		this.id.setSetor(setor);

@@ -18,5 +18,9 @@ public class AlocacaoFuncionario extends Alocacao implements Serializable{
 	private static final long serialVersionUID = 1L;
 	
 	private boolean tipoFuncionario = true;
+	
+	public AlocacaoFuncionario(Funcionario funcionario, Setor setor) {
+		super(funcionario, setor);
+	}
 
 }
