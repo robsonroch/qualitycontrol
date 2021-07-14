@@ -11,7 +11,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class AlocacaoRequest {
 		
-	private Long funcionarioId;
+	private String cpf;
 	
 	private Long setorId;
 	

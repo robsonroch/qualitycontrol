@@ -16,7 +16,7 @@ import br.com.robson.qualitycontrol.exceptions.ObjectNotFoundException;
 import br.com.robson.qualitycontrol.models.BaseEntity;
 import br.com.robson.qualitycontrol.models.builders.ConvertToModel;
 
-public class Servico<T extends BaseEntity<I>, I> {
+public class Servico<T, I> {
 
 	@Autowired
 	protected JpaRepository<T, I> repo;
@@ -49,12 +49,10 @@ public class Servico<T extends BaseEntity<I>, I> {
 		
 	}
 	
-	public T update(Object obj, I id) {
+	public T update(Object obj) {
 		
 		T model = builderModel.executa(obj);
-		
-		model.setId(id);
-				
+						
 		return repo.save(model);
 	}
 	

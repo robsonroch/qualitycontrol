@@ -61,30 +61,12 @@ public class AlocacaoResource {
 	@Autowired
 	private SetorRepository setorRepo;
 		
-	@RequestMapping(value="/{funcionarioId}/{setorId}", method=RequestMethod.GET)
-	public ResponseEntity<Object> find(@PathVariable Long funcionarioId, @PathVariable Long setorId) {
-		Funcionario func = new Funcionario();
-				func.setNomeCompleto("Fulando de tal");
-				func.setCpf("100.000.000.01");
-				func.setEmail("fulano@email.com");
+	@RequestMapping(value="/{cpf}/{setorId}", method=RequestMethod.GET)
+	public ResponseEntity<Object> find(@PathVariable String cpf, @PathVariable Long setorId) {
 		
-		Setor st = new Setor();
-				st.setNome("Banco de Sangue");
-		
-		funcRepo.save(func);
-		setorRepo.save(st);
-		
-		Funcionario func2 = new Funcionario();
-		func2.setId(1L);
-		
-		Setor st2 = new Setor();
-		st2.setId(1L);
-		
-		AlocacaoQualidade aloc = new AlocacaoQualidade(func2, st2);
-		
-		Alocacao save = repo.save(aloc);
-						
-		return ResponseEntity.ok().body(save);
+		Alocacao findByFuncionarioAndSetor = alocService.findByFuncionarioAndSetor(cpf);
+								
+		return ResponseEntity.ok().body(findByFuncionarioAndSetor);
 	}
 	
 	@RequestMapping(method=RequestMethod.POST)
@@ -93,11 +75,9 @@ public class AlocacaoResource {
 		Alocacao obj = alocService.insert(objDto);
 		
 		AlocacaoPK id = obj.getId();
-		id.setDataEntrada(new Date());
-		id.getFuncionario().setNomeCompleto(null);
-		id.getFuncionario().setId(0L);
-		id.getFuncionario().setAtivo(false);
-		Alocacao find = alocService.findById(obj.getId());
+		
+		Alocacao find = alocService.findByFuncionarioAndSetor(id.getFuncionario().getCpf());
+		String cpf = find.getFuncionario().getCpf();
 		URI uri = ServletUriComponentsBuilder.fromCurrentRequest()
 			.path("/{id}").buildAndExpand(obj.getId()).toUri();
 		return ResponseEntity.created(uri).build();

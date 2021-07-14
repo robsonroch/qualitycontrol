@@ -52,7 +52,8 @@ public class SetorResource {
 	@RequestMapping(value="/{id}", method=RequestMethod.PUT)
 	public ResponseEntity<Void> update(@Valid @RequestBody SetorRequest objDto, @PathVariable Long id) {
 		
-		service.update(objDto, id);
+		objDto.setId(id);
+		service.update(objDto);
 		return ResponseEntity.noContent().build();
 	}
 	

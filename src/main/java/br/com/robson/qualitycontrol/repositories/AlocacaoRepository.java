@@ -5,10 +5,10 @@ import org.springframework.stereotype.Repository;
 
 import br.com.robson.qualitycontrol.models.Alocacao;
 import br.com.robson.qualitycontrol.models.AlocacaoPK;
+import br.com.robson.qualitycontrol.models.Funcionario;
 
 @Repository
 public interface AlocacaoRepository extends JpaRepository<Alocacao, AlocacaoPK> {
 	
-	public Alocacao findByAlocacaoPKFuncionarioEmailEqual(String email);
-
+	public Alocacao findByIdFuncionarioCpf(String cpf);
 }

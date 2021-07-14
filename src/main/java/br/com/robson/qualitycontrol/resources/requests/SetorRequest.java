@@ -7,4 +7,6 @@ public class SetorRequest {
 		
 	private String nome;
 	
+	private Long id;
+	
 }

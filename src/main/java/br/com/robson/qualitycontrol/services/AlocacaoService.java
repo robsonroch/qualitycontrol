@@ -10,6 +10,7 @@ import br.com.robson.qualitycontrol.models.AlocacaoChefia;
 import br.com.robson.qualitycontrol.models.AlocacaoFuncionario;
 import br.com.robson.qualitycontrol.models.AlocacaoPK;
 import br.com.robson.qualitycontrol.models.AlocacaoQualidade;
+import br.com.robson.qualitycontrol.models.Funcionario;
 import br.com.robson.qualitycontrol.models.builders.ConvertToModel;
 import br.com.robson.qualitycontrol.models.utils.TipoAlocacaoEnum;
 import br.com.robson.qualitycontrol.repositories.AlocacaoRepository;
@@ -27,7 +28,7 @@ public class AlocacaoService extends Servico<Alocacao, AlocacaoPK> {
 	@Autowired
 	private ConvertToModel<AlocacaoChefia> builderChefia;
 	
-	@Autowired 
+	@Autowired
 	private AlocacaoRepository alocRepo;
 	
 	@Override
@@ -37,13 +38,13 @@ public class AlocacaoService extends Servico<Alocacao, AlocacaoPK> {
 		
 		try {
 			if(alocRequest.getTipo().equals(TipoAlocacaoEnum.QUALIDADE.name())) {
-				return repo.save(builderQualidade.executa(obj));
+				return alocRepo.save(builderQualidade.executa(obj));
 			}
 			if(alocRequest.getTipo().equals(TipoAlocacaoEnum.CHEFIA.name())){
-				return repo.save(builderChefia.executa(obj));
+				return alocRepo.save(builderChefia.executa(obj));
 			}
 			if(alocRequest.getTipo().equals(TipoAlocacaoEnum.FUNCIONARIO.name())){
-				return repo.save(builderFuncionario.executa(obj));
+				return alocRepo.save(builderFuncionario.executa(obj));
 			}
 		
 			return null;
@@ -52,14 +53,20 @@ public class AlocacaoService extends Servico<Alocacao, AlocacaoPK> {
 			if(e.getMessage().contains("ALOCACAO_UNICA")) {
 				throw new DataIntegrityException("Funcionário deve ter alocação única!");				
 			}
+			if(e.getMessage().contains("CHEFIA_UNICA")) {
+				throw new DataIntegrityException("Setor deve ter único chefe!");				
+			}
+			if(e.getMessage().contains("QA_UNICO")) {
+				throw new DataIntegrityException("Setor deve ter apenas um QA!");				
+			}
 			
 			throw new DataIntegrityException("Erro na alocação do funcionário!");
 		}
 		
 	}
 	
-	public Alocacao findByEmail(String email) {
-		return this.alocRepo.findByAlocacaoPKFuncionarioEmailEqual(email);
+	public Alocacao findByFuncionarioAndSetor(String cpf) {
+		return  alocRepo.findByIdFuncionarioCpf(cpf);
 	}
-
+	
 }

@@ -6,10 +6,13 @@ import java.util.Date;
 import javax.persistence.DiscriminatorColumn;
 import javax.persistence.DiscriminatorType;
 import javax.persistence.Embeddable;
+import javax.persistence.FetchType;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -27,14 +30,14 @@ public class AlocacaoPK implements Serializable{
 
 	private static final long serialVersionUID = 1L;
 	
+	@JsonIgnore
 	@ManyToOne
 	@JoinColumn(name="funcionarioId")
 	private Funcionario funcionario;
+	
+	@JsonIgnore
 	@ManyToOne
 	@JoinColumn(name="setorId")
 	private Setor setor;
 	
-	@EqualsAndHashCode.Exclude
-	private Date dataEntrada = new Date();
-
 }

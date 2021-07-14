@@ -1,11 +1,14 @@
 package br.com.robson.qualitycontrol.models;
 
+import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.OneToMany;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -18,7 +21,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-public class Funcionario extends BaseEntity<Long>{
+public class Funcionario extends BaseEntity<Long> implements Serializable{
 
 	private static final long serialVersionUID = 1L;
 
@@ -33,8 +36,9 @@ public class Funcionario extends BaseEntity<Long>{
 	@Column(unique = true)
 	private String cpf;
 
-	private boolean ativo;
+	private boolean ativo = true;
 
+	@JsonIgnore
 	@OneToMany(mappedBy = "id.funcionario")
 	private Set<Alocacao> setoresAlocados = new HashSet<Alocacao>();
 	

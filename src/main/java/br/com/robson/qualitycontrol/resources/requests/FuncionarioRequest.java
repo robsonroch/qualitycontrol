@@ -12,5 +12,7 @@ public class FuncionarioRequest {
 	private String email;
 
 	private String cpf;
+	
+	private Long id;
 
 }
