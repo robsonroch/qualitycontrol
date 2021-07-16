@@ -40,4 +40,6 @@ public class AlocacaoPK implements Serializable{
 	@JoinColumn(name="setorId")
 	private Setor setor;
 	
+	private Date dataEntrada = new Date();
+	
 }

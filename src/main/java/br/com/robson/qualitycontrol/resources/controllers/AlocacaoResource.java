@@ -64,7 +64,7 @@ public class AlocacaoResource {
 	@RequestMapping(value="/{cpf}/{setorId}", method=RequestMethod.GET)
 	public ResponseEntity<Object> find(@PathVariable String cpf, @PathVariable Long setorId) {
 		
-		Alocacao findByFuncionarioAndSetor = alocService.findByFuncionarioAndSetor(cpf);
+		Alocacao findByFuncionarioAndSetor = alocService.findByCpfFuncionario(cpf);
 								
 		return ResponseEntity.ok().body(findByFuncionarioAndSetor);
 	}
@@ -76,7 +76,7 @@ public class AlocacaoResource {
 		
 		AlocacaoPK id = obj.getId();
 		
-		Alocacao find = alocService.findByFuncionarioAndSetor(id.getFuncionario().getCpf());
+		Alocacao find = alocService.findAtualLocacaoByCpf(id.getFuncionario().getCpf(), id.getSetor().getId());
 		String cpf = find.getFuncionario().getCpf();
 		URI uri = ServletUriComponentsBuilder.fromCurrentRequest()
 			.path("/{id}").buildAndExpand(obj.getId()).toUri();
@@ -90,12 +90,12 @@ public class AlocacaoResource {
 //		return ResponseEntity.noContent().build();
 //	}
 //	
-//	@RequestMapping(value="/{id}", method=RequestMethod.DELETE)
-//	public ResponseEntity<Void> delete(@PathVariable Long id) {
-//		service.delete(id);
-//		return ResponseEntity.noContent().build();
-//	}
-//	
+	@RequestMapping(value="/{cpf}", method=RequestMethod.DELETE)
+	public ResponseEntity<Void> delete(@PathVariable String cpf) {
+		Alocacao desalocaFuncionario = alocService.desalocaFuncionario(cpf);
+		return ResponseEntity.noContent().build();
+	}
+	
 //	@RequestMapping(method=RequestMethod.GET)
 //	public ResponseEntity<List<AlocacaoResponse>> findAll() {
 //		List<Alocacao> list = service.findAll();

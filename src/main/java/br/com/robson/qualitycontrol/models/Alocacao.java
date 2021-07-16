@@ -37,10 +37,7 @@ discriminatorType = DiscriminatorType.STRING)
 public class Alocacao implements Serializable{
 
 	private static final long serialVersionUID = 1L;
-	
-	@EqualsAndHashCode.Exclude
-	private Date dataEntrada = new Date();
-	
+		
 	private Date dataSaida = new GregorianCalendar(3000, 1 - 1, 1).getTime();
 			
 	@EmbeddedId

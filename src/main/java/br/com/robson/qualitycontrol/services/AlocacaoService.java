@@ -1,5 +1,8 @@
 package br.com.robson.qualitycontrol.services;
 
+import java.util.Date;
+import java.util.GregorianCalendar;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
@@ -30,6 +33,8 @@ public class AlocacaoService extends Servico<Alocacao, AlocacaoPK> {
 	
 	@Autowired
 	private AlocacaoRepository alocRepo;
+	
+	private static final Date DATA_SAIDA_DEFAULT = new GregorianCalendar(3000, 1 - 1, 1).getTime();
 	
 	@Override
     public Alocacao insert(Object obj) {
@@ -65,8 +70,19 @@ public class AlocacaoService extends Servico<Alocacao, AlocacaoPK> {
 		
 	}
 	
-	public Alocacao findByFuncionarioAndSetor(String cpf) {
+	public Alocacao findByCpfFuncionario(String cpf) {
 		return  alocRepo.findByIdFuncionarioCpf(cpf);
+	}
+	
+	public Alocacao findAtualLocacaoByCpf(String cpf, Long setorId) {
+		return  alocRepo.findByIdFuncionarioCpfAndIdSetorIdAndDataSaida(cpf, setorId, AlocacaoService.DATA_SAIDA_DEFAULT);
+	}
+	
+	public Alocacao desalocaFuncionario(String cpf) {
+		Alocacao alocacaoFromBase = alocRepo.findByIdFuncionarioCpf(cpf);
+		alocacaoFromBase.setDataSaida(new Date());
+		
+		return alocRepo.save(alocacaoFromBase);
 	}
 	
 }
