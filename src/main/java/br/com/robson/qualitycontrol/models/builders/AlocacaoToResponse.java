@@ -2,18 +2,21 @@ package br.com.robson.qualitycontrol.models.builders;
 
 import org.springframework.stereotype.Component;
 
-import br.com.robson.qualitycontrol.models.Setor;
-import br.com.robson.qualitycontrol.resources.response.SetorResponse;
+import br.com.robson.qualitycontrol.models.Alocacao;
+import br.com.robson.qualitycontrol.resources.response.AlocacaoResponse;
 
 @Component
-public class AlocacaoToResponse implements ConvertFromModel<Setor>{
+public class AlocacaoToResponse implements ConvertFromModel<Alocacao>{
 
 	@Override
-	public Object executa(Setor model) {
+	public Object executa(Alocacao model) {
 		
-		return SetorResponse.builder()		
-		.nome(model.getNome())
-		.id(model.getId())
+		return AlocacaoResponse.builder()		
+		.nomeSetor(model.getSetor().getNome())
+		.nomeFuncionario(model.getFuncionario().getNomeCompleto())
+		.cpf(model.getFuncionario().getCpf())
+		.dataEntrada(model.getId().getDataEntrada())
+		.dataSaida(model.isAtual()? null : model.getDataSaida())
 		.build();
 		
 	}

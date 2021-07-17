@@ -25,7 +25,7 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 @Entity
-@Table(name = "SETOR_EMPREGADO", 
+@Table(name = "SETOR_FUNCIONARIO", 
 uniqueConstraints= {
 		@UniqueConstraint(name ="alocacao_unica", columnNames={"dataSaida", "funcionarioId"}),
 		@UniqueConstraint(name ="chefia_unica", columnNames={"dataSaida", "tipoChefe", "setorId"}),
