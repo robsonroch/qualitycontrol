@@ -1,15 +1,14 @@
 package br.com.robson.qualitycontrol.models;
 
+import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.OneToMany;
-import javax.persistence.Table;
-import javax.persistence.UniqueConstraint;
 
-import org.hibernate.validator.constraints.UniqueElements;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -18,29 +17,32 @@ import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
 @Data
-@Builder
+@EqualsAndHashCode(callSuper = true)
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@EqualsAndHashCode(callSuper=false)
-public class Funcionario extends BaseEntity<Long>{
+public class Funcionario extends BaseEntity<Long> implements Serializable{
 
 	private static final long serialVersionUID = 1L;
 
+	@EqualsAndHashCode.Exclude
 	private String nomeCompleto;
 
+	@EqualsAndHashCode.Exclude
 	@Column(unique = true)
 	private String email;
 
+	@EqualsAndHashCode.Exclude
 	@Column(unique = true)
 	private String cpf;
 
-	private boolean ativo;
-		
-	@EqualsAndHashCode.Exclude
+	private boolean ativo = true;
+
+	@JsonIgnore
 	@OneToMany(mappedBy = "id.funcionario")
 	private Set<Alocacao> setoresAlocados = new HashSet<Alocacao>();
 	
+	@Builder
 	public Funcionario(Long id, String nomeCompleto, String email, String cpf) {
 		super();
 		this.id = id;

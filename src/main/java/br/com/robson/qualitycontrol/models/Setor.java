@@ -13,32 +13,36 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
 @Data
 @Entity
 @NoArgsConstructor
-public class Setor implements Serializable{
+@AllArgsConstructor
+@EqualsAndHashCode(callSuper=true)
+public class Setor extends BaseEntity<Long> implements Serializable{
 
 	private static final long serialVersionUID = 1L;
 	
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long id;
-
+	@EqualsAndHashCode.Exclude
 	private String nome;
-	//@Exclude
-	//private Funcionario chefe;
-	
+		
+	@EqualsAndHashCode.Exclude
 	@OneToMany(mappedBy = "id.setor")
+	@JsonIgnore
 	private Set<Alocacao> funcionariosAlocados = new HashSet<Alocacao>();
 	
-	public Setor(Long setorId, String nome, Funcionario chefe) {
+	@Builder
+	public Setor(Long id, String nome) {
 		super();
-		this.id = setorId;
+		this.id = id;
 		this.nome = nome;
-		//this.chefe = chefe;
 	}		
 	
 	public List<Funcionario> getFuncionarios(){

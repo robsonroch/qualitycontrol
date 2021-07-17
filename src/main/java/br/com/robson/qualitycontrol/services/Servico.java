@@ -4,7 +4,6 @@ import java.lang.reflect.ParameterizedType;
 import java.util.List;
 import java.util.Optional;
 
-import org.hibernate.exception.ConstraintViolationException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.data.domain.Page;
@@ -17,13 +16,13 @@ import br.com.robson.qualitycontrol.exceptions.ObjectNotFoundException;
 import br.com.robson.qualitycontrol.models.BaseEntity;
 import br.com.robson.qualitycontrol.models.builders.ConvertToModel;
 
-public class Servico<T extends BaseEntity<I>, I> {
+public class Servico<T, I> {
 
 	@Autowired
-	private JpaRepository<T, I> repo;
+	protected JpaRepository<T, I> repo;
 	
 	@Autowired
-	private ConvertToModel<T> builderModel;
+	protected ConvertToModel<T> builderModel;
 		
 	private Class<T> elementType;
 	
@@ -32,7 +31,7 @@ public class Servico<T extends BaseEntity<I>, I> {
 		elementType = (Class<T>) ((ParameterizedType) getClass().getGenericSuperclass()).getActualTypeArguments()[0];	
 	}
 
-	public T find(I id) {
+	public T findById(I id) {
 		Optional<T> obj = repo.findById( id);
 				
 		return obj.orElseThrow(() -> new ObjectNotFoundException(
@@ -50,17 +49,15 @@ public class Servico<T extends BaseEntity<I>, I> {
 		
 	}
 	
-	public T update(Object obj, I id) {
+	public T update(Object obj) {
 		
 		T model = builderModel.executa(obj);
-		
-		model.setId(id);
-				
+						
 		return repo.save(model);
 	}
 	
 	public void delete(I id) {
-		find(id);
+		findById(id);
 		try {
 			repo.deleteById(id);
 		}
