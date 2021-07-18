@@ -11,19 +11,19 @@ import org.springframework.data.domain.Sort.Direction;
 import org.springframework.stereotype.Service;
 
 import br.com.robson.qualitycontrol.exceptions.DataIntegrityException;
-import br.com.robson.qualitycontrol.models.Alocacao;
-import br.com.robson.qualitycontrol.models.AlocacaoChefia;
+import br.com.robson.qualitycontrol.models.Allocation;
+import br.com.robson.qualitycontrol.models.AllocationBoss;
 import br.com.robson.qualitycontrol.models.AlocacaoFuncionario;
 import br.com.robson.qualitycontrol.models.AlocacaoGeral;
-import br.com.robson.qualitycontrol.models.AlocacaoPK;
+import br.com.robson.qualitycontrol.models.AllocationPK;
 import br.com.robson.qualitycontrol.models.AlocacaoQualidade;
 import br.com.robson.qualitycontrol.models.builders.ConvertToModel;
 import br.com.robson.qualitycontrol.models.utils.TipoAlocacaoEnum;
 import br.com.robson.qualitycontrol.repositories.AlocacaoRepository;
-import br.com.robson.qualitycontrol.resources.requests.AlocacaoRequest;
+import br.com.robson.qualitycontrol.resources.requests.AllocationRequest;
 
 @Service
-public class AlocacaoService extends Servico<Alocacao, AlocacaoPK> {
+public class AlocacaoService extends Servico<Allocation, AllocationPK> {
 	
 	@Autowired
 	private ConvertToModel<AlocacaoQualidade> builderQualidade;
@@ -32,7 +32,7 @@ public class AlocacaoService extends Servico<Alocacao, AlocacaoPK> {
 	private ConvertToModel<AlocacaoFuncionario> builderFuncionario;
 	
 	@Autowired
-	private ConvertToModel<AlocacaoChefia> builderChefia;
+	private ConvertToModel<AllocationBoss> builderChefia;
 	
 	@Autowired
 	private AlocacaoRepository alocRepo;
@@ -40,9 +40,9 @@ public class AlocacaoService extends Servico<Alocacao, AlocacaoPK> {
 	private static final Date DATA_SAIDA_DEFAULT = new GregorianCalendar(3000, 1 - 1, 1).getTime();
 	
 	@Override
-    public Alocacao insert(Object obj) {
+    public Allocation insert(Object obj) {
 		
-		AlocacaoRequest alocRequest = (AlocacaoRequest) obj;
+		AllocationRequest alocRequest = (AllocationRequest) obj;
 		
 		try {
 			if(alocRequest.getTipo().equals(TipoAlocacaoEnum.QUALIDADE.name())) {
@@ -73,16 +73,16 @@ public class AlocacaoService extends Servico<Alocacao, AlocacaoPK> {
 		
 	}
 	
-	public Alocacao findByCpfFuncionario(String cpf) {
+	public Allocation findByCpfFuncionario(String cpf) {
 		return  alocRepo.findByIdFuncionarioCpf(cpf);
 	}
 	
-	public Alocacao findAtualLocacaoByCpf(String cpf, Long setorId) {
+	public Allocation findAtualLocacaoByCpf(String cpf, Long setorId) {
 		return  alocRepo.findByIdFuncionarioCpfAndIdSetorIdAndDataSaida(cpf, setorId, AlocacaoService.DATA_SAIDA_DEFAULT);
 	}
 	
-	public Alocacao desalocaFuncionario(String cpf) {
-		Alocacao alocacaoFromBase = alocRepo.findByIdFuncionarioCpf(cpf);
+	public Allocation desalocaFuncionario(String cpf) {
+		Allocation alocacaoFromBase = alocRepo.findByIdFuncionarioCpf(cpf);
 		alocacaoFromBase.setDataSaida(new Date());
 		
 		return alocRepo.save(alocacaoFromBase);

@@ -3,11 +3,11 @@ package br.com.robson.qualitycontrol.repositories;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
-import br.com.robson.qualitycontrol.models.Funcionario;
+import br.com.robson.qualitycontrol.models.Employee;
 
 @Repository
-public interface FuncionarioRepository extends JpaRepository<Funcionario, Long> {
+public interface FuncionarioRepository extends JpaRepository<Employee, Long> {
 	
-	public Funcionario findByCpf(String cpf);
+	public Employee findByCpf(String cpf);
 
 }

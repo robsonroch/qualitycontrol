@@ -11,15 +11,15 @@ import javax.persistence.Id;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
 import javax.persistence.JoinColumn;
+import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
 import lombok.Data;
 
+@Data
 @Entity
-@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
-@DiscriminatorColumn(name="slaToSolve", 
-discriminatorType = DiscriminatorType.STRING)
+@Inheritance(strategy = InheritanceType.JOINED)
 public class Notificacao implements Serializable{
 
 	private static final long serialVersionUID = 1L;
@@ -27,13 +27,25 @@ public class Notificacao implements Serializable{
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
-	private String titulo;
-	//private Setor setor;
+	private String title;
+	
+	@Lob
+	private String description;
 	
 	@ManyToOne
-	@JoinColumn(name="funcionarioId")
-	private Funcionario responsavelDetecção;
-	//private Boolean isRecidivism;
-	//private String descricao;
+	@JoinColumn(name="setorId")
+	private Sector setorNotificado;
 	
+	@ManyToOne
+	@JoinColumn(name="observerId")
+	private Employee observer;
+	
+	@ManyToOne
+	@JoinColumn(name="qualityAssuranceOriginId")
+	private Employee responsavelOriginal;
+	
+	@ManyToOne
+	@JoinColumn(name="qualityAssuranceInheritedId")
+	private Employee responsavelPorAtual;
+		
 }

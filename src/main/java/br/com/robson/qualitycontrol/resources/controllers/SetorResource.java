@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
-import br.com.robson.qualitycontrol.models.Setor;
+import br.com.robson.qualitycontrol.models.Sector;
 import br.com.robson.qualitycontrol.models.builders.SetorToResponse;
 import br.com.robson.qualitycontrol.resources.requests.SetorRequest;
 import br.com.robson.qualitycontrol.resources.response.SetorResponse;
@@ -35,7 +35,7 @@ public class SetorResource {
 		
 	@RequestMapping(value="/{id}", method=RequestMethod.GET)
 	public ResponseEntity<Object> find(@PathVariable Long id) {
-		Setor func = service.findById(id);		
+		Sector func = service.findById(id);		
 				
 		return ResponseEntity.ok().body(builderResponse.executa(func));
 	}
@@ -43,7 +43,7 @@ public class SetorResource {
 	@RequestMapping(method=RequestMethod.POST)
 	public ResponseEntity<Void> insert(@Valid @RequestBody SetorRequest objDto) {
 		
-		Setor obj = service.insert(objDto);
+		Sector obj = service.insert(objDto);
 		URI uri = ServletUriComponentsBuilder.fromCurrentRequest()
 			.path("/{id}").buildAndExpand(obj.getId()).toUri();
 		return ResponseEntity.created(uri).build();
@@ -65,7 +65,7 @@ public class SetorResource {
 	
 	@RequestMapping(method=RequestMethod.GET)
 	public ResponseEntity<List<SetorResponse>> findAll() {
-		List<Setor> list = service.findAll();
+		List<Sector> list = service.findAll();
 		List<SetorResponse> listDto = list.stream().map(obj -> (SetorResponse) builderResponse.executa(obj)).collect(Collectors.toList());  
 		return ResponseEntity.ok().body(listDto);
 	}
@@ -76,7 +76,7 @@ public class SetorResource {
 			@RequestParam(value="linesPerPage", defaultValue="24") Integer linesPerPage, 
 			@RequestParam(value="orderBy", defaultValue="nome") String orderBy, 
 			@RequestParam(value="direction", defaultValue="ASC") String direction) {
-		Page<Setor> list = service.findPage(page, linesPerPage, orderBy, direction);
+		Page<Sector> list = service.findPage(page, linesPerPage, orderBy, direction);
 		Page<SetorResponse> listDto = list.map(obj -> (SetorResponse) builderResponse.executa(obj));  
 		return ResponseEntity.ok().body(listDto);
 	}

@@ -26,27 +26,27 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @EqualsAndHashCode(callSuper=true)
-public class Setor extends BaseEntity<Long> implements Serializable{
+public class Sector extends BaseEntity<Long> implements Serializable{
 
 	private static final long serialVersionUID = 1L;
 	
 	@EqualsAndHashCode.Exclude
-	private String nome;
+	private String name;
 		
 	@EqualsAndHashCode.Exclude
 	@OneToMany(mappedBy = "id.setor")
 	@JsonIgnore
-	private Set<Alocacao> funcionariosAlocados = new HashSet<Alocacao>();
+	private Set<Allocation> allocatedEmployees = new HashSet<Allocation>();
 	
 	@Builder
-	public Setor(Long id, String nome) {
+	public Sector(Long id, String name) {
 		super();
 		this.id = id;
-		this.nome = nome;
+		this.name = name;
 	}		
 	
-	public List<Funcionario> getFuncionarios(){
+	public List<Employee> getEmployees(){
 								
-		return funcionariosAlocados.stream().filter(Alocacao::isAtual).map(Alocacao::getFuncionario).collect(Collectors.toList());
+		return allocatedEmployees.stream().filter(Allocation::isAtual).map(Allocation::getEmployee).collect(Collectors.toList());
 	}
 }

@@ -2,14 +2,14 @@ package br.com.robson.qualitycontrol.models.builders;
 
 import org.springframework.stereotype.Component;
 
-import br.com.robson.qualitycontrol.models.Funcionario;
+import br.com.robson.qualitycontrol.models.Employee;
 import br.com.robson.qualitycontrol.resources.response.FuncionarioResponse;
 
 @Component
-public class FuncionarioToResponse implements ConvertFromModel<Funcionario>{
+public class FuncionarioToResponse implements ConvertFromModel<Employee>{
 
 	@Override
-	public Object executa(Funcionario model) {
+	public Object executa(Employee model) {
 		
 		return FuncionarioResponse.builder()		
 		.cpf(model.getCpf())

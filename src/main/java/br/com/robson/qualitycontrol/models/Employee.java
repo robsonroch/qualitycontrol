@@ -21,7 +21,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-public class Funcionario extends BaseEntity<Long> implements Serializable{
+public class Employee extends BaseEntity<Long> implements Serializable{
 
 	private static final long serialVersionUID = 1L;
 
@@ -40,10 +40,10 @@ public class Funcionario extends BaseEntity<Long> implements Serializable{
 
 	@JsonIgnore
 	@OneToMany(mappedBy = "id.funcionario")
-	private Set<Alocacao> setoresAlocados = new HashSet<Alocacao>();
+	private Set<Allocation> setoresAlocados = new HashSet<Allocation>();
 	
 	@Builder
-	public Funcionario(Long id, String nomeCompleto, String email, String cpf) {
+	public Employee(Long id, String nomeCompleto, String email, String cpf) {
 		super();
 		this.id = id;
 		this.nomeCompleto = nomeCompleto;
@@ -51,7 +51,7 @@ public class Funcionario extends BaseEntity<Long> implements Serializable{
 		this.cpf = cpf;
 	}
 	
-	public Funcionario(String nomeCompleto) {
+	public Employee(String nomeCompleto) {
 		this.nomeCompleto = nomeCompleto;
 	}
 	

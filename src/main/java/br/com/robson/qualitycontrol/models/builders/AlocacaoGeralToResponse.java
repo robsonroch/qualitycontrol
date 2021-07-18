@@ -5,7 +5,7 @@ import java.util.GregorianCalendar;
 
 import org.springframework.stereotype.Component;
 
-import br.com.robson.qualitycontrol.models.Alocacao;
+import br.com.robson.qualitycontrol.models.Allocation;
 import br.com.robson.qualitycontrol.models.AlocacaoGeral;
 import br.com.robson.qualitycontrol.resources.response.AlocacaoResponse;
 

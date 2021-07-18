@@ -26,19 +26,19 @@ import lombok.Setter;
 @Embeddable
 @AllArgsConstructor
 @NoArgsConstructor
-public class AlocacaoPK implements Serializable{
+public class AllocationPK implements Serializable{
 
 	private static final long serialVersionUID = 1L;
 	
 	@JsonIgnore
 	@ManyToOne
-	@JoinColumn(name="funcionarioId")
-	private Funcionario funcionario;
+	@JoinColumn(name="employeeId")
+	private Employee employee;
 	
 	@JsonIgnore
 	@ManyToOne
-	@JoinColumn(name="setorId")
-	private Setor setor;
+	@JoinColumn(name="sectorId")
+	private Sector sector;
 	
 	private Date dataEntrada = new Date();
 	

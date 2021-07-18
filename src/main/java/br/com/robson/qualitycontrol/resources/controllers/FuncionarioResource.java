@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
-import br.com.robson.qualitycontrol.models.Funcionario;
+import br.com.robson.qualitycontrol.models.Employee;
 import br.com.robson.qualitycontrol.models.builders.FuncionarioToResponse;
 import br.com.robson.qualitycontrol.resources.requests.FuncionarioRequest;
 import br.com.robson.qualitycontrol.resources.response.FuncionarioResponse;
@@ -35,7 +35,7 @@ public class FuncionarioResource {
 		
 	@RequestMapping(value="/{id}", method=RequestMethod.GET)
 	public ResponseEntity<Object> find(@PathVariable Long id) {
-		Funcionario func = service.findById(id);		
+		Employee func = service.findById(id);		
 				
 		return ResponseEntity.ok().body(builderResponse.executa(func));
 	}
@@ -43,7 +43,7 @@ public class FuncionarioResource {
 	@RequestMapping(method=RequestMethod.POST)
 	public ResponseEntity<Void> insert(@Valid @RequestBody FuncionarioRequest objDto) {
 		
-		Funcionario obj = service.insert(objDto);
+		Employee obj = service.insert(objDto);
 		URI uri = ServletUriComponentsBuilder.fromCurrentRequest()
 			.path("/{id}").buildAndExpand(obj.getId()).toUri();
 		return ResponseEntity.created(uri).build();
@@ -65,7 +65,7 @@ public class FuncionarioResource {
 	
 	@RequestMapping(method=RequestMethod.GET)
 	public ResponseEntity<List<FuncionarioResponse>> findAll() {
-		List<Funcionario> list = service.findAll();
+		List<Employee> list = service.findAll();
 		List<FuncionarioResponse> listDto = list.stream().map(obj -> (FuncionarioResponse) builderResponse.executa(obj)).collect(Collectors.toList());  
 		return ResponseEntity.ok().body(listDto);
 	}
@@ -76,7 +76,7 @@ public class FuncionarioResource {
 			@RequestParam(value="linesPerPage", defaultValue="24") Integer linesPerPage, 
 			@RequestParam(value="orderBy", defaultValue="nome") String orderBy, 
 			@RequestParam(value="direction", defaultValue="ASC") String direction) {
-		Page<Funcionario> list = service.findPage(page, linesPerPage, orderBy, direction);
+		Page<Employee> list = service.findPage(page, linesPerPage, orderBy, direction);
 		Page<FuncionarioResponse> listDto = list.map(obj -> (FuncionarioResponse) builderResponse.executa(obj));  
 		return ResponseEntity.ok().body(listDto);
 	}

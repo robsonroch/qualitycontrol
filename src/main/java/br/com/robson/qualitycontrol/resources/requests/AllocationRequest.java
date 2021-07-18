@@ -9,7 +9,7 @@ import lombok.NoArgsConstructor;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class AlocacaoRequest {
+public class AllocationRequest {
 		
 	private String cpf;
 	

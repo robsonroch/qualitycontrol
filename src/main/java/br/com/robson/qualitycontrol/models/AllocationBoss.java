@@ -15,20 +15,20 @@ import lombok.NoArgsConstructor;
 @Data
 @EqualsAndHashCode(callSuper=false)
 @Entity
-@DiscriminatorValue("CHEFIA")
+@DiscriminatorValue("BOSS")
 @NoArgsConstructor
-@Table(name = "SETOR_EMPREGADO", 
+@Table(name = "SECTOR_EMPLOYEE", 
 uniqueConstraints= {
 		@UniqueConstraint(name ="chefia_unica", columnNames={"dataSaida", "setorId"})
 })
-public class AlocacaoChefia extends Alocacao implements Serializable{
+public class AllocationBoss extends Allocation implements Serializable{
 
 	private static final long serialVersionUID = 1L;
 
 	private boolean tipoChefe = true;
 	
-	public AlocacaoChefia(Funcionario funcionario, Setor setor) {
-		super(funcionario, setor);
+	public AllocationBoss(Employee employee, Sector sector) {
+		super(employee, sector);
 	}
 
 }

@@ -34,27 +34,27 @@ uniqueConstraints= {
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 @DiscriminatorColumn(name="tipoAlocacao", 
 discriminatorType = DiscriminatorType.STRING)
-public class Alocacao implements Serializable{
+public class Allocation implements Serializable{
 
 	private static final long serialVersionUID = 1L;
 		
 	private Date dataSaida = new GregorianCalendar(3000, 1 - 1, 1).getTime();
 			
 	@EmbeddedId
-	private AlocacaoPK id = new AlocacaoPK();
+	private AllocationPK id = new AllocationPK();
 	
 	@Builder
-	public Alocacao(Funcionario funcionario, Setor setor) {
-		this.id.setFuncionario(funcionario);
-		this.id.setSetor(setor);
+	public Allocation(Employee employee, Sector sector) {
+		this.id.setEmployee(employee);
+		this.id.setSector(sector);
 	}
 
-	public Funcionario getFuncionario() {
-		return this.id.getFuncionario();
+	public Employee getEmployee() {
+		return this.id.getEmployee();
 	}
 
-	public Setor getSetor() {
-		return this.id.getSetor();
+	public Sector getSetor() {
+		return this.id.getSector();
 	}
 	
 	public boolean isAtual() {		
@@ -69,7 +69,7 @@ public class Alocacao implements Serializable{
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		Alocacao other = (Alocacao) obj;
+		Allocation other = (Allocation) obj;
 		if (id == null) {
 			if (other.id != null)
 				return false;

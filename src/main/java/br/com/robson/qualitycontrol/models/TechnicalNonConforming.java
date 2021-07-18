@@ -5,15 +5,16 @@ import java.util.Date;
 
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
+import javax.persistence.PrimaryKeyJoinColumn;
 
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 @Data
 @Entity
-@DiscriminatorValue("SSD")
-public class SlaStartDefined extends Notificacao implements Serializable{
+@PrimaryKeyJoinColumn(name="notificacaoId")
+@EqualsAndHashCode(callSuper = false)
+public class TechnicalNonConforming extends Notificacao implements Serializable{
 
 	private static final long serialVersionUID = 1L;
-
-	private Date prazo;
 }

@@ -17,13 +17,13 @@ import lombok.NoArgsConstructor;
 @DiscriminatorValue("FUNCIONARIO")
 @NoArgsConstructor
 @AllArgsConstructor
-public class AlocacaoFuncionario extends Alocacao implements Serializable{
+public class AlocacaoFuncionario extends Allocation implements Serializable{
 
 	private static final long serialVersionUID = 1L;
 	
 	private boolean tipoFuncionario = true;
 	
-	public AlocacaoFuncionario(Funcionario funcionario, Setor setor) {
+	public AlocacaoFuncionario(Employee funcionario, Sector setor) {
 		super(funcionario, setor);
 	}
 

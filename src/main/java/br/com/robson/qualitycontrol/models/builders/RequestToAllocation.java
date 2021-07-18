@@ -5,7 +5,6 @@ import org.springframework.stereotype.Component;
 
 import br.com.robson.qualitycontrol.models.Allocation;
 import br.com.robson.qualitycontrol.models.AllocationBoss;
-import br.com.robson.qualitycontrol.models.AlocacaoFuncionario;
 import br.com.robson.qualitycontrol.models.AlocacaoQualidade;
 import br.com.robson.qualitycontrol.models.Employee;
 import br.com.robson.qualitycontrol.models.Sector;
@@ -15,8 +14,8 @@ import br.com.robson.qualitycontrol.services.FuncionarioService;
 import br.com.robson.qualitycontrol.services.SetorService;
 
 @Component
-public class RequestToAlocacaoFuncionario implements ConvertToModel<AlocacaoFuncionario>{
-
+public class RequestToAllocation implements ConvertToModel<Allocation>{
+	
 	@Autowired
 	private FuncionarioService serviceFunc;
 	
@@ -24,10 +23,13 @@ public class RequestToAlocacaoFuncionario implements ConvertToModel<AlocacaoFunc
 	private SetorService stService;
 
 	@Override
-	public AlocacaoFuncionario executa(Object origin) {
+	public Allocation executa(Object origin) {
 		
 		AllocationRequest request = (AllocationRequest) origin;
-		 return  new  AlocacaoFuncionario(serviceFunc.getEmployeeByCPF(request.getCpf()), stService.findById(request.getSetorId()));		 
+		 return  (AllocationBoss) AllocationBoss.builder()
+		 .employee(serviceFunc.getEmployeeByCPF(request.getCpf()))
+		 .sector(stService.findById(request.getSetorId()))
+		 .build();		 
 	}
 	
 }

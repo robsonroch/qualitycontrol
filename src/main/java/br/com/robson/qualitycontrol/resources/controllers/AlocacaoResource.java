@@ -15,10 +15,10 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
-import br.com.robson.qualitycontrol.models.Alocacao;
+import br.com.robson.qualitycontrol.models.Allocation;
 import br.com.robson.qualitycontrol.models.AlocacaoGeral;
 import br.com.robson.qualitycontrol.models.builders.AlocacaoToResponse;
-import br.com.robson.qualitycontrol.resources.requests.AlocacaoRequest;
+import br.com.robson.qualitycontrol.resources.requests.AllocationRequest;
 import br.com.robson.qualitycontrol.resources.response.AlocacaoResponse;
 import br.com.robson.qualitycontrol.services.AlocacaoService;
 
@@ -35,23 +35,23 @@ public class AlocacaoResource {
 	@RequestMapping(value="/{cpf}", method=RequestMethod.GET)
 	public ResponseEntity<Object> find(@PathVariable String cpf) {
 		
-		Alocacao findByFuncionarioAndSetor = alocService.findByCpfFuncionario(cpf);
+		Allocation findByFuncionarioAndSetor = alocService.findByCpfFuncionario(cpf);
 								
 		return ResponseEntity.ok().body(findByFuncionarioAndSetor);
 	}
 	
 	@RequestMapping(method=RequestMethod.POST)
-	public ResponseEntity<Void> insert(@Valid @RequestBody AlocacaoRequest objDto) {
+	public ResponseEntity<Void> insert(@Valid @RequestBody AllocationRequest objDto) {
 		
-		Alocacao obj = alocService.insert(objDto);
+		Allocation obj = alocService.insert(objDto);
 
 		URI uri = ServletUriComponentsBuilder.fromCurrentRequest()
-			.path("/{cpf}").buildAndExpand(obj.getFuncionario().getCpf()).toUri();
+			.path("/{cpf}").buildAndExpand(obj.getEmployee().getCpf()).toUri();
 		return ResponseEntity.created(uri).build();
 	}
 	
 	@RequestMapping(value="/{id}", method=RequestMethod.PUT)
-	public ResponseEntity<Void> update(@Valid @RequestBody AlocacaoRequest objDto, @PathVariable Long id) {
+	public ResponseEntity<Void> update(@Valid @RequestBody AllocationRequest objDto, @PathVariable Long id) {
 		
 		objDto.setSetorId(id);
 		alocService.update(objDto);
@@ -81,7 +81,7 @@ public class AlocacaoResource {
 			@RequestParam(value="linesPerPage", defaultValue="24") Integer linesPerPage, 
 			@RequestParam(value="orderBy", defaultValue="nome") String orderBy, 
 			@RequestParam(value="direction", defaultValue="ASC") String direction) {
-		Page<Alocacao> list = alocService.findPage(page, linesPerPage, orderBy, direction);
+		Page<Allocation> list = alocService.findPage(page, linesPerPage, orderBy, direction);
 		Page<AlocacaoResponse> listDto = list.map(obj -> (AlocacaoResponse) builderResponse.executa(obj));  
 		return ResponseEntity.ok().body(listDto);
 	}

@@ -9,18 +9,18 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
-import br.com.robson.qualitycontrol.models.Alocacao;
+import br.com.robson.qualitycontrol.models.Allocation;
 import br.com.robson.qualitycontrol.models.AlocacaoGeral;
-import br.com.robson.qualitycontrol.models.AlocacaoPK;
+import br.com.robson.qualitycontrol.models.AllocationPK;
 
 @Repository
-public interface AlocacaoRepository extends JpaRepository<Alocacao, AlocacaoPK> {
+public interface AlocacaoRepository extends JpaRepository<Allocation, AllocationPK> {
 
-	public Alocacao findByIdFuncionarioCpf(String cpf);
+	public Allocation findByIdFuncionarioCpf(String cpf);
 
-	public List<Alocacao> findByIdFuncionarioCpfAndIdSetorId(String cpf, Long setorId);
+	public List<Allocation> findByIdFuncionarioCpfAndIdSetorId(String cpf, Long setorId);
 
-	public Alocacao findByIdFuncionarioCpfAndIdSetorIdAndDataSaida(String cpf, Long setorId, Date dataSaida);
+	public Allocation findByIdFuncionarioCpfAndIdSetorIdAndDataSaida(String cpf, Long setorId, Date dataSaida);
 
 	@Query(nativeQuery = true, value = "SELECT A.TIPO_ALOCACAO AS tipoAlocacao, A.DATA_ENTRADA AS dataEntrada, "
 			+ "F.NOME_COMPLETO AS nomeFuncionario, F.CPF AS cpf, F.EMAIL AS email, " + "S.NOME AS nomeSetor "
