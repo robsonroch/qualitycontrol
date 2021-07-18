@@ -1,9 +1,6 @@
 package br.com.robson.qualitycontrol.resources.controllers;
 
 import java.net.URI;
-import java.util.Date;
-import java.util.List;
-import java.util.stream.Collectors;
 
 import javax.validation.Valid;
 
@@ -19,66 +16,24 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import br.com.robson.qualitycontrol.models.Alocacao;
-import br.com.robson.qualitycontrol.models.Alocacao.AlocacaoBuilder;
 import br.com.robson.qualitycontrol.models.AlocacaoGeral;
-import br.com.robson.qualitycontrol.models.AlocacaoPK;
-import br.com.robson.qualitycontrol.models.AlocacaoQualidade;
-import br.com.robson.qualitycontrol.models.Funcionario;
-import br.com.robson.qualitycontrol.models.Setor;
-import br.com.robson.qualitycontrol.models.builders.AlocacaoGeralToResponse;
 import br.com.robson.qualitycontrol.models.builders.AlocacaoToResponse;
-import br.com.robson.qualitycontrol.models.builders.FuncionarioToResponse;
-import br.com.robson.qualitycontrol.models.builders.RequestToFuncionario;
-import br.com.robson.qualitycontrol.models.builders.RequestToSetor;
-import br.com.robson.qualitycontrol.models.builders.SetorToResponse;
-import br.com.robson.qualitycontrol.models.utils.TipoAlocacaoEnum;
-import br.com.robson.qualitycontrol.repositories.AlocacaoRepository;
-import br.com.robson.qualitycontrol.repositories.FuncionarioRepository;
-import br.com.robson.qualitycontrol.repositories.SetorRepository;
 import br.com.robson.qualitycontrol.resources.requests.AlocacaoRequest;
-import br.com.robson.qualitycontrol.resources.requests.FuncionarioRequest;
-import br.com.robson.qualitycontrol.resources.requests.SetorRequest;
 import br.com.robson.qualitycontrol.resources.response.AlocacaoResponse;
 import br.com.robson.qualitycontrol.services.AlocacaoService;
-import br.com.robson.qualitycontrol.services.FuncionarioService;
-import br.com.robson.qualitycontrol.services.SetorService;
 
 @RestController
 @RequestMapping(value = "/alocacoes")
 public class AlocacaoResource {
-		
-	@Autowired
-	private SetorService stService;
-	
-	@Autowired
-	private FuncionarioService funcService;
-	
+			
 	@Autowired
 	private AlocacaoService alocService;
 	
 	@Autowired
-	private RequestToFuncionario rqToFuncionario;
-	
-	@Autowired
-	private RequestToSetor rqToSetor;
-	
-	@Autowired
-	private AlocacaoRepository repo;
-	
-	@Autowired
-	private FuncionarioRepository funcRepo;
-	
-	@Autowired
-	private SetorRepository setorRepo;
-	
-	@Autowired
 	private AlocacaoToResponse builderResponse;
-	
-	@Autowired
-	private AlocacaoGeralToResponse builderAlocacaoFull;
 		
-	@RequestMapping(value="/{cpf}/{setorId}", method=RequestMethod.GET)
-	public ResponseEntity<Object> find(@PathVariable String cpf, @PathVariable Long setorId) {
+	@RequestMapping(value="/{cpf}", method=RequestMethod.GET)
+	public ResponseEntity<Object> find(@PathVariable String cpf) {
 		
 		Alocacao findByFuncionarioAndSetor = alocService.findByCpfFuncionario(cpf);
 								
@@ -89,13 +44,9 @@ public class AlocacaoResource {
 	public ResponseEntity<Void> insert(@Valid @RequestBody AlocacaoRequest objDto) {
 		
 		Alocacao obj = alocService.insert(objDto);
-		
-		AlocacaoPK id = obj.getId();
-		
-		Alocacao find = alocService.findAtualLocacaoByCpf(id.getFuncionario().getCpf(), id.getSetor().getId());
-		String cpf = find.getFuncionario().getCpf();
+
 		URI uri = ServletUriComponentsBuilder.fromCurrentRequest()
-			.path("/{id}").buildAndExpand(obj.getId()).toUri();
+			.path("/{cpf}").buildAndExpand(obj.getFuncionario().getCpf()).toUri();
 		return ResponseEntity.created(uri).build();
 	}
 	
@@ -109,16 +60,18 @@ public class AlocacaoResource {
 	
 	@RequestMapping(value="/{cpf}", method=RequestMethod.DELETE)
 	public ResponseEntity<Void> delete(@PathVariable String cpf) {
-		Alocacao desalocaFuncionario = alocService.desalocaFuncionario(cpf);
+		alocService.desalocaFuncionario(cpf);
 		return ResponseEntity.noContent().build();
 	}
 	
 	@RequestMapping(method=RequestMethod.GET)
-	public ResponseEntity<Page<AlocacaoGeral>> findAll(@RequestParam(value="direction", defaultValue="ASC") String direction) {
+	public ResponseEntity<Page<AlocacaoGeral>> findAll(
+			@RequestParam(value="page", defaultValue="0") Integer page, 
+			@RequestParam(value="linesPerPage", defaultValue="24") Integer linesPerPage, 
+			@RequestParam(value="orderBy", defaultValue="nome") String orderBy, 
+			@RequestParam(value="direction", defaultValue="ASC") String direction) {
 		
-		List<AlocacaoGeral> findAllTipo = repo.findAllTipo();
-		List<AlocacaoResponse> listDto = findAllTipo.stream().map(obj -> (AlocacaoResponse) builderAlocacaoFull.executa(obj)).collect(Collectors.toList());  
-		Page<AlocacaoGeral> list = alocService.findPageFull(direction);
+		Page<AlocacaoGeral> list = alocService.findPageFull(page, linesPerPage, orderBy, direction);
 		return ResponseEntity.ok().body(list);
 	}
 	

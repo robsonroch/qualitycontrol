@@ -2,7 +2,6 @@ package br.com.robson.qualitycontrol.services;
 
 import java.util.Date;
 import java.util.GregorianCalendar;
-import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
@@ -18,7 +17,6 @@ import br.com.robson.qualitycontrol.models.AlocacaoFuncionario;
 import br.com.robson.qualitycontrol.models.AlocacaoGeral;
 import br.com.robson.qualitycontrol.models.AlocacaoPK;
 import br.com.robson.qualitycontrol.models.AlocacaoQualidade;
-import br.com.robson.qualitycontrol.models.Funcionario;
 import br.com.robson.qualitycontrol.models.builders.ConvertToModel;
 import br.com.robson.qualitycontrol.models.utils.TipoAlocacaoEnum;
 import br.com.robson.qualitycontrol.repositories.AlocacaoRepository;
@@ -90,8 +88,8 @@ public class AlocacaoService extends Servico<Alocacao, AlocacaoPK> {
 		return alocRepo.save(alocacaoFromBase);
 	}
 	
-	public Page<AlocacaoGeral> findPageFull(String direction) {
-		PageRequest pageRequest = PageRequest.of(1, 2, Direction.valueOf(direction), "tipoAlocacao");
+	public Page<AlocacaoGeral> findPageFull(Integer pagina, Integer linhaPorPagina, String ordeBy, String direction) {
+		PageRequest pageRequest = PageRequest.of(1, 4, Direction.valueOf(direction), ordeBy);
 		
 		return alocRepo.findAllTipo(pageRequest);
 	}
