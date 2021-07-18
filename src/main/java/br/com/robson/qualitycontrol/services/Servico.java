@@ -13,7 +13,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 import br.com.robson.qualitycontrol.exceptions.DataIntegrityException;
 import br.com.robson.qualitycontrol.exceptions.ObjectNotFoundException;
-import br.com.robson.qualitycontrol.models.BaseEntity;
 import br.com.robson.qualitycontrol.models.builders.ConvertToModel;
 
 public class Servico<T, I> {
