@@ -1,7 +1,6 @@
 package br.com.robson.qualitycontrol.models;
 
 import java.io.Serializable;
-import java.util.Date;
 
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
@@ -17,13 +16,13 @@ import lombok.NoArgsConstructor;
 @DiscriminatorValue("FUNCIONARIO")
 @NoArgsConstructor
 @AllArgsConstructor
-public class AlocacaoFuncionario extends Allocation implements Serializable{
+public class AllocationEmployee extends Allocation{
 
 	private static final long serialVersionUID = 1L;
 	
 	private boolean tipoFuncionario = true;
 	
-	public AlocacaoFuncionario(Employee funcionario, Sector setor) {
+	public AllocationEmployee(Employee funcionario, Sector setor) {
 		super(funcionario, setor);
 	}
 

@@ -1,5 +1,7 @@
 package br.com.robson.qualitycontrol.resources.response;
 
+import java.util.Date;
+
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -9,14 +11,19 @@ import lombok.NoArgsConstructor;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class FuncionarioResponse {
+public class AllocationResponse {
 	
-	private String nome;
+	private String sectorName;
 	
-	private String sobreNome;
-
-	private String email;
-
+	private String employeeName;
+	
 	private String cpf;
+	
+	private Date startAllocationDate;
+	
+	private Date endAllocationDate;
+	
+	private String typeAllocation;
+	
 
 }

@@ -6,7 +6,7 @@ import org.springframework.stereotype.Repository;
 import br.com.robson.qualitycontrol.models.Employee;
 
 @Repository
-public interface FuncionarioRepository extends JpaRepository<Employee, Long> {
+public interface EmployeeRepository extends JpaRepository<Employee, Long> {
 	
 	public Employee findByCpf(String cpf);
 

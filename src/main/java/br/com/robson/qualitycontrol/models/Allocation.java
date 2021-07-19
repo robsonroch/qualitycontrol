@@ -13,10 +13,7 @@ import javax.persistence.InheritanceType;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-
 import lombok.Builder;
-import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -25,20 +22,20 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 @Entity
-@Table(name = "SETOR_FUNCIONARIO", 
+@Table(name = "SECTOR_EMPLOYEE", 
 uniqueConstraints= {
-		@UniqueConstraint(name ="alocacao_unica", columnNames={"dataSaida", "funcionarioId"}),
-		@UniqueConstraint(name ="chefia_unica", columnNames={"dataSaida", "tipoChefe", "setorId"}),
-		@UniqueConstraint(name ="qa_unico", columnNames={"dataSaida", "tipoQA", "setorId"})
+		@UniqueConstraint(name ="alocacao_unica", columnNames={"endAllocationDate", "EmployeeId"}),
+		@UniqueConstraint(name ="chefia_unica", columnNames={"endAllocationDate", "typeBoss", "sectorId"}),
+		@UniqueConstraint(name ="qa_unico", columnNames={"endAllocationDate", "typeQuality", "sectorId"})
 })
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
-@DiscriminatorColumn(name="tipoAlocacao", 
+@DiscriminatorColumn(name="typeAllocation", 
 discriminatorType = DiscriminatorType.STRING)
 public class Allocation implements Serializable{
 
 	private static final long serialVersionUID = 1L;
 		
-	private Date dataSaida = new GregorianCalendar(3000, 1 - 1, 1).getTime();
+	private Date endAllocationDate = new GregorianCalendar(3000, 1 - 1, 1).getTime();
 			
 	@EmbeddedId
 	private AllocationPK id = new AllocationPK();
@@ -53,12 +50,12 @@ public class Allocation implements Serializable{
 		return this.id.getEmployee();
 	}
 
-	public Sector getSetor() {
+	public Sector getSector() {
 		return this.id.getSector();
 	}
 	
-	public boolean isAtual() {		
-		return this.dataSaida.getTime() == new GregorianCalendar(3000, 1 - 1, 1).getTime().getTime();
+	public boolean isActual() {		
+		return this.endAllocationDate.getTime() == new GregorianCalendar(3000, 1 - 1, 1).getTime().getTime();
 	}
 	
 	@Override

@@ -1,7 +1,6 @@
 package br.com.robson.qualitycontrol.models.enums;
 
 import lombok.Getter;
-import lombok.Setter;
 
 @Getter
 public enum SlaEnum {

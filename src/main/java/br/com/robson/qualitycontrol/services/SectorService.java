@@ -5,6 +5,6 @@ import org.springframework.stereotype.Service;
 import br.com.robson.qualitycontrol.models.Sector;
 
 @Service
-public class SetorService extends Servico<Sector, Long> {
+public class SectorService extends Servico<Sector, Long> {
 
 }

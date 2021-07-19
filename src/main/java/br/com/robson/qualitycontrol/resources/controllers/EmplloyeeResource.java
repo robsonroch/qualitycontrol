@@ -18,20 +18,20 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import br.com.robson.qualitycontrol.models.Employee;
-import br.com.robson.qualitycontrol.models.builders.FuncionarioToResponse;
-import br.com.robson.qualitycontrol.resources.requests.FuncionarioRequest;
-import br.com.robson.qualitycontrol.resources.response.FuncionarioResponse;
-import br.com.robson.qualitycontrol.services.FuncionarioService;
+import br.com.robson.qualitycontrol.models.builders.EmployeeToResponse;
+import br.com.robson.qualitycontrol.resources.requests.EmployeeRequest;
+import br.com.robson.qualitycontrol.resources.response.EmployeeResponse;
+import br.com.robson.qualitycontrol.services.EmployeeService;
 
 @RestController
 @RequestMapping(value = "/funcionarios")
-public class FuncionarioResource {
+public class EmplloyeeResource {
 		
 	@Autowired
-	private FuncionarioService service;
+	private EmployeeService service;
 	
 	@Autowired
-	private FuncionarioToResponse builderResponse;
+	private EmployeeToResponse builderResponse;
 		
 	@RequestMapping(value="/{id}", method=RequestMethod.GET)
 	public ResponseEntity<Object> find(@PathVariable Long id) {
@@ -41,7 +41,7 @@ public class FuncionarioResource {
 	}
 	
 	@RequestMapping(method=RequestMethod.POST)
-	public ResponseEntity<Void> insert(@Valid @RequestBody FuncionarioRequest objDto) {
+	public ResponseEntity<Void> insert(@Valid @RequestBody EmployeeRequest objDto) {
 		
 		Employee obj = service.insert(objDto);
 		URI uri = ServletUriComponentsBuilder.fromCurrentRequest()
@@ -50,7 +50,7 @@ public class FuncionarioResource {
 	}
 	
 	@RequestMapping(value="/{id}", method=RequestMethod.PUT)
-	public ResponseEntity<Void> update(@Valid @RequestBody FuncionarioRequest objDto, @PathVariable Long id) {
+	public ResponseEntity<Void> update(@Valid @RequestBody EmployeeRequest objDto, @PathVariable Long id) {
 		
 		objDto.setId(id);
 		service.update(objDto);
@@ -64,20 +64,20 @@ public class FuncionarioResource {
 	}
 	
 	@RequestMapping(method=RequestMethod.GET)
-	public ResponseEntity<List<FuncionarioResponse>> findAll() {
+	public ResponseEntity<List<EmployeeResponse>> findAll() {
 		List<Employee> list = service.findAll();
-		List<FuncionarioResponse> listDto = list.stream().map(obj -> (FuncionarioResponse) builderResponse.executa(obj)).collect(Collectors.toList());  
+		List<EmployeeResponse> listDto = list.stream().map(obj -> (EmployeeResponse) builderResponse.executa(obj)).collect(Collectors.toList());  
 		return ResponseEntity.ok().body(listDto);
 	}
 	
 	@RequestMapping(value="/page", method=RequestMethod.GET)
-	public ResponseEntity<Page<FuncionarioResponse>> findPage(
+	public ResponseEntity<Page<EmployeeResponse>> findPage(
 			@RequestParam(value="page", defaultValue="0") Integer page, 
 			@RequestParam(value="linesPerPage", defaultValue="24") Integer linesPerPage, 
 			@RequestParam(value="orderBy", defaultValue="nome") String orderBy, 
 			@RequestParam(value="direction", defaultValue="ASC") String direction) {
 		Page<Employee> list = service.findPage(page, linesPerPage, orderBy, direction);
-		Page<FuncionarioResponse> listDto = list.map(obj -> (FuncionarioResponse) builderResponse.executa(obj));  
+		Page<EmployeeResponse> listDto = list.map(obj -> (EmployeeResponse) builderResponse.executa(obj));  
 		return ResponseEntity.ok().body(listDto);
 	}
 

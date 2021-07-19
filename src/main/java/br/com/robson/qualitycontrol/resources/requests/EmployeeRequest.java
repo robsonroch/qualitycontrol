@@ -3,11 +3,11 @@ package br.com.robson.qualitycontrol.resources.requests;
 import lombok.Data;
 
 @Data
-public class FuncionarioRequest {
+public class EmployeeRequest {
 		
-	private String nome;
+	private String firstName;
 	
-	private String sobreNome;
+	private String lastName;
 
 	private String email;
 

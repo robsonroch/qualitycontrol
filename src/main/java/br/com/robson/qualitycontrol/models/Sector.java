@@ -1,16 +1,12 @@
 package br.com.robson.qualitycontrol.models;
 
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
 import javax.persistence.OneToMany;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -34,7 +30,7 @@ public class Sector extends BaseEntity<Long> implements Serializable{
 	private String name;
 		
 	@EqualsAndHashCode.Exclude
-	@OneToMany(mappedBy = "id.setor")
+	@OneToMany(mappedBy = "id.sector")
 	@JsonIgnore
 	private Set<Allocation> allocatedEmployees = new HashSet<Allocation>();
 	
@@ -47,6 +43,6 @@ public class Sector extends BaseEntity<Long> implements Serializable{
 	
 	public List<Employee> getEmployees(){
 								
-		return allocatedEmployees.stream().filter(Allocation::isAtual).map(Allocation::getEmployee).collect(Collectors.toList());
+		return allocatedEmployees.stream().filter(Allocation::isActual).map(Allocation::getEmployee).collect(Collectors.toList());
 	}
 }

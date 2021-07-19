@@ -21,14 +21,14 @@ import br.com.robson.qualitycontrol.models.Sector;
 import br.com.robson.qualitycontrol.models.builders.SetorToResponse;
 import br.com.robson.qualitycontrol.resources.requests.SetorRequest;
 import br.com.robson.qualitycontrol.resources.response.SetorResponse;
-import br.com.robson.qualitycontrol.services.SetorService;
+import br.com.robson.qualitycontrol.services.SectorService;
 
 @RestController
 @RequestMapping(value = "/setores")
 public class SetorResource {
 		
 	@Autowired
-	private SetorService service;
+	private SectorService service;
 	
 	@Autowired
 	private SetorToResponse builderResponse;

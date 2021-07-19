@@ -10,7 +10,7 @@ import br.com.robson.qualitycontrol.models.Sector;
 @Repository
 public interface SetorRepository extends JpaRepository<Sector, Long> {
 	
-	@Query("SELECT s FROM Setor s JOIN s.funcionariosAlocados alocacao WHERE s.id =:setorId AND alocacao.tipoQA = true")
-	public Sector procuraAlocacaoPeloTipo(@Param("setorId") Long setorId);
+//	@Query("SELECT s FROM Sector s JOIN s.allocatedEmployees allocation WHERE s.id =:setorId AND allocation.typeQuality = true")
+//	public Sector findSectorBy(@Param("sectorId") Long sectorId);
 
 }

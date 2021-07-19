@@ -13,31 +13,31 @@ import org.springframework.stereotype.Service;
 import br.com.robson.qualitycontrol.exceptions.DataIntegrityException;
 import br.com.robson.qualitycontrol.models.Allocation;
 import br.com.robson.qualitycontrol.models.AllocationBoss;
-import br.com.robson.qualitycontrol.models.AlocacaoFuncionario;
-import br.com.robson.qualitycontrol.models.AlocacaoGeral;
 import br.com.robson.qualitycontrol.models.AllocationPK;
-import br.com.robson.qualitycontrol.models.AlocacaoQualidade;
+import br.com.robson.qualitycontrol.models.AllocationEmployee;
+import br.com.robson.qualitycontrol.models.AllocationGeneric;
+import br.com.robson.qualitycontrol.models.AllocationQuality;
 import br.com.robson.qualitycontrol.models.builders.ConvertToModel;
-import br.com.robson.qualitycontrol.models.utils.TipoAlocacaoEnum;
-import br.com.robson.qualitycontrol.repositories.AlocacaoRepository;
+import br.com.robson.qualitycontrol.models.utils.AllocationTypeEnum;
+import br.com.robson.qualitycontrol.repositories.AllocationRepository;
 import br.com.robson.qualitycontrol.resources.requests.AllocationRequest;
 
 @Service
-public class AlocacaoService extends Servico<Allocation, AllocationPK> {
+public class AllocationService extends Servico<Allocation, AllocationPK> {
 	
 	@Autowired
-	private ConvertToModel<AlocacaoQualidade> builderQualidade;
+	private ConvertToModel<AllocationQuality> builderQualidade;
 	
 	@Autowired
-	private ConvertToModel<AlocacaoFuncionario> builderFuncionario;
+	private ConvertToModel<AllocationEmployee> builderFuncionario;
 	
 	@Autowired
 	private ConvertToModel<AllocationBoss> builderChefia;
 	
 	@Autowired
-	private AlocacaoRepository alocRepo;
+	private AllocationRepository alocRepo;
 	
-	private static final Date DATA_SAIDA_DEFAULT = new GregorianCalendar(3000, 1 - 1, 1).getTime();
+	private static final Date END_DATE_DEFAULT = new GregorianCalendar(3000, 1 - 1, 1).getTime();
 	
 	@Override
     public Allocation insert(Object obj) {
@@ -45,13 +45,13 @@ public class AlocacaoService extends Servico<Allocation, AllocationPK> {
 		AllocationRequest alocRequest = (AllocationRequest) obj;
 		
 		try {
-			if(alocRequest.getTipo().equals(TipoAlocacaoEnum.QUALIDADE.name())) {
+			if(alocRequest.getType().equals(AllocationTypeEnum.QUALITY.name())) {
 				return alocRepo.save(builderQualidade.executa(obj));
 			}
-			if(alocRequest.getTipo().equals(TipoAlocacaoEnum.CHEFIA.name())){
+			if(alocRequest.getType().equals(AllocationTypeEnum.BOSS.name())){
 				return alocRepo.save(builderChefia.executa(obj));
 			}
-			if(alocRequest.getTipo().equals(TipoAlocacaoEnum.FUNCIONARIO.name())){
+			if(alocRequest.getType().equals(AllocationTypeEnum.EMPLOYEE.name())){
 				return alocRepo.save(builderFuncionario.executa(obj));
 			}
 		
@@ -74,24 +74,24 @@ public class AlocacaoService extends Servico<Allocation, AllocationPK> {
 	}
 	
 	public Allocation findByCpfFuncionario(String cpf) {
-		return  alocRepo.findByIdFuncionarioCpf(cpf);
+		return  alocRepo.findByIdEmployeeCpf(cpf);
 	}
 	
 	public Allocation findAtualLocacaoByCpf(String cpf, Long setorId) {
-		return  alocRepo.findByIdFuncionarioCpfAndIdSetorIdAndDataSaida(cpf, setorId, AlocacaoService.DATA_SAIDA_DEFAULT);
+		return  alocRepo.findByIdEmployeeCpfAndIdSectorIdAndEndAllocationDate(cpf, setorId, AllocationService.END_DATE_DEFAULT);
 	}
 	
 	public Allocation desalocaFuncionario(String cpf) {
-		Allocation alocacaoFromBase = alocRepo.findByIdFuncionarioCpf(cpf);
-		alocacaoFromBase.setDataSaida(new Date());
+		Allocation alocacaoFromBase = alocRepo.findByIdEmployeeCpf(cpf);
+		alocacaoFromBase.setEndAllocationDate(new Date());
 		
 		return alocRepo.save(alocacaoFromBase);
 	}
 	
-	public Page<AlocacaoGeral> findPageFull(Integer pagina, Integer linhaPorPagina, String ordeBy, String direction) {
+	public Page<AllocationGeneric> findPageFull(Integer pagina, Integer linhaPorPagina, String ordeBy, String direction) {
 		PageRequest pageRequest = PageRequest.of(1, 4, Direction.valueOf(direction), ordeBy);
 		
-		return alocRepo.findAllTipo(pageRequest);
+		return alocRepo.findAllType(pageRequest);
 	}
 	
 }

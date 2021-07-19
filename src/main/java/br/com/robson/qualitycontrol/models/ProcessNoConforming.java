@@ -1,9 +1,5 @@
 package br.com.robson.qualitycontrol.models;
 
-import java.io.Serializable;
-import java.util.Date;
-
-import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 import javax.persistence.PrimaryKeyJoinColumn;
 
@@ -14,7 +10,7 @@ import lombok.EqualsAndHashCode;
 @Entity
 @PrimaryKeyJoinColumn(name="notificacaoId")
 @EqualsAndHashCode(callSuper = false)
-public class ProcessNoConforming extends Notificacao implements Serializable{
+public class ProcessNoConforming extends Notice{
 
 	private static final long serialVersionUID = 1L;
 	

@@ -1,6 +1,5 @@
 package br.com.robson.qualitycontrol.models;
 
-import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -21,12 +20,12 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-public class Employee extends BaseEntity<Long> implements Serializable{
+public class Employee extends BaseEntity<Long>{
 
 	private static final long serialVersionUID = 1L;
 
 	@EqualsAndHashCode.Exclude
-	private String nomeCompleto;
+	private String completeName;
 
 	@EqualsAndHashCode.Exclude
 	@Column(unique = true)
@@ -39,20 +38,20 @@ public class Employee extends BaseEntity<Long> implements Serializable{
 	private boolean ativo = true;
 
 	@JsonIgnore
-	@OneToMany(mappedBy = "id.funcionario")
-	private Set<Allocation> setoresAlocados = new HashSet<Allocation>();
+	@OneToMany(mappedBy = "id.employee")
+	private Set<Allocation> allocationOfEmployee = new HashSet<Allocation>();
 	
 	@Builder
-	public Employee(Long id, String nomeCompleto, String email, String cpf) {
+	public Employee(Long id, String completeName, String email, String cpf) {
 		super();
 		this.id = id;
-		this.nomeCompleto = nomeCompleto;
+		this.completeName = completeName;
 		this.email = email;
 		this.cpf = cpf;
 	}
 	
-	public Employee(String nomeCompleto) {
-		this.nomeCompleto = nomeCompleto;
+	public Employee(String completeName) {
+		this.completeName = completeName;
 	}
 	
 }

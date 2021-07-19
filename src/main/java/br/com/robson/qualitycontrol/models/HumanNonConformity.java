@@ -1,9 +1,5 @@
 package br.com.robson.qualitycontrol.models;
 
-import java.io.Serializable;
-import java.util.Date;
-
-import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -16,7 +12,7 @@ import lombok.EqualsAndHashCode;
 @Entity
 @PrimaryKeyJoinColumn(name="notificacaoId")
 @EqualsAndHashCode(callSuper = false)
-public class HumanNonConformity extends Notificacao{
+public class HumanNonConformity extends Notice{
 
 	private static final long serialVersionUID = 1L;
 	

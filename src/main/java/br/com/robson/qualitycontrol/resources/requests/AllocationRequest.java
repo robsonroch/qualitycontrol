@@ -13,8 +13,8 @@ public class AllocationRequest {
 		
 	private String cpf;
 	
-	private Long setorId;
+	private Long sectorId;
 	
-	private String tipo;
+	private String type;
 	
 }

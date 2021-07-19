@@ -1,7 +1,5 @@
 package br.com.robson.qualitycontrol.models;
 
-import java.io.Serializable;
-
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 
@@ -16,14 +14,14 @@ import lombok.NoArgsConstructor;
 @DiscriminatorValue("QUALIDADE")
 @NoArgsConstructor
 @AllArgsConstructor
-public class AlocacaoQualidade extends Allocation implements Serializable{
+public class AllocationQuality extends Allocation{
 
 	private static final long serialVersionUID = 1L;
 	
-	private boolean tipoQA = true;
+	private boolean typeQuality = true;
 
-	public AlocacaoQualidade(Employee funcionario, Sector setor) {
-		super(funcionario, setor);
+	public AllocationQuality(Employee employee, Sector sector) {
+		super(employee, sector);
 	}
 
 }

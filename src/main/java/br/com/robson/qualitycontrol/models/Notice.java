@@ -1,40 +1,31 @@
 package br.com.robson.qualitycontrol.models;
 
-import java.io.Serializable;
-
-import javax.persistence.DiscriminatorColumn;
-import javax.persistence.DiscriminatorType;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
 import javax.persistence.JoinColumn;
 import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
 
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 @Data
 @Entity
+@EqualsAndHashCode(callSuper = false)
 @Inheritance(strategy = InheritanceType.JOINED)
-public class Notificacao implements Serializable{
+public class Notice extends BaseEntity<Long>{
 
 	private static final long serialVersionUID = 1L;
 	
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Integer id;
 	private String title;
 	
 	@Lob
 	private String description;
 	
 	@ManyToOne
-	@JoinColumn(name="setorId")
-	private Sector setorNotificado;
+	@JoinColumn(name="sectorId")
+	private Sector sectorNoticed;
 	
 	@ManyToOne
 	@JoinColumn(name="observerId")
@@ -42,10 +33,10 @@ public class Notificacao implements Serializable{
 	
 	@ManyToOne
 	@JoinColumn(name="qualityAssuranceOriginId")
-	private Employee responsavelOriginal;
+	private Employee qualityAssuranceOrigin;
 	
 	@ManyToOne
 	@JoinColumn(name="qualityAssuranceInheritedId")
-	private Employee responsavelPorAtual;
+	private Employee qualityAssuranceInherited;
 		
 }

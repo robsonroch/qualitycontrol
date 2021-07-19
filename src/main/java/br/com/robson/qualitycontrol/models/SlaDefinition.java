@@ -18,7 +18,7 @@ import lombok.EqualsAndHashCode;
 
 @Data
 @EqualsAndHashCode(callSuper = false)
-@Table(name = "SLA_NOTIFICACAO", 
+@Table(name = "SLA_NOTICE", 
 uniqueConstraints= {
 		@UniqueConstraint(name ="SLA_UNIQUE_BY_SECTOR_TYPE", columnNames={"endValidity", "typeSla", "sectorId"})
 })

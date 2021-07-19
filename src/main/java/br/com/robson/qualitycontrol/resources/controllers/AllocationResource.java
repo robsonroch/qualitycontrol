@@ -16,21 +16,21 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import br.com.robson.qualitycontrol.models.Allocation;
-import br.com.robson.qualitycontrol.models.AlocacaoGeral;
-import br.com.robson.qualitycontrol.models.builders.AlocacaoToResponse;
+import br.com.robson.qualitycontrol.models.AllocationGeneric;
+import br.com.robson.qualitycontrol.models.builders.AllocationToResponse;
 import br.com.robson.qualitycontrol.resources.requests.AllocationRequest;
-import br.com.robson.qualitycontrol.resources.response.AlocacaoResponse;
-import br.com.robson.qualitycontrol.services.AlocacaoService;
+import br.com.robson.qualitycontrol.resources.response.AllocationResponse;
+import br.com.robson.qualitycontrol.services.AllocationService;
 
 @RestController
 @RequestMapping(value = "/alocacoes")
-public class AlocacaoResource {
+public class AllocationResource {
 			
 	@Autowired
-	private AlocacaoService alocService;
+	private AllocationService alocService;
 	
 	@Autowired
-	private AlocacaoToResponse builderResponse;
+	private AllocationToResponse builderResponse;
 		
 	@RequestMapping(value="/{cpf}", method=RequestMethod.GET)
 	public ResponseEntity<Object> find(@PathVariable String cpf) {
@@ -53,7 +53,7 @@ public class AlocacaoResource {
 	@RequestMapping(value="/{id}", method=RequestMethod.PUT)
 	public ResponseEntity<Void> update(@Valid @RequestBody AllocationRequest objDto, @PathVariable Long id) {
 		
-		objDto.setSetorId(id);
+		objDto.setSectorId(id);
 		alocService.update(objDto);
 		return ResponseEntity.noContent().build();
 	}
@@ -65,24 +65,24 @@ public class AlocacaoResource {
 	}
 	
 	@RequestMapping(method=RequestMethod.GET)
-	public ResponseEntity<Page<AlocacaoGeral>> findAll(
+	public ResponseEntity<Page<AllocationGeneric>> findAll(
 			@RequestParam(value="page", defaultValue="0") Integer page, 
 			@RequestParam(value="linesPerPage", defaultValue="24") Integer linesPerPage, 
 			@RequestParam(value="orderBy", defaultValue="nome") String orderBy, 
 			@RequestParam(value="direction", defaultValue="ASC") String direction) {
 		
-		Page<AlocacaoGeral> list = alocService.findPageFull(page, linesPerPage, orderBy, direction);
+		Page<AllocationGeneric> list = alocService.findPageFull(page, linesPerPage, orderBy, direction);
 		return ResponseEntity.ok().body(list);
 	}
 	
 	@RequestMapping(value="/page", method=RequestMethod.GET)
-	public ResponseEntity<Page<AlocacaoResponse>> findPage(
+	public ResponseEntity<Page<AllocationResponse>> findPage(
 			@RequestParam(value="page", defaultValue="0") Integer page, 
 			@RequestParam(value="linesPerPage", defaultValue="24") Integer linesPerPage, 
 			@RequestParam(value="orderBy", defaultValue="nome") String orderBy, 
 			@RequestParam(value="direction", defaultValue="ASC") String direction) {
 		Page<Allocation> list = alocService.findPage(page, linesPerPage, orderBy, direction);
-		Page<AlocacaoResponse> listDto = list.map(obj -> (AlocacaoResponse) builderResponse.executa(obj));  
+		Page<AllocationResponse> listDto = list.map(obj -> (AllocationResponse) builderResponse.executa(obj));  
 		return ResponseEntity.ok().body(listDto);
 	}
 
