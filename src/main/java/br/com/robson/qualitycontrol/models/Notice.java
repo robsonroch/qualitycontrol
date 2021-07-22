@@ -7,6 +7,7 @@ import javax.persistence.InheritanceType;
 import javax.persistence.JoinColumn;
 import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import lombok.Data;
@@ -39,9 +40,11 @@ public class Notice extends BaseEntity<Long>{
 	@ManyToOne
 	@JoinColumn(name="QUALITY_ASSURANCE_ORIGIN_ID")
 	private Employee qualityAssuranceOrigin;
-	
-	@ManyToOne
-	@JoinColumn(name="QUALITY_ASSURANCE_INHERITED_ID")
-	private Employee qualityAssuranceInherited;
 		
+	@Column(name = "RECIDIVISM")
+	private boolean recidivism;
+	
+	@Column(name = "SLA_NOTICE")
+	private SlaNotice slaNotice;
+			
 }
