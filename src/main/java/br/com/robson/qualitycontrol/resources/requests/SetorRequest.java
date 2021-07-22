@@ -5,7 +5,7 @@ import lombok.Data;
 @Data
 public class SetorRequest {
 		
-	private String nome;
+	private String name;
 	
 	private Long id;
 	

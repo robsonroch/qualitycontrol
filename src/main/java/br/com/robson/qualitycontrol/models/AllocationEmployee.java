@@ -2,6 +2,7 @@ package br.com.robson.qualitycontrol.models;
 
 import java.io.Serializable;
 
+import javax.persistence.Column;
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 
@@ -13,14 +14,15 @@ import lombok.NoArgsConstructor;
 @Data
 @EqualsAndHashCode(callSuper=false)
 @Entity
-@DiscriminatorValue("FUNCIONARIO")
+@DiscriminatorValue("EMPLOYEE")
 @NoArgsConstructor
 @AllArgsConstructor
 public class AllocationEmployee extends Allocation{
 
 	private static final long serialVersionUID = 1L;
 	
-	private boolean tipoFuncionario = true;
+	@Column(name = "TYPE_EMPLOYEE")
+	private boolean typeEmployee = true;
 	
 	public AllocationEmployee(Employee funcionario, Sector setor) {
 		super(funcionario, setor);

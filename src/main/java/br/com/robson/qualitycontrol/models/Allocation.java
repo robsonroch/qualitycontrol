@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.util.Date;
 import java.util.GregorianCalendar;
 
+import javax.persistence.Column;
 import javax.persistence.DiscriminatorColumn;
 import javax.persistence.DiscriminatorType;
 import javax.persistence.EmbeddedId;
@@ -24,17 +25,18 @@ import lombok.Setter;
 @Entity
 @Table(name = "SECTOR_EMPLOYEE", 
 uniqueConstraints= {
-		@UniqueConstraint(name ="alocacao_unica", columnNames={"endAllocationDate", "EmployeeId"}),
-		@UniqueConstraint(name ="chefia_unica", columnNames={"endAllocationDate", "typeBoss", "sectorId"}),
-		@UniqueConstraint(name ="qa_unico", columnNames={"endAllocationDate", "typeQuality", "sectorId"})
+		@UniqueConstraint(name ="EMPLOYEE_UNIQUE_ALLOCATION", columnNames={"END_ALLOCATION_DATE", "EMPLOYEE_ID"}),
+		@UniqueConstraint(name ="BOSS_ONLY_ONE", columnNames={"END_ALLOCATION_DATE", "TYPE_BOSS", "SECTOR_ID"}),
+		@UniqueConstraint(name ="QA_ONLY_ONE", columnNames={"END_ALLOCATION_DATE", "TYPE_QUALITY", "SECTOR_ID"})
 })
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
-@DiscriminatorColumn(name="typeAllocation", 
+@DiscriminatorColumn(name="TYPE_ALLOCATION", 
 discriminatorType = DiscriminatorType.STRING)
 public class Allocation implements Serializable{
 
 	private static final long serialVersionUID = 1L;
 		
+	@Column(name = "END_ALLOCATION_DATE")
 	private Date endAllocationDate = new GregorianCalendar(3000, 1 - 1, 1).getTime();
 			
 	@EmbeddedId

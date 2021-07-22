@@ -6,8 +6,11 @@ import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.OneToMany;
+import javax.persistence.Table;
+import javax.validation.constraints.NotEmpty;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
@@ -19,6 +22,7 @@ import lombok.NoArgsConstructor;
 
 @Data
 @Entity
+@Table( name = "SECTOR")
 @NoArgsConstructor
 @AllArgsConstructor
 @EqualsAndHashCode(callSuper=true)
@@ -27,6 +31,8 @@ public class Sector extends BaseEntity<Long> implements Serializable{
 	private static final long serialVersionUID = 1L;
 	
 	@EqualsAndHashCode.Exclude
+	@Column(name = "NAME")
+	@NotEmpty
 	private String name;
 		
 	@EqualsAndHashCode.Exclude

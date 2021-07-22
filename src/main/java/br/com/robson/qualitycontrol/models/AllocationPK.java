@@ -3,6 +3,7 @@ package br.com.robson.qualitycontrol.models;
 import java.io.Serializable;
 import java.util.Date;
 
+import javax.persistence.Column;
 import javax.persistence.Embeddable;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -25,14 +26,15 @@ public class AllocationPK implements Serializable{
 	
 	@JsonIgnore
 	@ManyToOne
-	@JoinColumn(name="employeeId")
+	@JoinColumn(name="EMPLOYEE_ID")
 	private Employee employee;
 	
 	@JsonIgnore
 	@ManyToOne
-	@JoinColumn(name="sectorId")
+	@JoinColumn(name="SECTOR_ID")
 	private Sector sector;
 	
+	@Column(name = "START_ALLOCATION_DATE")
 	private Date startAllocationDate = new Date();
 	
 }

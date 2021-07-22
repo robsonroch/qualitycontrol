@@ -68,7 +68,7 @@ public class AllocationResource {
 	public ResponseEntity<Page<AllocationGeneric>> findAll(
 			@RequestParam(value="page", defaultValue="0") Integer page, 
 			@RequestParam(value="linesPerPage", defaultValue="24") Integer linesPerPage, 
-			@RequestParam(value="orderBy", defaultValue="nome") String orderBy, 
+			@RequestParam(value="orderBy", defaultValue="employeeName") String orderBy, 
 			@RequestParam(value="direction", defaultValue="ASC") String direction) {
 		
 		Page<AllocationGeneric> list = alocService.findPageFull(page, linesPerPage, orderBy, direction);
@@ -76,14 +76,14 @@ public class AllocationResource {
 	}
 	
 	@RequestMapping(value="/page", method=RequestMethod.GET)
-	public ResponseEntity<Page<AllocationResponse>> findPage(
+	public ResponseEntity<Page<AllocationGeneric>> findPage(
 			@RequestParam(value="page", defaultValue="0") Integer page, 
 			@RequestParam(value="linesPerPage", defaultValue="24") Integer linesPerPage, 
-			@RequestParam(value="orderBy", defaultValue="nome") String orderBy, 
+			@RequestParam(value="orderBy", defaultValue="employeeName") String orderBy, 
 			@RequestParam(value="direction", defaultValue="ASC") String direction) {
-		Page<Allocation> list = alocService.findPage(page, linesPerPage, orderBy, direction);
-		Page<AllocationResponse> listDto = list.map(obj -> (AllocationResponse) builderResponse.executa(obj));  
-		return ResponseEntity.ok().body(listDto);
+		Page<AllocationGeneric> list = alocService.findPageFull(page, linesPerPage, orderBy, direction);
+		
+		return ResponseEntity.ok().body(list);
 	}
 
 }

@@ -2,6 +2,7 @@ package br.com.robson.qualitycontrol.models;
 
 import java.io.Serializable;
 
+import javax.persistence.Column;
 import javax.persistence.EntityListeners;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -24,5 +25,6 @@ public abstract class BaseEntity<I> implements Serializable {
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	@EqualsAndHashCode.Exclude
+	@Column(name = "ID")
 	protected I id;
 }	

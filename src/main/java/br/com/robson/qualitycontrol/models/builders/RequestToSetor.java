@@ -14,7 +14,7 @@ public class RequestToSetor implements ConvertToModel<Sector>{
 		SetorRequest sr = (SetorRequest) origin;
 		
 		return Sector.builder()
-		.name(sr.getNome())
+		.name(sr.getName())
 		.build();
 		
 	}

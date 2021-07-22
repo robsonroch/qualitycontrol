@@ -6,6 +6,7 @@ import java.util.Set;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.OneToMany;
+import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
@@ -20,21 +21,24 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
+@Table(name = "EMPLOYEE")
 public class Employee extends BaseEntity<Long>{
 
 	private static final long serialVersionUID = 1L;
 
 	@EqualsAndHashCode.Exclude
+	@Column(name = "COMPLETE_NAME")
 	private String completeName;
 
 	@EqualsAndHashCode.Exclude
-	@Column(unique = true)
+	@Column(name = "EMAIL", unique = true)
 	private String email;
 
 	@EqualsAndHashCode.Exclude
-	@Column(unique = true)
+	@Column(name = "CPF", unique = true)
 	private String cpf;
 
+	@Column(name = "ATIVO")
 	private boolean ativo = true;
 
 	@JsonIgnore

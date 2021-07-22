@@ -1,6 +1,7 @@
 package br.com.robson.qualitycontrol.models.builders;
 
 import java.util.Arrays;
+import java.util.List;
 
 import org.springframework.stereotype.Component;
 
@@ -14,12 +15,17 @@ public class EmployeeToResponse implements ConvertFromModel<Employee>{
 	public Object executa(Employee model) {
 		
 		String firstName = model.getCompleteName().split(" ")[0];
-		String lastName = String.join(" ", Arrays.asList(model.getCompleteName().split(" ")).remove(0));
-		
+		String[] split = model.getCompleteName().split(" ");
+		String lastName = "";
+		for(int i = 1; i < split.length; i++) {
+			String part = split[i];
+			lastName += " ".concat(part);
+		}
+				
 		return EmployeeResponse.builder()		
 		.cpf(model.getCpf())
 		.firstName(firstName)
-		.lastName(lastName)
+		.lastName(lastName.trim())
 		.email(model.getEmail())
 		.build();
 		

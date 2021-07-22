@@ -58,13 +58,13 @@ public class AllocationService extends Servico<Allocation, AllocationPK> {
 			return null;
 		}
 		catch (DataIntegrityViolationException e) {
-			if(e.getMessage().contains("ALOCACAO_UNICA")) {
+			if(e.getMessage().contains("EMPLOYEE_UNIQUE_ALLOCATION")) {
 				throw new DataIntegrityException("Funcionário deve ter alocação única!");				
 			}
-			if(e.getMessage().contains("CHEFIA_UNICA")) {
+			if(e.getMessage().contains("BOSS_ONLY_ONE")) {
 				throw new DataIntegrityException("Setor deve ter único chefe!");				
 			}
-			if(e.getMessage().contains("QA_UNICO")) {
+			if(e.getMessage().contains("QA_ONLY_ONE")) {
 				throw new DataIntegrityException("Setor deve ter apenas um QA!");				
 			}
 			
@@ -89,9 +89,9 @@ public class AllocationService extends Servico<Allocation, AllocationPK> {
 	}
 	
 	public Page<AllocationGeneric> findPageFull(Integer pagina, Integer linhaPorPagina, String ordeBy, String direction) {
-		PageRequest pageRequest = PageRequest.of(1, 4, Direction.valueOf(direction), ordeBy);
-		
-		return alocRepo.findAllType(pageRequest);
+		PageRequest pageRequest = PageRequest.of(pagina, linhaPorPagina, Direction.valueOf(direction), ordeBy);
+		Page<AllocationGeneric> findAllType = alocRepo.findAllType(pageRequest);
+		return findAllType;
 	}
 	
 }
