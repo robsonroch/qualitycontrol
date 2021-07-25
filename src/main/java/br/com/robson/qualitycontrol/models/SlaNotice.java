@@ -14,10 +14,12 @@ import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 
 import br.com.robson.qualitycontrol.models.enums.SlaEnum;
+import lombok.Builder;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
 @Data
+@Builder
 @EqualsAndHashCode(callSuper = false)
 @Table(name = "SLA_NOTICE", 
 uniqueConstraints= {
@@ -30,10 +32,10 @@ public class SlaNotice extends BaseEntity<Long> implements Serializable{
 	
 	@ManyToOne
 	@JoinColumn(name = "SECTOR_ID")
-	private Sector sectorId;
+	private Sector sector;
 	
 	@Column(name = "SLA_TIMESTAMP")
-	private Long slaTimeStamp;
+	private Integer slaTimeStamp;
 	
 	@Column(name = "START_VALIDATY")
 	private Date startValidaty = new Date();

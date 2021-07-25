@@ -21,6 +21,7 @@ import br.com.robson.qualitycontrol.models.Employee;
 import br.com.robson.qualitycontrol.models.builders.EmployeeToResponse;
 import br.com.robson.qualitycontrol.resources.requests.EmployeeRequest;
 import br.com.robson.qualitycontrol.resources.response.EmployeeResponse;
+import br.com.robson.qualitycontrol.services.EmailService;
 import br.com.robson.qualitycontrol.services.EmployeeService;
 
 @RestController
@@ -32,6 +33,9 @@ public class EmplloyeeResource {
 	
 	@Autowired
 	private EmployeeToResponse builderResponse;
+	
+	@Autowired
+	private EmailService mailService;
 		
 	@RequestMapping(value="/{id}", method=RequestMethod.GET)
 	public ResponseEntity<Object> find(@PathVariable Long id) {
@@ -44,6 +48,8 @@ public class EmplloyeeResource {
 	public ResponseEntity<Void> insert(@Valid @RequestBody EmployeeRequest objDto) {
 		
 		Employee obj = service.insert(objDto);
+		
+		mailService.sendOrderConfirmationEmail(obj);
 		URI uri = ServletUriComponentsBuilder.fromCurrentRequest()
 			.path("/{id}").buildAndExpand(obj.getId()).toUri();
 		return ResponseEntity.created(uri).build();

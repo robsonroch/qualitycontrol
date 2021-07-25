@@ -1,5 +1,7 @@
 package br.com.robson.qualitycontrol.models;
 
+import java.util.Date;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Inheritance;
@@ -7,17 +9,18 @@ import javax.persistence.InheritanceType;
 import javax.persistence.JoinColumn;
 import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import lombok.ToString;
 
 @Data
 @Entity
 @Table(name = "NOTICE")
 @EqualsAndHashCode(callSuper = false)
 @Inheritance(strategy = InheritanceType.JOINED)
+@ToString
 public class Notice extends BaseEntity<Long>{
 
 	private static final long serialVersionUID = 1L;
@@ -46,5 +49,8 @@ public class Notice extends BaseEntity<Long>{
 	
 	@Column(name = "SLA_NOTICE")
 	private SlaNotice slaNotice;
+	
+	@Column(name = "NOTICED_DATE")
+	private Date noticedDate;
 			
 }
