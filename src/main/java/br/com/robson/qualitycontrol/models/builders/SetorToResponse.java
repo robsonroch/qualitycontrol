@@ -12,7 +12,8 @@ public class SetorToResponse implements ConvertFromModel<Sector>{
 	public Object executa(Sector model) {
 		
 		return SetorResponse.builder()		
-		.nome(model.getName())
+		.name(model.getName())
+		.employees(model.getEmployees())
 		.id(model.getId())
 		.build();
 		
