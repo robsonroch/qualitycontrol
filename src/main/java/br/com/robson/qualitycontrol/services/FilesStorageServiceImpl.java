@@ -9,19 +9,23 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.stream.Stream;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.UrlResource;
 import org.springframework.stereotype.Service;
 import org.springframework.util.FileSystemUtils;
 import org.springframework.web.multipart.MultipartFile;
 
+import br.com.robson.qualitycontrol.repositories.FilePathEvidenceRepository;
+
 @Service
 public class FilesStorageServiceImpl implements FilesStorageService {
-
+	
 	private final Path root = Paths.get("uploads");
 
-	public void save(MultipartFile file, String acronym, String noticeId) {
-		this.save(file, getPathFromListPathPieces(acronym, noticeId));
+	public String save(MultipartFile file, String acronym, String noticeId) {
+				
+		return this.save(file, getPathFromListPathPieces(acronym, noticeId));
 	}
 	
 	public Resource load(String acronym, String noticeId, String fileName) {
@@ -50,13 +54,19 @@ public class FilesStorageServiceImpl implements FilesStorageService {
 	}
 
 	@Override
-	public void save(MultipartFile file, String subdirectory) {
+	public String save(MultipartFile file, String subdirectory) {
+		
+		Path completePathFile = null;
+		
 		try {
 			File directory = new File(subdirectory);
 			if (!directory.exists()) {
 				Files.createDirectories(Paths.get(subdirectory));
 			}					
-			Files.copy(file.getInputStream(), Paths.get(subdirectory).resolve(file.getOriginalFilename()));
+			
+			completePathFile = Paths.get(subdirectory).resolve(file.getOriginalFilename());
+			
+			Files.copy(file.getInputStream(), completePathFile);
 		} catch (Exception e) {
 			if (e instanceof FileAlreadyExistsException) {
 				throw new RuntimeException("A file of that name already exists.");
@@ -64,6 +74,10 @@ public class FilesStorageServiceImpl implements FilesStorageService {
 
 			throw new RuntimeException(e.getMessage());
 		}
+		
+		return  completePathFile.getParent().toString()
+				.concat("/")
+				.concat(completePathFile.getFileName().toString());
 	}
 
 	@Override

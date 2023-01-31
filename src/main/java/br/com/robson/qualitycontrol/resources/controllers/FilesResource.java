@@ -21,6 +21,7 @@ import org.springframework.web.servlet.mvc.method.annotation.MvcUriComponentsBui
 
 import br.com.robson.qualitycontrol.resources.response.FileResponse;
 import br.com.robson.qualitycontrol.resources.response.MessageResponse;
+import br.com.robson.qualitycontrol.services.FilesStorageFacade;
 import br.com.robson.qualitycontrol.services.FilesStorageServiceImpl;
 
 @Controller
@@ -29,13 +30,13 @@ import br.com.robson.qualitycontrol.services.FilesStorageServiceImpl;
 public class FilesResource {
 
   @Autowired
-  FilesStorageServiceImpl storageService;
+  private FilesStorageFacade filesStorageFacade;
 
-  @PostMapping("/{acronym}/{noticeId}")
-  public ResponseEntity<MessageResponse> uploadFile(@RequestParam("file") MultipartFile file, @PathVariable("acronym") String acronym, @PathVariable("noticeId") String noticeId) {
+  @PostMapping("/{noticeId}")
+  public ResponseEntity<MessageResponse> uploadFile(@RequestParam("file") MultipartFile file, @PathVariable("noticeId") Long noticeId) {
     String message = "";
     try {
-      storageService.save(file, acronym, noticeId);
+    	filesStorageFacade.save(file, noticeId);
 
       message = "Uploaded the file successfully: " + file.getOriginalFilename();
       return ResponseEntity.status(HttpStatus.OK).body(new MessageResponse(message));
@@ -45,12 +46,12 @@ public class FilesResource {
     }
   }
 
-  @GetMapping("/{acronym}/{noticeId}")
-  public ResponseEntity<List<FileResponse>> getListFiles(@PathVariable String acronym, @PathVariable String noticeId) {
-    List<FileResponse> fileInfos = storageService.loadAll(acronym, noticeId).map(path -> {
+  @GetMapping("/{noticeId}")
+  public ResponseEntity<List<FileResponse>> getListFiles(@PathVariable Long noticeId) {
+    List<FileResponse> fileInfos = filesStorageFacade.loadAll(noticeId).map(path -> {
       String filename = path.getFileName().toString();
       String url = MvcUriComponentsBuilder
-          .fromMethodName(FilesResource.class, "getFile", acronym, noticeId, path.getFileName().toString()).build().toString();
+          .fromMethodName(FilesResource.class, "getFile", noticeId, path.getFileName().toString()).build().toString();
 
       return new FileResponse(filename, url);
     }).collect(Collectors.toList());
@@ -58,19 +59,19 @@ public class FilesResource {
     return ResponseEntity.status(HttpStatus.OK).body(fileInfos);
   }
 
-  @GetMapping("/{acronym}/{noticeId}/{fileName}")
-  public ResponseEntity<Resource> getFile(@PathVariable String acronym, @PathVariable String noticeId, @PathVariable String fileName) {
-    Resource file = storageService.load(acronym, noticeId, fileName);
+  @GetMapping("/{noticeId}/{fileName}")
+  public ResponseEntity<Resource> getFile(@PathVariable Long noticeId, @PathVariable String fileName) {
+    Resource file = filesStorageFacade.load(noticeId, fileName);
     return ResponseEntity.ok()
         .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + file.getFilename() + "\"").body(file);
   }
 
-  @DeleteMapping("/{acronym}/{noticeId}/{fileName}")
-  public ResponseEntity<MessageResponse> deleteFile(@PathVariable String acronym, @PathVariable String noticeId, @PathVariable String fileName) {
+  @DeleteMapping("/{noticeId}/{fileName}")
+  public ResponseEntity<MessageResponse> deleteFile(@PathVariable String acronym, @PathVariable Long noticeId, @PathVariable String fileName) {
     String message = "";
     
     try {
-      boolean existed = storageService.delete(acronym, noticeId, fileName);
+      boolean existed = filesStorageFacade.delete(noticeId, fileName);
       
       if (existed) {
         message = "Delete the file successfully: " + fileName;

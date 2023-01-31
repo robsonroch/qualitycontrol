@@ -4,11 +4,14 @@ import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import br.com.robson.qualitycontrol.models.Employee;
+import br.com.robson.qualitycontrol.models.Notice;
 import br.com.robson.qualitycontrol.resources.requests.NoticeRequest;
 import br.com.robson.qualitycontrol.services.NoticeService;
 
@@ -19,18 +22,17 @@ public class NoticeResource {
 	@Autowired
 	private NoticeService noticeSevice;
 	
-	@RequestMapping(method = RequestMethod.GET)
-	public ResponseEntity<Void> missConformity() {
-//		
-//		FuncionarioBuilder builder = new FuncionarioBuilder();
-//		
-//		Funcionario convertoFrom = builder.convertoFrom("Nome Completo");
-						
-		return ResponseEntity.ok().build();
+	@RequestMapping(value="/{id}", method=RequestMethod.GET)
+	public ResponseEntity<Notice> find(@PathVariable Long id) {
+		Notice notice = noticeSevice.findById(id);		
+				
+		return ResponseEntity.ok().body(notice);
 	}
 	
 	@RequestMapping(method=RequestMethod.POST)
 	public ResponseEntity<@Valid NoticeRequest> insert(@Valid @RequestBody NoticeRequest noticeRequest) {
+		
+		Notice insert = noticeSevice.insert(noticeRequest);
 		
 		/*
 		 * SlaNotice obj = service.insert(objDto); URI uri =

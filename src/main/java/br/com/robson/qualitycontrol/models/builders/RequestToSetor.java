@@ -14,6 +14,7 @@ public class RequestToSetor implements ConvertToModel<Sector>{
 		SectorRequest sr = (SectorRequest) origin;
 		
 		return Sector.builder()
+		.acronym(sr.getAcronym())
 		.name(sr.getName())
 		.build();
 		
