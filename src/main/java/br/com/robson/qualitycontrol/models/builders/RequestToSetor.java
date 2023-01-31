@@ -2,21 +2,19 @@ package br.com.robson.qualitycontrol.models.builders;
 
 import org.springframework.stereotype.Component;
 
-import br.com.robson.qualitycontrol.models.Funcionario;
-import br.com.robson.qualitycontrol.models.Setor;
-import br.com.robson.qualitycontrol.resources.requests.FuncionarioRequest;
-import br.com.robson.qualitycontrol.resources.requests.SetorRequest;
+import br.com.robson.qualitycontrol.models.Sector;
+import br.com.robson.qualitycontrol.resources.requests.SectorRequest;
 
 @Component
-public class RequestToSetor implements ConvertToModel<Setor>{
+public class RequestToSetor implements ConvertToModel<Sector>{
 
 	@Override
-	public Setor executa(Object origin) {
+	public Sector executa(Object origin) {
 		
-		SetorRequest sr = (SetorRequest) origin;
+		SectorRequest sr = (SectorRequest) origin;
 		
-		return Setor.builder()
-		.nome(sr.getNome())
+		return Sector.builder()
+		.name(sr.getName())
 		.build();
 		
 	}

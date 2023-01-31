@@ -3,30 +3,25 @@ package br.com.robson.qualitycontrol.models.builders;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import br.com.robson.qualitycontrol.models.Alocacao;
-import br.com.robson.qualitycontrol.models.AlocacaoFuncionario;
-import br.com.robson.qualitycontrol.models.AlocacaoQualidade;
-import br.com.robson.qualitycontrol.models.Funcionario;
-import br.com.robson.qualitycontrol.models.Setor;
-import br.com.robson.qualitycontrol.resources.requests.AlocacaoRequest;
-import br.com.robson.qualitycontrol.resources.requests.FuncionarioRequest;
-import br.com.robson.qualitycontrol.services.FuncionarioService;
-import br.com.robson.qualitycontrol.services.SetorService;
+import br.com.robson.qualitycontrol.models.AllocationQuality;
+import br.com.robson.qualitycontrol.resources.requests.AllocationRequest;
+import br.com.robson.qualitycontrol.services.EmployeeService;
+import br.com.robson.qualitycontrol.services.SectorService;
 
 @Component
-public class RequestToAlocacaoQualidade implements ConvertToModel<AlocacaoQualidade>{
+public class RequestToAlocacaoQualidade implements ConvertToModel<AllocationQuality>{
 
 	@Autowired
-	private FuncionarioService serviceFunc;
+	private EmployeeService serviceFunc;
 	
 	@Autowired
-	private SetorService stService;
+	private SectorService stService;
 
 	@Override
-	public AlocacaoQualidade executa(Object origin) {
+	public AllocationQuality executa(Object origin) {
 		
-		AlocacaoRequest request = (AlocacaoRequest) origin;
-		 return  new AlocacaoQualidade(serviceFunc.getFuncionarioByCPF(request.getCpf()), stService.findById(request.getSetorId()));		 
+		AllocationRequest request = (AllocationRequest) origin;
+		 return  new AllocationQuality(serviceFunc.getEmployeeByCPF(request.getCpf()), stService.findById(request.getSectorId()));		 
 	}
 	
 }
