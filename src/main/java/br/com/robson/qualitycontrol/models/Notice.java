@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -20,17 +21,23 @@ import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
+import org.springframework.data.annotation.CreatedDate;
+
 import br.com.robson.qualitycontrol.models.enums.NonConformingType;
 import br.com.robson.qualitycontrol.models.enums.SlaEnum;
+import br.com.robson.qualitycontrol.models.enums.NoticeStatus;
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import lombok.NoArgsConstructor;
 import lombok.ToString;
 
 @Data
 @Entity
 @Table(name = "NOTICE")
-@ToString
+@NoArgsConstructor
+@AllArgsConstructor
 public class Notice implements Serializable{
 
 	private static final long serialVersionUID = 1L;
@@ -52,39 +59,52 @@ public class Notice implements Serializable{
 	@ManyToOne
 	@JoinColumn(name="SECTOR_ID")
 	private Sector sectorNoticed;
-	//Campos preenchidos na criação
-	
-	@OneToOne(cascade=CascadeType.ALL, mappedBy="notice")
-	private SolvedNotice solvedNotice;
 	
 	@ManyToOne
 	@JoinColumn(name="OBSERVER_ID")
-	private Employee observer;
+	private Observer observer;
 	
-	@Enumerated(EnumType.STRING)
-	@Column(name = "NON_CONFORMING_TYPE")
-	private NonConformingType NonConformingType;
+	@OneToMany(mappedBy="notice", cascade=CascadeType.ALL)
+	private List<FilePathEvidence> files = new ArrayList<>();
+	
+	@CreatedDate
+	@Column(name = "CREATED_AT")
+	private Date createdAt;
+	//Fim Campos da criação
+	
+	//Campos para classificação	
+	@Column(name = "IS_NO_CONFORMING")
+	private boolean isNoConforming;
 	
 	@ManyToOne
 	@JoinColumn(name="QUALITY_ASSURANCE_ORIGIN_ID")
 	private Employee qualityAssuranceOrigin;
 	
-	@OneToMany(mappedBy="notice", cascade=CascadeType.ALL)
-	private List<FilePathEvidence> files = new ArrayList<>();
-		
+	@Enumerated(EnumType.STRING)
+	@Column(name = "NON_CONFORMING_TYPE")
+	private NonConformingType NonConformingType;
+	
 	@Column(name = "RECIDIVISM")
 	private boolean recidivism;
 	
 	@Column(name = "SLA_NOTICE")
 	private SlaNotice slaNotice;
+	//Campos para classificação
+	//Compos de resolução
 	
-	@Column(name = "NOTICED_DATE")
-	private Date noticedDate;
+	@Enumerated(EnumType.STRING)
+	@Column(name = "SOLVED_NOTICE_STATUS")
+	private NoticeStatus noticeStatus = NoticeStatus.RECEIVED;
 	
+	@OneToOne(cascade=CascadeType.ALL, mappedBy="notice")
+	private SolvedNotice solvedNotice;
+			
 	@Builder
-	public Notice() {
+	public Notice(String title, String description, Sector sectorNoticed) {
 		super();
-		
-	}		
+		this.title = title;
+		this.description = description;
+		this.sectorNoticed = sectorNoticed;
+	}
 			
 }

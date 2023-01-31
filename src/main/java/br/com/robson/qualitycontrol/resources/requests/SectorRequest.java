@@ -4,6 +4,8 @@ import lombok.Data;
 
 @Data
 public class SectorRequest {
+	
+	private String acronym;
 		
 	private String name;
 	

@@ -9,35 +9,36 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
+import javax.persistence.Lob;
 import javax.persistence.Table;
 
+import br.com.robson.qualitycontrol.models.enums.NonConformingType;
+import br.com.robson.qualitycontrol.models.enums.NoticeStatus;
+import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import lombok.NoArgsConstructor;
 
-@Data
 @Entity
-@Table(name = "SOLVED_NOTICE")
-public class SolvedNotice implements Serializable{
+@Table(name = "NOTICE")
+@NoArgsConstructor
+@AllArgsConstructor
+public class ActionSolution implements Serializable{
 
 	private static final long serialVersionUID = 1L;
 	
+	//Campos preenchidos na criação
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	@EqualsAndHashCode.Exclude
 	@Column(name = "ID")
 	private Long id;
-			
-	@OneToOne
-	@JoinColumn(name = "NOTICE_ID")
-	private Notice notice;
 	
-	@Column(name = "SUBMISSION_DATE")
-	private Date submissionDate;
+	@Column(name = "TITLE")
+	private String title;
 	
-	@OneToMany(mappedBy = "solvedNotice")
-	private List<ActionSolution> actions;
-	
+	@Lob
+	@Column(name = "DESCRIPTION")
+	private String description;
+
 }

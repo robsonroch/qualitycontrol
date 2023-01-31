@@ -1,5 +1,6 @@
 package br.com.robson.qualitycontrol.models;
 
+import java.io.Serializable;
 import java.util.Date;
 
 import javax.persistence.Column;
@@ -15,7 +16,10 @@ import javax.validation.constraints.NotEmpty;
 
 import org.springframework.data.annotation.CreatedDate;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
@@ -26,18 +30,18 @@ import lombok.NoArgsConstructor;
 @Table(name= "FILE_PAHT_EVIDENCE")
 @NoArgsConstructor
 @AllArgsConstructor
-public class FilePathEvidence {
+@Builder
+public class FilePathEvidence implements Serializable{
+
+	private static final long serialVersionUID = 1L;
 	
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	@EqualsAndHashCode.Exclude
 	@Column(name = "ID")
 	private Long id;
-	
-	@Lob
-	@Column(name = "DESCRIPTION")
-	private String description;
-	
+		
+	@JsonIgnore
 	@ManyToOne
 	@JoinColumn(name= "NOTICEID")
 	private Notice notice;
