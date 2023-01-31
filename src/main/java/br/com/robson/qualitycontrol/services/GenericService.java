@@ -15,7 +15,7 @@ import br.com.robson.qualitycontrol.exceptions.DataIntegrityException;
 import br.com.robson.qualitycontrol.exceptions.ObjectNotFoundException;
 import br.com.robson.qualitycontrol.models.builders.ConvertToModel;
 
-public class Servico<T, I> {
+public class GenericService<T, I> {
 
 	@Autowired
 	protected JpaRepository<T, I> repo;
@@ -26,7 +26,7 @@ public class Servico<T, I> {
 	private Class<T> elementType;
 	
 	@SuppressWarnings("unchecked")
-	public Servico(){
+	public GenericService(){
 		elementType = (Class<T>) ((ParameterizedType) getClass().getGenericSuperclass()).getActualTypeArguments()[0];	
 	}
 

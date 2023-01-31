@@ -1,11 +1,16 @@
 package br.com.robson.qualitycontrol.models;
 
+import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 import javax.persistence.OneToMany;
+import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -17,22 +22,12 @@ import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
 @Data
-@EqualsAndHashCode(callSuper = true)
-@AllArgsConstructor
-@NoArgsConstructor
 @Entity
 @Table(name = "EMPLOYEE")
-public class Employee extends BaseEntity<Long>{
+@PrimaryKeyJoinColumn(name="EMPLOYEE_ID")
+public class Employee extends Observer{
 
 	private static final long serialVersionUID = 1L;
-
-	@EqualsAndHashCode.Exclude
-	@Column(name = "COMPLETE_NAME")
-	private String completeName;
-
-	@EqualsAndHashCode.Exclude
-	@Column(name = "EMAIL", unique = true)
-	private String email;
 
 	@EqualsAndHashCode.Exclude
 	@Column(name = "CPF", unique = true)
@@ -46,16 +41,8 @@ public class Employee extends BaseEntity<Long>{
 	private Set<Allocation> allocationOfEmployee = new HashSet<Allocation>();
 	
 	@Builder
-	public Employee(Long id, String completeName, String email, String cpf) {
-		super();
-		this.id = id;
-		this.completeName = completeName;
-		this.email = email;
+	public Employee(Long id, String firstName, String lastName, String email, String cpf) {
+		super(id, firstName, lastName, email);
 		this.cpf = cpf;
-	}
-	
-	public Employee(String completeName) {
-		this.completeName = completeName;
-	}
-	
+	}	
 }

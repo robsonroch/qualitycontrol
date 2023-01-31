@@ -1,11 +1,8 @@
 package br.com.robson.qualitycontrol.models;
 
-import java.io.Serializable;
-
 import javax.persistence.Column;
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
-import javax.persistence.Table;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -16,7 +13,7 @@ import lombok.NoArgsConstructor;
 @Entity
 @DiscriminatorValue("BOSS")
 @NoArgsConstructor
-public class AllocationBoss extends Allocation implements Serializable{
+public class AllocationBoss extends Allocation{
 
 	private static final long serialVersionUID = 1L;
 

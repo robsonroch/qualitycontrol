@@ -6,7 +6,6 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.mail.SimpleMailMessage;
 
 import br.com.robson.qualitycontrol.models.Employee;
-import br.com.robson.qualitycontrol.models.Notice;
 
 public abstract class AbstractEmailService implements EmailService {
 	

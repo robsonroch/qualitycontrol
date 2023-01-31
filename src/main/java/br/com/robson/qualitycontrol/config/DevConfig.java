@@ -9,7 +9,6 @@ import org.springframework.context.annotation.Profile;
 
 import br.com.robson.qualitycontrol.services.DBService;
 import br.com.robson.qualitycontrol.services.EmailService;
-import br.com.robson.qualitycontrol.services.MockEmailService;
 import br.com.robson.qualitycontrol.services.SmtpEmailService;
 
 @Configuration

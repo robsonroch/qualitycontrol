@@ -19,7 +19,6 @@ import br.com.robson.qualitycontrol.models.Allocation;
 import br.com.robson.qualitycontrol.models.AllocationGeneric;
 import br.com.robson.qualitycontrol.models.builders.AllocationToResponse;
 import br.com.robson.qualitycontrol.resources.requests.AllocationRequest;
-import br.com.robson.qualitycontrol.resources.response.AllocationResponse;
 import br.com.robson.qualitycontrol.services.AllocationService;
 
 @RestController

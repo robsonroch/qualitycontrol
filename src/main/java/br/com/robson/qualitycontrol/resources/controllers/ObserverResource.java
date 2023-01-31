@@ -25,8 +25,8 @@ import br.com.robson.qualitycontrol.services.EmailService;
 import br.com.robson.qualitycontrol.services.EmployeeService;
 
 @RestController
-@RequestMapping(value = "/funcionarios")
-public class EmplloyeeResource {
+@RequestMapping(value = "/observer")
+public class ObserverResource {
 		
 	@Autowired
 	private EmployeeService service;

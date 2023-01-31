@@ -7,7 +7,7 @@ import br.com.robson.qualitycontrol.models.Employee;
 import br.com.robson.qualitycontrol.repositories.EmployeeRepository;
 
 @Service
-public class EmployeeService extends Servico<Employee, Long> {
+public class EmployeeService extends GenericService<Employee, Long> {
 	
 	@Autowired
 	private EmployeeRepository funcRepo;

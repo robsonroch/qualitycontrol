@@ -13,7 +13,7 @@ public class AllocationToResponse implements ConvertFromModel<Allocation>{
 		
 		return AllocationResponse.builder()		
 		.sectorName(model.getSector().getName())
-		.employeeName(model.getEmployee().getCompleteName())
+		.employeeName(model.getEmployee().getFirstName().concat(" ").concat(model.getEmployee().getLastName()))
 		.cpf(model.getEmployee().getCpf())
 		.startAllocationDate(model.getId().getStartAllocationDate())
 		.endAllocationDate(model.isActual()? null : model.getEndAllocationDate())

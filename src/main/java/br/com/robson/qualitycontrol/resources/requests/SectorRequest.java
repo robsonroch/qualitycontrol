@@ -3,7 +3,7 @@ package br.com.robson.qualitycontrol.resources.requests;
 import lombok.Data;
 
 @Data
-public class SetorRequest {
+public class SectorRequest {
 		
 	private String name;
 	

@@ -3,14 +3,16 @@ package br.com.robson.qualitycontrol.models.builders;
 import org.springframework.stereotype.Component;
 
 import br.com.robson.qualitycontrol.models.Employee;
+import br.com.robson.qualitycontrol.models.Observer;
 import br.com.robson.qualitycontrol.resources.requests.EmployeeRequest;
+import br.com.robson.qualitycontrol.resources.requests.ObserverRequest;
 
 @Component
-public class RequestToFuncionario implements ConvertToModel<Employee>{
+public class RequestToObserver implements ConvertToModel<Observer>{
 
 	@Override
-	public Employee executa(Object origin) {
-		 EmployeeRequest request = (EmployeeRequest) origin;
+	public Observer executa(Object origin) {
+		ObserverRequest request = (ObserverRequest) origin;
 		
 		 Employee func = Employee.builder()
 		.cpf(request.getCpf())

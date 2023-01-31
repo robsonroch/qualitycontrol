@@ -13,9 +13,9 @@ import org.springframework.stereotype.Service;
 import br.com.robson.qualitycontrol.exceptions.DataIntegrityException;
 import br.com.robson.qualitycontrol.models.Allocation;
 import br.com.robson.qualitycontrol.models.AllocationBoss;
-import br.com.robson.qualitycontrol.models.AllocationPK;
 import br.com.robson.qualitycontrol.models.AllocationEmployee;
 import br.com.robson.qualitycontrol.models.AllocationGeneric;
+import br.com.robson.qualitycontrol.models.AllocationPK;
 import br.com.robson.qualitycontrol.models.AllocationQuality;
 import br.com.robson.qualitycontrol.models.builders.ConvertToModel;
 import br.com.robson.qualitycontrol.models.utils.AllocationTypeEnum;
@@ -23,7 +23,7 @@ import br.com.robson.qualitycontrol.repositories.AllocationRepository;
 import br.com.robson.qualitycontrol.resources.requests.AllocationRequest;
 
 @Service
-public class AllocationService extends Servico<Allocation, AllocationPK> {
+public class AllocationService extends GenericService<Allocation, AllocationPK> {
 	
 	@Autowired
 	private ConvertToModel<AllocationQuality> builderQualidade;
@@ -93,5 +93,6 @@ public class AllocationService extends Servico<Allocation, AllocationPK> {
 		Page<AllocationGeneric> findAllType = alocRepo.findAllType(pageRequest);
 		return findAllType;
 	}
+	
 	
 }

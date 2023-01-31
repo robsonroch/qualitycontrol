@@ -1,32 +1,14 @@
 package br.com.robson.qualitycontrol.config;
 
-import java.text.ParseException;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
-
-import br.com.robson.qualitycontrol.services.DBService;
-import br.com.robson.qualitycontrol.services.EmailService;
-import br.com.robson.qualitycontrol.services.MockEmailService;
+import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
+import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 @Configuration
 @Profile("test")
+@EnableJpaRepositories(basePackages = "br.com.robson.qualitycontrol.repositories")
+@EnableTransactionManagement
 public class TestConfig {
 	
-	@Autowired
-	private DBService dbService;
-	
-	@Bean
-	public boolean instantiateDataBase() throws ParseException{
-		dbService.instantiateTestDatabase();
-		return true;
-	}
-	
-	@Bean
-	public EmailService emailService() {
-		return new MockEmailService();
-	}
-
 }

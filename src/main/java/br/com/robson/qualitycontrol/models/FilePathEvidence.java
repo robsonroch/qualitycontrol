@@ -1,6 +1,5 @@
 package br.com.robson.qualitycontrol.models;
 
-import java.io.Serializable;
 import java.util.Date;
 
 import javax.persistence.Column;
@@ -9,20 +8,25 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToOne;
 import javax.persistence.Table;
+import javax.validation.constraints.NotEmpty;
 
+import org.springframework.data.annotation.CreatedDate;
+
+import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import lombok.NoArgsConstructor;
+
 
 @Data
 @Entity
-@Table(name = "SOLVED_NOTICE")
-@EqualsAndHashCode(callSuper = false)
-public class SolvedNotice implements Serializable{
-
-	private static final long serialVersionUID = 1L;
+@Table(name= "FILE_PAHT_EVIDENCE")
+@NoArgsConstructor
+@AllArgsConstructor
+public class FilePathEvidence {
 	
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
@@ -30,23 +34,20 @@ public class SolvedNotice implements Serializable{
 	@Column(name = "ID")
 	private Long id;
 	
-	@Column(name = "SEQUENCE")
-	private Integer sequence;
-	
+	@Lob
 	@Column(name = "DESCRIPTION")
 	private String description;
 	
-	@OneToOne
-	@JoinColumn(name = "NOTICE_ID")
+	@ManyToOne
+	@JoinColumn(name= "NOTICEID")
 	private Notice notice;
 	
-	@Column(name = "SUBMISSION_DATE")
-	private Date submissionDate;
+	@NotEmpty
+	@Column(name = "PATH_PHYSICAL_FILE")
+	private String pathPhysicalFile;
 	
-	@Column(name = "ASSESSMENTS")
-	private String assessment;
+	@CreatedDate
+	private Date createdAt;
 	
-	@Column(name = "APPROVED")
-	private boolean approved;
 
 }

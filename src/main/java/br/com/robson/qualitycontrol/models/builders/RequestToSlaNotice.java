@@ -1,7 +1,5 @@
 package br.com.robson.qualitycontrol.models.builders;
 
-import java.util.Date;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -25,9 +23,7 @@ public class RequestToSlaNotice implements ConvertToModel<SlaNotice>{
 		SlaNoticeRequest sr = (SlaNoticeRequest) origin;
 		
 		return SlaNotice.builder()
-				.definer(employeeRepo.findByCpf(sr.getCpfFromDefinerId()))
 				.sector(sectorRepo.getOne(sr.getSectorId()))
-				.startValidaty(new Date())
 				.slaTimeStamp(sr.getSlaTimeStamp())
 				.typeSla(SlaEnum.toEnum(sr.getTypeSla()))
 				.build();

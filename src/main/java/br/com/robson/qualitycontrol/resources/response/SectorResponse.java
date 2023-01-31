@@ -1,9 +1,7 @@
 package br.com.robson.qualitycontrol.resources.response;
 
 import java.util.List;
-import java.util.Set;
 
-import br.com.robson.qualitycontrol.models.Allocation;
 import br.com.robson.qualitycontrol.models.Employee;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -14,7 +12,7 @@ import lombok.NoArgsConstructor;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class SetorResponse {
+public class SectorResponse {
 	
 	private String name;
 	

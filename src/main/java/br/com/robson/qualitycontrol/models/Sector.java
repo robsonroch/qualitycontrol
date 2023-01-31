@@ -8,6 +8,9 @@ import java.util.stream.Collectors;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotEmpty;
@@ -25,15 +28,24 @@ import lombok.NoArgsConstructor;
 @Table( name = "SECTOR")
 @NoArgsConstructor
 @AllArgsConstructor
-@EqualsAndHashCode(callSuper=true)
-public class Sector extends BaseEntity<Long> implements Serializable{
+public class Sector implements Serializable{
 
 	private static final long serialVersionUID = 1L;
+	
+	@Id
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	@Column(name = "ID")
+	private Long id;
 	
 	@EqualsAndHashCode.Exclude
 	@Column(name = "NAME")
 	@NotEmpty
 	private String name;
+	
+	@EqualsAndHashCode.Exclude
+	@Column(name = "ACRONYM")
+	@NotEmpty
+	private String acronym;
 		
 	@EqualsAndHashCode.Exclude
 	@OneToMany(mappedBy = "id.sector")
@@ -41,10 +53,11 @@ public class Sector extends BaseEntity<Long> implements Serializable{
 	private Set<Allocation> allocatedEmployees = new HashSet<Allocation>();
 	
 	@Builder
-	public Sector(Long id, String name) {
+	public Sector(Long id, String name, String acronym) {
 		super();
 		this.id = id;
 		this.name = name;
+		this.acronym = acronym;
 	}		
 	
 	public List<Employee> getEmployees(){

@@ -2,6 +2,7 @@ package br.com.robson.qualitycontrol.resources.controllers;
 
 import javax.validation.Valid;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -9,12 +10,16 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import br.com.robson.qualitycontrol.resources.requests.NoticeRequest;
+import br.com.robson.qualitycontrol.services.NoticeService;
 
 @RestController
 @RequestMapping(value = "/notificacoes")
 public class NoticeResource {
 	
-	@RequestMapping(value = "/new", method = RequestMethod.GET)
+	@Autowired
+	private NoticeService noticeSevice;
+	
+	@RequestMapping(method = RequestMethod.GET)
 	public ResponseEntity<Void> missConformity() {
 //		
 //		FuncionarioBuilder builder = new FuncionarioBuilder();
@@ -25,14 +30,25 @@ public class NoticeResource {
 	}
 	
 	@RequestMapping(method=RequestMethod.POST)
-	public ResponseEntity<@Valid NoticeRequest> insert(@Valid @RequestBody NoticeRequest objDto) {
+	public ResponseEntity<@Valid NoticeRequest> insert(@Valid @RequestBody NoticeRequest noticeRequest) {
 		
 		/*
 		 * SlaNotice obj = service.insert(objDto); URI uri =
 		 * ServletUriComponentsBuilder.fromCurrentRequest()
 		 * .path("/{id}").buildAndExpand(obj.getId()).toUri();
 		 */
-		return ResponseEntity.ok().body(objDto);
-	}	
+		return ResponseEntity.ok().body(noticeRequest);
+	}
+	
+	@RequestMapping(value="/{id}", method=RequestMethod.PATCH)
+	public ResponseEntity<@Valid NoticeRequest> attachFileEvidence(@Valid @RequestBody NoticeRequest noticeRequest) {
+		
+		/*
+		 * SlaNotice obj = service.insert(objDto); URI uri =
+		 * ServletUriComponentsBuilder.fromCurrentRequest()
+		 * .path("/{id}").buildAndExpand(obj.getId()).toUri();
+		 */
+		return ResponseEntity.ok().body(noticeRequest);
+	}
 
 }

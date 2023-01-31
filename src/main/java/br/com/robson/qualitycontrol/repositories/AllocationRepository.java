@@ -10,8 +10,8 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 import br.com.robson.qualitycontrol.models.Allocation;
-import br.com.robson.qualitycontrol.models.AllocationPK;
 import br.com.robson.qualitycontrol.models.AllocationGeneric;
+import br.com.robson.qualitycontrol.models.AllocationPK;
 
 @Repository
 public interface AllocationRepository extends JpaRepository<Allocation, AllocationPK> {
