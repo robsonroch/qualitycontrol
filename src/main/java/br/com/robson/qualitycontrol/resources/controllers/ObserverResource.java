@@ -18,36 +18,41 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import br.com.robson.qualitycontrol.models.Employee;
+import br.com.robson.qualitycontrol.models.Observer;
 import br.com.robson.qualitycontrol.models.builders.EmployeeToResponse;
+import br.com.robson.qualitycontrol.models.builders.ObserverToResponse;
 import br.com.robson.qualitycontrol.resources.requests.EmployeeRequest;
+import br.com.robson.qualitycontrol.resources.requests.ObserverRequest;
 import br.com.robson.qualitycontrol.resources.response.EmployeeResponse;
+import br.com.robson.qualitycontrol.resources.response.ObserverResponse;
 import br.com.robson.qualitycontrol.services.EmailService;
 import br.com.robson.qualitycontrol.services.EmployeeService;
+import br.com.robson.qualitycontrol.services.ObserverService;
 
 @RestController
 @RequestMapping(value = "/observer")
 public class ObserverResource {
 		
 	@Autowired
-	private EmployeeService service;
+	private ObserverService service;
 	
 	@Autowired
-	private EmployeeToResponse builderResponse;
+	private ObserverToResponse builderResponse;
 	
 	@Autowired
 	private EmailService mailService;
 		
 	@RequestMapping(value="/{id}", method=RequestMethod.GET)
 	public ResponseEntity<Object> find(@PathVariable Long id) {
-		Employee func = service.findById(id);		
+		Observer func = service.findById(id);		
 				
 		return ResponseEntity.ok().body(builderResponse.executa(func));
 	}
 	
 	@RequestMapping(method=RequestMethod.POST)
-	public ResponseEntity<Void> insert(@Valid @RequestBody EmployeeRequest objDto) {
+	public ResponseEntity<Void> insert(@Valid @RequestBody ObserverRequest objDto) {
 		
-		Employee obj = service.insert(objDto);
+		Observer obj = service.insert(objDto);
 		
 		mailService.sendOrderConfirmationEmail(obj);
 		URI uri = ServletUriComponentsBuilder.fromCurrentRequest()
@@ -70,20 +75,20 @@ public class ObserverResource {
 	}
 	
 	@RequestMapping(method=RequestMethod.GET)
-	public ResponseEntity<List<EmployeeResponse>> findAll() {
-		List<Employee> list = service.findAll();
-		List<EmployeeResponse> listDto = list.stream().map(obj -> (EmployeeResponse) builderResponse.executa(obj)).collect(Collectors.toList());  
+	public ResponseEntity<List<ObserverResponse>> findAll() {
+		List<Observer> list = service.findAll();
+		List<ObserverResponse> listDto = list.stream().map(obj -> (ObserverResponse) builderResponse.executa(obj)).collect(Collectors.toList());  
 		return ResponseEntity.ok().body(listDto);
 	}
 	
 	@RequestMapping(value="/page", method=RequestMethod.GET)
-	public ResponseEntity<Page<EmployeeResponse>> findPage(
+	public ResponseEntity<Page<ObserverResponse>> findPage(
 			@RequestParam(value="page", defaultValue="0") Integer page, 
 			@RequestParam(value="linesPerPage", defaultValue="24") Integer linesPerPage, 
 			@RequestParam(value="orderBy", defaultValue="nome") String orderBy, 
 			@RequestParam(value="direction", defaultValue="ASC") String direction) {
-		Page<Employee> list = service.findPage(page, linesPerPage, orderBy, direction);
-		Page<EmployeeResponse> listDto = list.map(obj -> (EmployeeResponse) builderResponse.executa(obj));  
+		Page<Observer> list = service.findPage(page, linesPerPage, orderBy, direction);
+		Page<ObserverResponse> listDto = list.map(obj -> (ObserverResponse) builderResponse.executa(obj));  
 		return ResponseEntity.ok().body(listDto);
 	}
 

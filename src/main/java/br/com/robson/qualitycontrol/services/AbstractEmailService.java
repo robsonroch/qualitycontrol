@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.mail.SimpleMailMessage;
 
 import br.com.robson.qualitycontrol.models.Employee;
+import br.com.robson.qualitycontrol.models.Observer;
 
 public abstract class AbstractEmailService implements EmailService {
 	
@@ -13,14 +14,14 @@ public abstract class AbstractEmailService implements EmailService {
 	private String sender;
 
 	@Override
-	public void sendOrderConfirmationEmail(Employee employee) {
-		SimpleMailMessage sm = prepareSimpleMailMenssageFromPedido(employee);
+	public void sendOrderConfirmationEmail(Observer observer) {
+		SimpleMailMessage sm = prepareSimpleMailMenssageFromPedido(observer);
 		sendEmail(sm);
 	}
 
-	protected SimpleMailMessage prepareSimpleMailMenssageFromPedido(Employee employee) {
+	protected SimpleMailMessage prepareSimpleMailMenssageFromPedido(Observer observer) {
 		SimpleMailMessage sm = new SimpleMailMessage();
-		sm.setTo(employee.getEmail());
+		sm.setTo(observer.getEmail());
 		sm.setFrom(sender);
 		sm.setSubject("Nova notificação de incidência");
 		sm.setSentDate(new Date(System.currentTimeMillis()));

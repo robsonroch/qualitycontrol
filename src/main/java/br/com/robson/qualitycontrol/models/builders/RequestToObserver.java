@@ -14,12 +14,13 @@ public class RequestToObserver implements ConvertToModel<Observer>{
 	public Observer executa(Object origin) {
 		ObserverRequest request = (ObserverRequest) origin;
 		
-		 Employee func = Employee.builder()
-		.cpf(request.getCpf())
-		.firstName(request.getFirstName())
-		.lastName(request.getLastName())
-		.email(request.getEmail()).build();
-		return func;
+		Observer observer = new Observer();
+		observer.setEmail(request.getEmail());
+		observer.setFirstName(request.getFirstName());
+		observer.setLastName(request.getLastName());
+		observer.setId(request.getId());
+
+		return observer;
 	}
 	
 }
