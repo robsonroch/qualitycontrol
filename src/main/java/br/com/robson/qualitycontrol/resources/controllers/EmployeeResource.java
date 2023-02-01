@@ -18,7 +18,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import br.com.robson.qualitycontrol.models.Employee;
-import br.com.robson.qualitycontrol.models.builders.EmployeeToResponse;
+import br.com.robson.qualitycontrol.models.converters.EmployeeToResponse;
 import br.com.robson.qualitycontrol.resources.requests.EmployeeRequest;
 import br.com.robson.qualitycontrol.resources.response.EmployeeResponse;
 import br.com.robson.qualitycontrol.services.EmailService;

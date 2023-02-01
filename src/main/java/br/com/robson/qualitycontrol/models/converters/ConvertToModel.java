@@ -1,4 +1,4 @@
-package br.com.robson.qualitycontrol.models.builders;
+package br.com.robson.qualitycontrol.models.converters;
 
 @FunctionalInterface
 public interface ConvertToModel<Destino> {

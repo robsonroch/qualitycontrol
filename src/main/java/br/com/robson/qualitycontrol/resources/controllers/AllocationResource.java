@@ -17,7 +17,7 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import br.com.robson.qualitycontrol.models.Allocation;
 import br.com.robson.qualitycontrol.models.AllocationGeneric;
-import br.com.robson.qualitycontrol.models.builders.AllocationToResponse;
+import br.com.robson.qualitycontrol.models.converters.AllocationToResponse;
 import br.com.robson.qualitycontrol.resources.requests.AllocationRequest;
 import br.com.robson.qualitycontrol.services.AllocationService;
 

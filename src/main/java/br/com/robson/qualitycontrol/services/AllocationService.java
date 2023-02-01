@@ -17,7 +17,7 @@ import br.com.robson.qualitycontrol.models.AllocationEmployee;
 import br.com.robson.qualitycontrol.models.AllocationGeneric;
 import br.com.robson.qualitycontrol.models.AllocationPK;
 import br.com.robson.qualitycontrol.models.AllocationQuality;
-import br.com.robson.qualitycontrol.models.builders.ConvertToModel;
+import br.com.robson.qualitycontrol.models.converters.ConvertToModel;
 import br.com.robson.qualitycontrol.models.utils.AllocationTypeEnum;
 import br.com.robson.qualitycontrol.repositories.AllocationRepository;
 import br.com.robson.qualitycontrol.resources.requests.AllocationRequest;

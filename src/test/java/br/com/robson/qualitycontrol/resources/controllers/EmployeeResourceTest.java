@@ -20,7 +20,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 import br.com.robson.qualitycontrol.Application;
 import br.com.robson.qualitycontrol.config.TestConfig;
-import br.com.robson.qualitycontrol.models.builders.EmployeeToResponse;
+import br.com.robson.qualitycontrol.models.converters.EmployeeToResponse;
 import br.com.robson.qualitycontrol.resources.requests.EmployeeRequest;
 import br.com.robson.qualitycontrol.services.EmailService;
 import br.com.robson.qualitycontrol.services.EmployeeService;

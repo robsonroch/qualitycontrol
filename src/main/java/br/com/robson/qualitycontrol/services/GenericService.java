@@ -13,7 +13,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 import br.com.robson.qualitycontrol.exceptions.DataIntegrityException;
 import br.com.robson.qualitycontrol.exceptions.ObjectNotFoundException;
-import br.com.robson.qualitycontrol.models.builders.ConvertToModel;
+import br.com.robson.qualitycontrol.models.converters.ConvertToModel;
 
 public class GenericService<T, I> {
 

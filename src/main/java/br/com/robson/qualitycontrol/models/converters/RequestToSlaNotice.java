@@ -1,4 +1,4 @@
-package br.com.robson.qualitycontrol.models.builders;
+package br.com.robson.qualitycontrol.models.converters;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
