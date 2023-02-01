@@ -12,7 +12,6 @@ import br.com.robson.qualitycontrol.services.EmailService;
 import br.com.robson.qualitycontrol.services.SmtpEmailService;
 
 @Configuration
-@Profile("dev")
 public class DevConfig {
 
 	@Autowired
