@@ -1,0 +1,48 @@
+version: '3.4'
+services:
+  db:
+    image: mysql:5.7.22
+    container_name: quality_db
+    command: mysqld --default-authentication-plugin=mysql_native_password
+    restart: always
+    environment:
+      TZ: America/Sao_Paulo
+      MYSQL_ROOT_PASSWORD: docker
+      MYSQL_USER: docker
+      MYSQL_PASSWORD: docker
+      MYSQL_DATABASE: qualitymanager
+    ports:
+      - "3306:3306"
+    volumes:
+      - db:/var/lib/mysql
+      - ./db/init.sql:/docker-entrypoint-initdb.d/init.sql  
+    healthcheck:
+      test: "/usr/bin/mysql --user=docker --password=docker --execute \"SHOW DATABASES;\""
+      interval: 2s
+      timeout: 20s
+      retries: 10      
+    networks:
+      - quality  
+      
+  app:
+    build: . 
+    container_name: quality_backend
+    environment:
+      MYSQL_USER: docker
+      MYSQL_PASSWORD: docker
+      MYSQL_DATABASE: qualitymanager
+    depends_on:
+      db:
+        condition: service_healthy
+    ports:
+      - "8080:8888"  
+    networks:
+      - quality   
+
+volumes:
+  db:
+    driver: local       
+      
+networks:
+    quality:
+        driver: bridge      

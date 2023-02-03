@@ -19,8 +19,8 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import br.com.robson.qualitycontrol.models.Employee;
 import br.com.robson.qualitycontrol.models.Observer;
-import br.com.robson.qualitycontrol.models.builders.EmployeeToResponse;
-import br.com.robson.qualitycontrol.models.builders.ObserverToResponse;
+import br.com.robson.qualitycontrol.models.converters.EmployeeToResponse;
+import br.com.robson.qualitycontrol.models.converters.ObserverToResponse;
 import br.com.robson.qualitycontrol.resources.requests.EmployeeRequest;
 import br.com.robson.qualitycontrol.resources.requests.ObserverRequest;
 import br.com.robson.qualitycontrol.resources.response.EmployeeResponse;

@@ -18,7 +18,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import br.com.robson.qualitycontrol.models.Sector;
-import br.com.robson.qualitycontrol.models.builders.SetorToResponse;
+import br.com.robson.qualitycontrol.models.converters.SetorToResponse;
 import br.com.robson.qualitycontrol.resources.requests.SectorRequest;
 import br.com.robson.qualitycontrol.resources.response.SectorResponse;
 import br.com.robson.qualitycontrol.services.SectorService;
