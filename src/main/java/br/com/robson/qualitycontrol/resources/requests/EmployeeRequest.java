@@ -15,6 +15,8 @@ public class EmployeeRequest {
 
 	private String cpf;
 	
+	private String senha;
+	
 	private Long id;
 
 }

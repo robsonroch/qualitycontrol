@@ -16,7 +16,9 @@ public class RequestToFuncionario implements ConvertToModel<Employee>{
 		.cpf(request.getCpf())
 		.firstName(request.getFirstName())
 		.lastName(request.getLastName())
-		.email(request.getEmail()).build();
+		.email(request.getEmail())
+		.senha(request.getSenha())
+		.build();
 		return func;
 	}
 	

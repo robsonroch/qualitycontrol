@@ -16,6 +16,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
+import lombok.experimental.SuperBuilder;
 
 @Data
 @AllArgsConstructor
@@ -23,6 +24,7 @@ import lombok.NoArgsConstructor;
 @Entity
 @Table(name = "OBSERVER")
 @Inheritance(strategy = InheritanceType.JOINED)
+@SuperBuilder
 public class Observer implements Serializable{
 
 	private static final long serialVersionUID = 1L;
@@ -41,8 +43,17 @@ public class Observer implements Serializable{
 	@Column(name = "LAST_NAME")
 	private String lastName;
 
-	@EqualsAndHashCode.Exclude
 	@Column(name = "EMAIL", unique = true)
 	private String email;
-		
+	
+	@Column(name = "SENHA", unique = true)
+	private String senha;
+	
+	public Observer(Long id, String firstName, String lastName, String email) {
+		this.id = id;
+		this.firstName = firstName;
+		this.lastName = lastName;
+		this.email = email;
+	}
+			
 }

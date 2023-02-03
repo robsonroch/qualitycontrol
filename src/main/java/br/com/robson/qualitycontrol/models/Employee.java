@@ -1,14 +1,10 @@
 package br.com.robson.qualitycontrol.models;
 
-import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.Table;
@@ -20,11 +16,14 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
+import lombok.experimental.SuperBuilder;
 
 @Data
 @Entity
 @Table(name = "EMPLOYEE")
+@NoArgsConstructor
 @PrimaryKeyJoinColumn(name="EMPLOYEE_ID")
+@SuperBuilder
 public class Employee extends Observer{
 
 	private static final long serialVersionUID = 1L;
@@ -40,7 +39,12 @@ public class Employee extends Observer{
 	@OneToMany(mappedBy = "id.employee")
 	private Set<Allocation> allocationOfEmployee = new HashSet<Allocation>();
 	
-	@Builder
+
+	public Employee(Long id, String firstName, String lastName, String email, String cpf, String senha) {
+		super(id, firstName, lastName, email, senha);
+		this.cpf = cpf;
+	}	
+	
 	public Employee(Long id, String firstName, String lastName, String email, String cpf) {
 		super(id, firstName, lastName, email);
 		this.cpf = cpf;
