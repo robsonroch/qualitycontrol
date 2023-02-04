@@ -24,7 +24,7 @@ import lombok.experimental.SuperBuilder;
 @NoArgsConstructor
 @PrimaryKeyJoinColumn(name="EMPLOYEE_ID")
 @SuperBuilder
-public class Employee extends Observer{
+public class Employee extends User{
 
 	private static final long serialVersionUID = 1L;
 
@@ -33,20 +33,10 @@ public class Employee extends Observer{
 	private String cpf;
 
 	@Column(name = "ATIVO")
-	private boolean ativo = true;
+	private Boolean ativo = true;
 
 	@JsonIgnore
 	@OneToMany(mappedBy = "id.employee")
 	private Set<Allocation> allocationOfEmployee = new HashSet<Allocation>();
-	
-
-	public Employee(Long id, String firstName, String lastName, String email, String cpf, String senha) {
-		super(id, firstName, lastName, email, senha);
-		this.cpf = cpf;
-	}	
-	
-	public Employee(Long id, String firstName, String lastName, String email, String cpf) {
-		super(id, firstName, lastName, email);
-		this.cpf = cpf;
-	}	
+		
 }

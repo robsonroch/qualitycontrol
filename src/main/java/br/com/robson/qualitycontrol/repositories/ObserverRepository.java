@@ -4,11 +4,11 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 import br.com.robson.qualitycontrol.models.Employee;
-import br.com.robson.qualitycontrol.models.Observer;
+import br.com.robson.qualitycontrol.models.User;
 
 @Repository
-public interface ObserverRepository extends JpaRepository<Observer, Long> {
+public interface ObserverRepository extends JpaRepository<User, Long> {
 	
-	public Observer findByEmail(String cpf);
+	public User findByEmail(String cpf);
 
 }

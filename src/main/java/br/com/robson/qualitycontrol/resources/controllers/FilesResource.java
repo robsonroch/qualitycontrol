@@ -26,7 +26,7 @@ import br.com.robson.qualitycontrol.services.FilesStorageServiceImpl;
 
 @Controller
 @RequestMapping(value = "/files")
-@CrossOrigin("http://localhost:8888")
+@CrossOrigin({"http://localhost:8888", "http://localhost:3000"})
 public class FilesResource {
 
   @Autowired

@@ -17,7 +17,8 @@ public class RequestToFuncionario implements ConvertToModel<Employee>{
 		.firstName(request.getFirstName())
 		.lastName(request.getLastName())
 		.email(request.getEmail())
-		.senha(request.getSenha())
+		.password(request.getPassword())
+		.ativo(true)
 		.build();
 		return func;
 	}

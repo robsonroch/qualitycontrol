@@ -6,7 +6,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.mail.SimpleMailMessage;
 
 import br.com.robson.qualitycontrol.models.Employee;
-import br.com.robson.qualitycontrol.models.Observer;
+import br.com.robson.qualitycontrol.models.User;
 
 public abstract class AbstractEmailService implements EmailService {
 	
@@ -14,12 +14,12 @@ public abstract class AbstractEmailService implements EmailService {
 	private String sender;
 
 	@Override
-	public void sendOrderConfirmationEmail(Observer observer) {
+	public void sendOrderConfirmationEmail(User observer) {
 		SimpleMailMessage sm = prepareSimpleMailMenssageFromPedido(observer);
 		sendEmail(sm);
 	}
 
-	protected SimpleMailMessage prepareSimpleMailMenssageFromPedido(Observer observer) {
+	protected SimpleMailMessage prepareSimpleMailMenssageFromPedido(User observer) {
 		SimpleMailMessage sm = new SimpleMailMessage();
 		sm.setTo(observer.getEmail());
 		sm.setFrom(sender);

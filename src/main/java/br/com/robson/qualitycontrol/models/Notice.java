@@ -62,7 +62,7 @@ public class Notice implements Serializable{
 	
 	@ManyToOne
 	@JoinColumn(name="OBSERVER_ID")
-	private Observer observer;
+	private User observer;
 	
 	@OneToMany(mappedBy="notice", cascade=CascadeType.ALL)
 	private List<FilePathEvidence> files = new ArrayList<>();
@@ -72,10 +72,7 @@ public class Notice implements Serializable{
 	private Date createdAt;
 	//Fim Campos da criação
 	
-	//Campos para classificação	
-	@Column(name = "IS_NO_CONFORMING")
-	private boolean isNoConforming;
-	
+	//Campos para classificação		
 	@ManyToOne
 	@JoinColumn(name="QUALITY_ASSURANCE_ORIGIN_ID")
 	private Employee qualityAssuranceOrigin;
@@ -89,6 +86,15 @@ public class Notice implements Serializable{
 	
 	@Column(name = "SLA_NOTICE")
 	private SlaNotice slaNotice;
+	
+	@Lob
+	@Column(name = "DESCRIPTION_INTERNAL")
+	private String descriptionInternal;
+	
+	@Lob
+	@Column(name = "DESCRIPTION_PUBLIC")
+	private String descriptionPublic;
+	
 	//Campos para classificação
 	//Compos de resolução
 	

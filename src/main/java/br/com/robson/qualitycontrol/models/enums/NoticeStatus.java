@@ -11,9 +11,8 @@ public enum NoticeStatus {
 	SECTOR_NOTICED(1, "Foi encontrada informidade na notificação!"),
 	STARTED(1, "Resolução de não conformidade foi iniciada pelo chefe do setor"),
 	SENT(2, "Foi enviado uma proposta de resolução de não conformidade para o responsável pela qualidade "),
-	REJECTED(3, "A proposta de resolução precisa ser revista"),
-	APPROVED(4, "A proposta de resolução de não conformidade foi aceita pelo responsável pela qualidade"),
-	RUNNING(5, "As açõres propostas nas resolução estão em andamento"),
+	SOLVE_REJECTED(3, "A proposta de resolução precisa ser revista"),
+	SOLVE_APPROVED(4, "A proposta de resolução de não conformidade foi aceita pelo responsável pela qualidade"),
 	FINISHED(6, "Finalido o todas as ações que visão resolver o problema");	
 	
 	private int code;

@@ -42,10 +42,7 @@ public class ActionSolution implements Serializable{
 	@EqualsAndHashCode.Exclude
 	@Column(name = "ID")
 	private Long id;
-	
-	@Column(name = "TITLE")
-	private String title;
-	
+		
 	@ManyToOne
 	@JoinColumn(name="SOLVED_NOTICE_ID")
 	private SolvedNotice solvedNotice;
@@ -55,20 +52,15 @@ public class ActionSolution implements Serializable{
 	private String descriptionFromBossSector;
 	
 	@Lob
-	@Column(name = "DESCRIPTION_QUALITY")
-	private String descriptionFromQuality;
-	
-	@Lob
-	@Column(name = "PUBLIC_DESCRIPTION")
-	private String publicDescription;
-	
+	@Column(name = "AVALUTION_DESCRIPTION")
+	private String evaluationDescription;
+		
 	@Enumerated(EnumType.STRING)
 	@Column(name = "TYPE_ASSESSEMENT_ACTION")
 	private TypeAssessmentAction typeAssessmentAction;
 	
 	@Builder
 	public ActionSolution(String title, String descriptionFromBossSector, SolvedNotice solvedNotice) {
-		this.title = title;
 		this.descriptionFromBossSector = descriptionFromBossSector;
 		this.solvedNotice = solvedNotice;
 		this.typeAssessmentAction= TypeAssessmentAction.DEFINING;

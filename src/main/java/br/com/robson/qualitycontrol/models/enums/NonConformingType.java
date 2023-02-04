@@ -8,7 +8,7 @@ public enum NonConformingType {
 	HUMAN_NON_CONFORMITY(0, "Erro humano atendimento ou no procedimento"),
 	PROCESS_NON_CONFORMING(1, "Erro de processo no atendimento ou no procedimento"),
 	TECHNICAL_NON_CONFORMING(2, "Erro técnico no atendimento ou no procedimento"),
-	REJECTED(3, "A proposta de resolução precisa ser revista");	
+	IS_NOT_INCONFORMING(3, "A proposta de resolução precisa ser revista");	
 	
 	private int code;
 	private String description;
