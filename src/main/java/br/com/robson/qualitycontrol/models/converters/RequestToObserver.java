@@ -18,6 +18,7 @@ public class RequestToObserver implements ConvertToModel<Observer>{
 		observer.setEmail(request.getEmail());
 		observer.setFirstName(request.getFirstName());
 		observer.setLastName(request.getLastName());
+		observer.setPassword(request.getPassword());
 		observer.setId(request.getId());
 
 		return observer;

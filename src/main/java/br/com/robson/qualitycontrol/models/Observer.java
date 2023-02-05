@@ -44,5 +44,9 @@ public class Observer implements Serializable{
 	@EqualsAndHashCode.Exclude
 	@Column(name = "EMAIL", unique = true)
 	private String email;
+	
+	@EqualsAndHashCode.Exclude
+	@Column(name = "PASSWORD", unique = true)
+	private String password;
 		
 }

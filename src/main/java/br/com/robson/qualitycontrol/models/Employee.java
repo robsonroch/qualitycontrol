@@ -41,8 +41,8 @@ public class Employee extends Observer{
 	private Set<Allocation> allocationOfEmployee = new HashSet<Allocation>();
 	
 	@Builder
-	public Employee(Long id, String firstName, String lastName, String email, String cpf) {
-		super(id, firstName, lastName, email);
+	public Employee(Long id, String firstName, String lastName, String email, String cpf, String password) {
+		super(id, firstName, lastName, email, password);
 		this.cpf = cpf;
 	}	
 }
