@@ -1,5 +1,7 @@
 package br.com.robson.qualitycontrol.resources.response;
 
+import java.util.List;
+
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -16,6 +18,8 @@ public class EmployeeResponse {
 	private String lastName;
 
 	private String email;
+	
+	private List<String> perfis;
 
 	private String cpf;
 

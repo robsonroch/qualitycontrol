@@ -3,9 +3,14 @@ package br.com.robson.qualitycontrol.models;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
+import java.util.stream.Collectors;
 
+import javax.persistence.CollectionTable;
 import javax.persistence.Column;
+import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -18,9 +23,7 @@ import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.userdetails.UserDetails;
-
+import br.com.robson.qualitycontrol.models.enums.Perfil;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -34,7 +37,7 @@ import lombok.experimental.SuperBuilder;
 @Table(name = "OBSERVER")
 @Inheritance(strategy = InheritanceType.JOINED)
 @SuperBuilder
-public class User implements UserDetails, Serializable{
+public class User{
 
 	private static final long serialVersionUID = 1L;
 
@@ -58,69 +61,16 @@ public class User implements UserDetails, Serializable{
 	@Column(name = "SENHA", unique = true)
 	private String password;
 	
-	@Column(name = "ACCOUNT_NON_EXPIRED")
-	private Boolean accountNonExpired;
+	@ElementCollection(fetch=FetchType.EAGER)
+	@CollectionTable(name="PERFIS", joinColumns=@JoinColumn(name="EMAIL"))
+	private Set<Integer> perfis = new HashSet<>();
 	
-	@Column(name = "ACCOUNT_NON_LOCKED")
-	private Boolean accountNonLocked;
-	
-	@Column(name = "CREDENTIALS_NON_EXPIRED")
-	private Boolean credentialsNonExpired;
-	
-	@Column(name = "ENABLED")
-	private Boolean enabled;
-	
-	@ManyToMany(fetch = FetchType.EAGER)
-	@JoinTable(name = "USER_PERMISSION",
-	joinColumns = @JoinColumn(name = "USER_ID"),
-	inverseJoinColumns = @JoinColumn(name = "PERMISSION_ID"))
-	private List<Permission> permissions;
-	
-	public User(Long id, String firstName, String lastName, String email) {
-		this.id = id;
-		this.firstName = firstName;
-		this.lastName = lastName;
-		this.email = email;
+	public Set<Perfil> getPerfis(){
+		return perfis.stream().map(code -> Perfil.toEnum(code)).collect(Collectors.toSet());
 	}
 	
-	public List<String> getRoles(){
-		List<String> roles = new ArrayList<>();
-		
-		for (Permission permission: permissions) {
-			roles.add(permission.getDescription());
-		}
-		
-		return roles;
+	public void setPerfis(Perfil perfil){
+		perfis.add(perfil.getCod());
 	}
-
-	@Override
-	public Collection<? extends GrantedAuthority> getAuthorities() {
-		return this.permissions;
-	}
-
-	@Override
-	public String getUsername() {
-		return this.email;
-	}
-
-	@Override
-	public boolean isAccountNonExpired() {
-		return this.accountNonExpired;
-	}
-
-	@Override
-	public boolean isAccountNonLocked() {
-		return this.accountNonLocked;
-	}
-
-	@Override
-	public boolean isCredentialsNonExpired() {
-		return this.credentialsNonExpired;
-	}
-
-	@Override
-	public boolean isEnabled() {
-		return this.enabled;
-	}
-			
+	
 }

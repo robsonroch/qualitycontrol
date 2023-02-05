@@ -12,8 +12,8 @@ public class UserRequest {
 	private String lastName;
 
 	private String email;
-
-	private String cpf;
+	
+	private String password;
 	
 	private Long id;
 
