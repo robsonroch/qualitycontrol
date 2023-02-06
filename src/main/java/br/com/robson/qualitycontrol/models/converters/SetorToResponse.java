@@ -13,6 +13,7 @@ public class SetorToResponse implements ConvertFromModel<Sector>{
 		
 		return SectorResponse.builder()		
 		.name(model.getName())
+		.acronym(model.getAcronym())
 		.employees(model.getEmployees())
 		.id(model.getId())
 		.build();

@@ -1,4 +1,4 @@
-package br.com.robson.qualitycontrol.resources.requests;
+package br.com.robson.qualitycontrol.models.notice.request;
 
 import java.time.LocalDate;
 import java.util.List;

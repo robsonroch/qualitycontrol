@@ -18,9 +18,9 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import br.com.robson.qualitycontrol.models.SlaNotice;
-import br.com.robson.qualitycontrol.models.converters.SlaNoticeToResponse;
-import br.com.robson.qualitycontrol.resources.requests.SlaNoticeRequest;
-import br.com.robson.qualitycontrol.resources.response.SlaNoticeResponse;
+import br.com.robson.qualitycontrol.models.notice.converters.SlaNoticeToResponse;
+import br.com.robson.qualitycontrol.models.notice.request.SlaNoticeRequest;
+import br.com.robson.qualitycontrol.models.notice.response.SlaNoticeResponse;
 import br.com.robson.qualitycontrol.services.SlaNoticeService;
 
 @RestController

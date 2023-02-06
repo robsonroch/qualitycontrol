@@ -1,5 +1,6 @@
 package br.com.robson.qualitycontrol.models;
 
+import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -24,9 +25,7 @@ import lombok.experimental.SuperBuilder;
 @NoArgsConstructor
 @PrimaryKeyJoinColumn(name="EMPLOYEE_ID")
 @SuperBuilder
-public class Employee extends User{
-
-	private static final long serialVersionUID = 1L;
+public class Employee extends User {
 
 	@EqualsAndHashCode.Exclude
 	@Column(name = "CPF", unique = true)

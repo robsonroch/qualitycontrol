@@ -16,6 +16,8 @@ public class SectorResponse {
 	
 	private String name;
 	
+	private String acronym;
+	
 	private Long id;
 	
 	private List<Employee> employees;

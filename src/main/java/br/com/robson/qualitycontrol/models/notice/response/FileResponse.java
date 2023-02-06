@@ -1,4 +1,4 @@
-package br.com.robson.qualitycontrol.resources.response;
+package br.com.robson.qualitycontrol.models.notice.response;
 
 public class FileResponse {
   private String name;

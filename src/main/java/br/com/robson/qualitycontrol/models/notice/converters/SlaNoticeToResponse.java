@@ -1,9 +1,10 @@
-package br.com.robson.qualitycontrol.models.converters;
+package br.com.robson.qualitycontrol.models.notice.converters;
 
 import org.springframework.stereotype.Component;
 
 import br.com.robson.qualitycontrol.models.SlaNotice;
-import br.com.robson.qualitycontrol.resources.response.SlaNoticeResponse;
+import br.com.robson.qualitycontrol.models.converters.ConvertFromModel;
+import br.com.robson.qualitycontrol.models.notice.response.SlaNoticeResponse;
 
 @Component
 public class SlaNoticeToResponse implements ConvertFromModel<SlaNotice>{

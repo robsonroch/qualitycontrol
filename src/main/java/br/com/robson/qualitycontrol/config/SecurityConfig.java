@@ -20,6 +20,7 @@ import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 
+import br.com.robson.qualitycontrol.repositories.UserRepository;
 import br.com.robson.qualitycontrol.security.jwt.JWTAuthenticationFilter;
 import br.com.robson.qualitycontrol.security.jwt.JWTAuthorizationFilter;
 import br.com.robson.qualitycontrol.security.jwt.JWTUtil;
@@ -31,7 +32,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
 	@Autowired
 	private UserDetailsService userDetailsService;
-	
+		
 	@Autowired
     private Environment env;
 	
@@ -47,7 +48,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	private static final String[] PUBLIC_MATCHERS_GET = {
 			"/funcionarios/**",
 			"/setores/**",
-			"/notificacoes/**"
+			"/observers/**"
 	};
 
 	private static final String[] PUBLIC_MATCHERS_POST = {

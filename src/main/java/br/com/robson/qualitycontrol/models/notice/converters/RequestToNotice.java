@@ -1,10 +1,11 @@
-package br.com.robson.qualitycontrol.models.converters;
+package br.com.robson.qualitycontrol.models.notice.converters;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import br.com.robson.qualitycontrol.models.Notice;
-import br.com.robson.qualitycontrol.resources.requests.NoticeRequest;
+import br.com.robson.qualitycontrol.models.converters.ConvertToModel;
+import br.com.robson.qualitycontrol.models.notice.request.NoticeRequest;
 import br.com.robson.qualitycontrol.services.SectorService;
 
 @Component

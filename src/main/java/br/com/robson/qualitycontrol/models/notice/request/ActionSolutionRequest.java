@@ -1,4 +1,4 @@
-package br.com.robson.qualitycontrol.resources.requests;
+package br.com.robson.qualitycontrol.models.notice.request;
 
 import br.com.robson.qualitycontrol.models.enums.TypeAssessmentAction;
 import lombok.Builder;

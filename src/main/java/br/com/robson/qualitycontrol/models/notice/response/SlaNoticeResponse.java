@@ -1,4 +1,4 @@
-package br.com.robson.qualitycontrol.resources.response;
+package br.com.robson.qualitycontrol.models.notice.response;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

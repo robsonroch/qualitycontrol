@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import br.com.robson.qualitycontrol.models.Employee;
 import br.com.robson.qualitycontrol.models.Notice;
-import br.com.robson.qualitycontrol.resources.requests.NoticeRequest;
+import br.com.robson.qualitycontrol.models.notice.request.NoticeRequest;
 import br.com.robson.qualitycontrol.services.NoticeService;
 
 @RestController
@@ -30,7 +30,7 @@ public class NoticeResource {
 	}
 	
 	@RequestMapping(method=RequestMethod.POST)
-	public ResponseEntity<@Valid NoticeRequest> insert(@Valid @RequestBody NoticeRequest noticeRequest) {
+	public ResponseEntity<br.com.robson.qualitycontrol.models.notice.request.NoticeRequest> insert(@Valid @RequestBody NoticeRequest noticeRequest) {
 		
 		Notice insert = noticeSevice.insert(noticeRequest);
 		
@@ -43,7 +43,7 @@ public class NoticeResource {
 	}
 	
 	@RequestMapping(value="/{id}", method=RequestMethod.PATCH)
-	public ResponseEntity<@Valid NoticeRequest> attachFileEvidence(@Valid @RequestBody NoticeRequest noticeRequest) {
+	public ResponseEntity<br.com.robson.qualitycontrol.models.notice.request.NoticeRequest> attachFileEvidence(@Valid @RequestBody NoticeRequest noticeRequest) {
 		
 		/*
 		 * SlaNotice obj = service.insert(objDto); URI uri =

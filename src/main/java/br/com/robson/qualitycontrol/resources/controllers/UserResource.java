@@ -1,6 +1,7 @@
 package br.com.robson.qualitycontrol.resources.controllers;
 
 import java.net.URI;
+import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -34,32 +35,40 @@ public class UserResource {
 	@Autowired
 	private UserToResponse converter;
 	
+	@PreAuthorize("hasAnyRole('OBSERVER')")
 	@RequestMapping(value="/{id}", method=RequestMethod.GET)
 	public ResponseEntity<User> find(@PathVariable Long id) {
-		User obj = service.findById(id);
+		User obj = service.find(id);
 		return ResponseEntity.ok().body(obj);
 	}
 	
 	@RequestMapping(value="/email", method=RequestMethod.GET)
-	public ResponseEntity<User> find(@RequestParam(value="value") String email) {
-		User obj = service.findByEmail(email);
-		return ResponseEntity.ok().body(obj);
+	public ResponseEntity<ObserverResponse> find(@RequestParam(value="value") String email) {
+		User obj = service.findByEmail(email);	
+		
+		return ResponseEntity.ok().body(converter.executa(obj));
+	}
+	
+	@RequestMapping(value="/permissions", method=RequestMethod.GET)
+	public ResponseEntity<List<String>> findPermission() {
+		return ResponseEntity.ok().body(Arrays.asList("Setores", "Notificações"));
 	}
 	
 	@RequestMapping(method=RequestMethod.POST)
 	public ResponseEntity<Void> insert(@Valid @RequestBody UserRequest objDto) {
 		User obj = service.insert(objDto);
-		obj = service.insert(obj);
+
 		URI uri = ServletUriComponentsBuilder.fromCurrentRequest()
 				.path("/{id}").buildAndExpand(obj.getId()).toUri();
 		return ResponseEntity.created(uri).build();
 	}
 	
+	@PreAuthorize("hasAnyRole('OBSERVER')")
 	@RequestMapping(value="/{id}", method=RequestMethod.PUT)
 	public ResponseEntity<Void> update(@Valid @RequestBody UserRequest objDto, @PathVariable Long id) {
-		User obj = service.update(objDto);
-		obj.setId(id);
-		obj = service.update(obj);
+		objDto.setId(id);
+		service.update(objDto);
+
 		return ResponseEntity.noContent().build();
 	}
 	

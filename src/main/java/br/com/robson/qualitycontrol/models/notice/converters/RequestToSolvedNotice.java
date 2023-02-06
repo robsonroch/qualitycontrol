@@ -1,4 +1,4 @@
-package br.com.robson.qualitycontrol.models.converters;
+package br.com.robson.qualitycontrol.models.notice.converters;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -8,7 +8,9 @@ import org.springframework.stereotype.Component;
 
 import br.com.robson.qualitycontrol.models.ActionSolution;
 import br.com.robson.qualitycontrol.models.SolvedNotice;
-import br.com.robson.qualitycontrol.resources.requests.SolvedNoticeRequest;
+import br.com.robson.qualitycontrol.models.converters.ConvertToModel;
+import br.com.robson.qualitycontrol.models.converters.RequestToActionSoluction;
+import br.com.robson.qualitycontrol.models.notice.request.SolvedNoticeRequest;
 import br.com.robson.qualitycontrol.services.NoticeService;
 
 @Component

@@ -10,6 +10,8 @@ import br.com.robson.qualitycontrol.models.Notice;
 @Repository
 public interface NoticeRepository extends JpaRepository<Notice, Long> {
 	
+	public List<Notice> findAllByObserverId(Long observerId);
+	
 	public List<Notice> findAllBySectorNoticedId(Long sectorId);
 	
 	public List<Notice> findAllBySectorNoticedAcronym(String acronym);

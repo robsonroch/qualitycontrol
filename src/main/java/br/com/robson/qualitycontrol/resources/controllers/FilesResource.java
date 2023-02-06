@@ -19,7 +19,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.method.annotation.MvcUriComponentsBuilder;
 
-import br.com.robson.qualitycontrol.resources.response.FileResponse;
+import br.com.robson.qualitycontrol.models.notice.response.FileResponse;
 import br.com.robson.qualitycontrol.resources.response.MessageResponse;
 import br.com.robson.qualitycontrol.services.FilesStorageFacade;
 import br.com.robson.qualitycontrol.services.FilesStorageServiceImpl;

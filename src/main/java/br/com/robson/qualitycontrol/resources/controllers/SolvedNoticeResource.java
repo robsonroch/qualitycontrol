@@ -13,8 +13,8 @@ import org.springframework.web.bind.annotation.RestController;
 import br.com.robson.qualitycontrol.models.Employee;
 import br.com.robson.qualitycontrol.models.Notice;
 import br.com.robson.qualitycontrol.models.SolvedNotice;
-import br.com.robson.qualitycontrol.resources.requests.NoticeRequest;
-import br.com.robson.qualitycontrol.resources.requests.SolvedNoticeRequest;
+import br.com.robson.qualitycontrol.models.notice.request.NoticeRequest;
+import br.com.robson.qualitycontrol.models.notice.request.SolvedNoticeRequest;
 import br.com.robson.qualitycontrol.resources.services.SolvedNoticeFacade;
 import br.com.robson.qualitycontrol.services.NoticeService;
 

@@ -1,10 +1,7 @@
 package br.com.robson.qualitycontrol.models;
 
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.Collection;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -19,8 +16,6 @@ import javax.persistence.Id;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
 import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
 import br.com.robson.qualitycontrol.models.enums.Perfil;
@@ -37,7 +32,7 @@ import lombok.experimental.SuperBuilder;
 @Table(name = "OBSERVER")
 @Inheritance(strategy = InheritanceType.JOINED)
 @SuperBuilder
-public class User{
+public class User implements Serializable{
 
 	private static final long serialVersionUID = 1L;
 

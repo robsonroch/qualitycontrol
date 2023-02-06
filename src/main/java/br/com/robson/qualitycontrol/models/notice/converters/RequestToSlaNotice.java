@@ -1,13 +1,14 @@
-package br.com.robson.qualitycontrol.models.converters;
+package br.com.robson.qualitycontrol.models.notice.converters;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import br.com.robson.qualitycontrol.models.SlaNotice;
+import br.com.robson.qualitycontrol.models.converters.ConvertToModel;
 import br.com.robson.qualitycontrol.models.enums.SlaEnum;
+import br.com.robson.qualitycontrol.models.notice.request.SlaNoticeRequest;
 import br.com.robson.qualitycontrol.repositories.EmployeeRepository;
 import br.com.robson.qualitycontrol.repositories.SectorRepository;
-import br.com.robson.qualitycontrol.resources.requests.SlaNoticeRequest;
 
 @Component
 public class RequestToSlaNotice implements ConvertToModel<SlaNotice>{
