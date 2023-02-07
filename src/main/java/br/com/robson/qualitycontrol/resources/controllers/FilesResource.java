@@ -22,7 +22,6 @@ import org.springframework.web.servlet.mvc.method.annotation.MvcUriComponentsBui
 import br.com.robson.qualitycontrol.models.notice.response.FileResponse;
 import br.com.robson.qualitycontrol.resources.response.MessageResponse;
 import br.com.robson.qualitycontrol.services.FilesStorageFacade;
-import br.com.robson.qualitycontrol.services.FilesStorageServiceImpl;
 
 @Controller
 @RequestMapping(value = "/files")

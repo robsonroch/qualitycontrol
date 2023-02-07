@@ -1,9 +1,11 @@
 package br.com.robson.qualitycontrol.models.converters;
 
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 import org.springframework.stereotype.Component;
 
+import br.com.robson.qualitycontrol.models.Allocation;
 import br.com.robson.qualitycontrol.models.Employee;
 import br.com.robson.qualitycontrol.models.enums.Perfil;
 import br.com.robson.qualitycontrol.resources.response.EmployeeResponse;
@@ -12,9 +14,13 @@ import br.com.robson.qualitycontrol.resources.response.EmployeeResponse;
 public class EmployeeToResponse implements ConvertFromModel<Employee>{
 
 	@Override
-	public Object executa(Employee model) {
+	public EmployeeResponse executa(Employee model) {
 		
-		String descricao = Perfil.toEnum(1).getDescricao();
+		Optional<Allocation> alloc = model.getAllocationOfEmployee().stream().filter(a -> a.isActual()).findAny();
+		String sigla = "Sem Setor";
+		if(alloc.isPresent()) {
+			sigla = alloc.get().getSector().getAcronym();
+		}
 						
 		return EmployeeResponse.builder()		
 		.cpf(model.getCpf())
@@ -22,6 +28,8 @@ public class EmployeeToResponse implements ConvertFromModel<Employee>{
 		.lastName(model.getLastName())
 		.email(model.getEmail())
 		.perfis(model.getPerfis().stream().map(code -> code.getDescricao()).collect(Collectors.toList()))
+		.setor(sigla)
+		.id(model.getId())
 		.build();
 		
 	}

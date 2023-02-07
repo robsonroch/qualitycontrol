@@ -15,8 +15,6 @@ import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
-import br.com.robson.qualitycontrol.models.enums.NonConformingType;
-import br.com.robson.qualitycontrol.models.enums.NoticeStatus;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;

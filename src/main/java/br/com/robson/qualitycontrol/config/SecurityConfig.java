@@ -20,7 +20,6 @@ import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 
-import br.com.robson.qualitycontrol.repositories.UserRepository;
 import br.com.robson.qualitycontrol.security.jwt.JWTAuthenticationFilter;
 import br.com.robson.qualitycontrol.security.jwt.JWTAuthorizationFilter;
 import br.com.robson.qualitycontrol.security.jwt.JWTUtil;

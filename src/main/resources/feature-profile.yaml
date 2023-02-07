@@ -1,0 +1,132 @@
+perfis:
+  ADMIN:
+    Setor:
+      featureUrl: /setores
+      ativo: true
+      actionFatures:
+       - CREATE
+       - READ
+       - UPDATE
+       - DELETE
+    Employee:
+      featureUrl: /funcionarios
+      ativo: true
+      actionFatures:
+       - CREATE
+       - READ
+       - UPDATE
+    Notice:
+      featureUrl: /notificacoes
+      ativo: true
+      actionFatures:
+       - CREATE
+       - READ
+       - UPDATE  
+    Allocation:
+      featureUrl: /alocacoes
+      ativo: true
+      actionFatures:
+       - CREATE
+       - READ
+       - UPDATE  
+       - DELETE
+    Files:
+      featureUrl: /files
+      ativo: true
+      actionFatures:
+       - CREATE
+       - READ
+       - UPDATE  
+       - DELETE   
+  OBSERVER:
+    Notice:
+      featureUrl: /notificacoes
+      ativo: true
+      actionFatures:
+       - CREATE
+       - READ
+       - UPDATE  
+    Files:
+      featureUrl: /files
+      ativo: true
+      actionFatures:
+       - CREATE
+       - READ
+       - UPDATE
+    Observer:
+      featureUrl: /observers
+      ativo: true
+      actionFatures:
+       - READ
+       - UPDATE      
+  QUALITY:
+    Setor: 
+      featureUrl: /setores
+      ativo: true
+      actionFatures:
+       - CREATE
+       - READ
+       - UPDATE
+       - DELETE
+    Notice:
+      featureUrl:
+      ativo: true
+      actionFatures:
+       - CREATE
+       - READ
+       - UPDATE  
+    Allocation:
+      featureUrl: /alocacoes
+      ativo: true
+      actionFatures:
+       - CREATE
+       - READ
+       - UPDATE  
+       - DELETE
+    Files:
+      featureUrl: /files
+      ativo: true
+      actionFatures:
+       - CREATE
+       - READ
+       - UPDATE  
+       - DELETE
+  EMPLOYEE:
+    Employee:
+      featureUrl: /funcionarios
+      ativo: true
+      actionFatures:
+       - CREATE
+       - READ
+       - UPDATE
+    Notice:
+      featureUrl: /notificacoes
+      ativo: true
+      actionFatures:
+       - CREATE
+       - READ
+       - UPDATE  
+    Files:
+      featureUrl: files
+      ativo: true
+      actionFatures:
+       - CREATE
+       - READ
+       - UPDATE  
+       - DELETE  
+  BOSS:
+    Notice:
+      featureUrl: /notificacoes
+      ativo: true
+      actionFatures:
+       - CREATE
+       - READ
+       - UPDATE  
+    Files:
+      featureUrl: /files
+      ativo: true
+      actionFatures:
+       - CREATE
+       - READ
+       - UPDATE  
+       - DELETE               

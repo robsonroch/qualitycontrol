@@ -3,6 +3,7 @@ package br.com.robson.qualitycontrol.resources.controllers;
 import java.net.URI;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 import javax.validation.Valid;
@@ -21,6 +22,9 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import br.com.robson.qualitycontrol.models.User;
 import br.com.robson.qualitycontrol.models.converters.UserToResponse;
+import br.com.robson.qualitycontrol.profile.service.FeaturePerfil;
+import br.com.robson.qualitycontrol.profile.service.FeatureProfileHandleService;
+import br.com.robson.qualitycontrol.profile.service.MapPerfis;
 import br.com.robson.qualitycontrol.resources.requests.UserRequest;
 import br.com.robson.qualitycontrol.resources.response.ObserverResponse;
 import br.com.robson.qualitycontrol.services.ObserverService;
@@ -50,8 +54,9 @@ public class UserResource {
 	}
 	
 	@RequestMapping(value="/permissions", method=RequestMethod.GET)
-	public ResponseEntity<List<String>> findPermission() {
-		return ResponseEntity.ok().body(Arrays.asList("Setores", "Notificações"));
+	public ResponseEntity<Map<String, FeaturePerfil>> findPermission() {
+		
+		return ResponseEntity.ok().body(service.getFeaturePerfil());
 	}
 	
 	@RequestMapping(method=RequestMethod.POST)

@@ -10,7 +10,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import br.com.robson.qualitycontrol.models.Employee;
 import br.com.robson.qualitycontrol.models.Notice;
 import br.com.robson.qualitycontrol.models.notice.request.NoticeRequest;
 import br.com.robson.qualitycontrol.services.NoticeService;

@@ -4,7 +4,6 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -24,14 +23,13 @@ import javax.persistence.Table;
 import org.springframework.data.annotation.CreatedDate;
 
 import br.com.robson.qualitycontrol.models.enums.NonConformingType;
-import br.com.robson.qualitycontrol.models.enums.SlaEnum;
 import br.com.robson.qualitycontrol.models.enums.NoticeStatus;
+import br.com.robson.qualitycontrol.models.enums.SlaEnum;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
-import lombok.ToString;
 
 @Data
 @Entity
@@ -84,8 +82,9 @@ public class Notice implements Serializable{
 	@Column(name = "RECIDIVISM")
 	private boolean recidivism;
 	
-	@Column(name = "SLA_NOTICE")
-	private SlaNotice slaNotice;
+	@Enumerated(EnumType.STRING)
+	@Column(name = "SLA")
+	private SlaEnum sla;
 	
 	@Lob
 	@Column(name = "DESCRIPTION_INTERNAL")

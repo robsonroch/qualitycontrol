@@ -29,7 +29,8 @@ public class RequestToFuncionario implements ConvertToModel<Employee>{
 		.perfis(new HashSet<>())
 		.ativo(true)
 		.build();
-		func.setPerfis(Perfil.FUNCIONARIO);
+		func.setPerfis(Perfil.OBSERVER);
+		func.setPerfis(Perfil.EMPLOYEE);
 		return func;
 	}
 	

@@ -1,9 +1,7 @@
 package br.com.robson.qualitycontrol.services;
 
 import java.text.ParseException;
-import java.util.Arrays;
 import java.util.HashSet;
-import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -27,13 +25,13 @@ public class DBService {
 						
 		Employee admin = Employee.builder().firstName("Robson").lastName("Rocha").email("quality.ahemo@gmail.com").password(pe.encode("111111")).cpf("07556424731").perfis(new HashSet<>()).build();
 		admin.setPerfis(Perfil.ADMIN);
-		admin.setPerfis(Perfil.FUNCIONARIO);
+		admin.setPerfis(Perfil.EMPLOYEE);
 		
 		Employee findByCpf = employeeRepo.findByCpf(admin.getCpf());
 		
 		if(findByCpf != null) {
 			findByCpf.setPerfis(Perfil.ADMIN);
-			findByCpf.setPerfis(Perfil.FUNCIONARIO);
+			findByCpf.setPerfis(Perfil.EMPLOYEE);
 			employeeRepo.save(findByCpf);
 			
 		}else {

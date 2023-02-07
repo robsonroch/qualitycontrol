@@ -1,5 +1,7 @@
 package br.com.robson.qualitycontrol.repositories;
 
+import java.util.List;
+
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
@@ -9,5 +11,6 @@ import br.com.robson.qualitycontrol.models.Employee;
 public interface EmployeeRepository extends JpaRepository<Employee, Long> {
 	
 	public Employee findByCpf(String cpf);
-
+	
+	public List<Employee> findAllByAllocationOfEmployeeIdSectorId(Long sectorId);
 }

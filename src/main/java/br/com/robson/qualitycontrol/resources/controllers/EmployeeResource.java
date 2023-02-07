@@ -1,6 +1,7 @@
 package br.com.robson.qualitycontrol.resources.controllers;
 
 import java.net.URI;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -46,6 +47,19 @@ public class EmployeeResource {
 		Employee func = service.findById(id);		
 				
 		return ResponseEntity.ok().body(builderResponse.executa(func));
+	}
+	
+	@RequestMapping(value="/setor", method=RequestMethod.GET)
+	public ResponseEntity<List<EmployeeResponse>> findBySectorId(@RequestParam(value="id") Long sectorId) {
+		List<Employee> list = new ArrayList<>();
+		if(sectorId !=null) {
+			list =service.findAllSectorId(sectorId);	
+		}else {
+			list = service.findAll();
+		}
+		
+		List<EmployeeResponse> responseList = list.stream().map(e -> builderResponse.executa(e)).collect(Collectors.toList());
+		return ResponseEntity.ok().body(responseList);
 	}
 	
 	@RequestMapping(method=RequestMethod.POST)

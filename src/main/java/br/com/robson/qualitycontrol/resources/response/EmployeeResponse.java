@@ -19,8 +19,12 @@ public class EmployeeResponse {
 
 	private String email;
 	
+	private String setor;
+	
 	private List<String> perfis;
 
 	private String cpf;
+	
+	private Long id;
 
 }
