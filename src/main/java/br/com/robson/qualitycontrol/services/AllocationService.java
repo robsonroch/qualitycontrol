@@ -2,6 +2,8 @@ package br.com.robson.qualitycontrol.services;
 
 import java.util.Date;
 import java.util.GregorianCalendar;
+import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
@@ -42,7 +44,13 @@ public class AllocationService extends GenericService<Allocation, AllocationPK> 
 	@Override
     public Allocation insert(Object obj) {
 		
+		
 		AllocationRequest alocRequest = (AllocationRequest) obj;
+		Optional<Allocation> currentAllocation = alocRepo.findByIdEmployeeCpfAndEndAllocationDate(alocRequest.getCpf(), END_DATE_DEFAULT);
+		
+		if(currentAllocation.isPresent()) {
+			desalocaFuncionario(alocRequest.getCpf());
+		}
 		
 		try {
 			if(alocRequest.getType().equals(AllocationTypeEnum.QUALITY.name())) {
@@ -73,8 +81,20 @@ public class AllocationService extends GenericService<Allocation, AllocationPK> 
 		
 	}
 	
-	public Allocation findByCpfFuncionario(String cpf) {
-		return  alocRepo.findByIdEmployeeCpf(cpf);
+	public Optional<Allocation> findBySectorAndTypeAllocation(Long sectorId, AllocationTypeEnum typeAllocation) {
+		return alocRepo.findByIdSectorIdAndEndAllocationDateAndTypeAllocation(sectorId, END_DATE_DEFAULT, typeAllocation);
+	}
+	
+	public List<Allocation> findAllActiveAllocations() {
+		return  alocRepo.findAllByEndAllocationDate(END_DATE_DEFAULT);
+	}
+	
+	public List<Allocation> findByIdSectorIdAndEndAllocationDate(Long sectorId) {
+		return  alocRepo.findByIdSectorIdAndEndAllocationDate(sectorId, END_DATE_DEFAULT);
+	}
+	
+	public Optional<Allocation> findByCpfFuncionario(String cpf) {
+		return  alocRepo.findByIdEmployeeCpfAndEndAllocationDate(cpf, END_DATE_DEFAULT);
 	}
 	
 	public Allocation findAtualLocacaoByCpf(String cpf, Long setorId) {
@@ -82,10 +102,17 @@ public class AllocationService extends GenericService<Allocation, AllocationPK> 
 	}
 	
 	public Allocation desalocaFuncionario(String cpf) {
-		Allocation alocacaoFromBase = alocRepo.findByIdEmployeeCpf(cpf);
-		alocacaoFromBase.setEndAllocationDate(new Date());
+		Optional<Allocation> optAlloc = alocRepo.findByIdEmployeeCpfAndEndAllocationDate(cpf, END_DATE_DEFAULT);
+				
+		if(optAlloc.isPresent()) {
+			Allocation	alocacaoFromBase = optAlloc.get();
+			
+			alocacaoFromBase.setEndAllocationDate(new Date());
+			
+			alocRepo.save(alocacaoFromBase);
+		}
 		
-		return alocRepo.save(alocacaoFromBase);
+		return optAlloc.get();
 	}
 	
 	public Page<AllocationGeneric> findPageFull(Integer pagina, Integer linhaPorPagina, String ordeBy, String direction) {
@@ -93,6 +120,5 @@ public class AllocationService extends GenericService<Allocation, AllocationPK> 
 		Page<AllocationGeneric> findAllType = alocRepo.findAllType(pageRequest);
 		return findAllType;
 	}
-	
-	
+
 }

@@ -42,7 +42,7 @@ public class UserResource {
 	@PreAuthorize("hasAnyRole('OBSERVER')")
 	@RequestMapping(value="/{id}", method=RequestMethod.GET)
 	public ResponseEntity<User> find(@PathVariable Long id) {
-		User obj = service.find(id);
+		User obj = service.findUserFromToken(id);
 		return ResponseEntity.ok().body(obj);
 	}
 	

@@ -2,23 +2,24 @@ package br.com.robson.qualitycontrol.models.notice.converters;
 
 import org.springframework.stereotype.Component;
 
-import br.com.robson.qualitycontrol.models.Notice;
 import br.com.robson.qualitycontrol.models.converters.ConvertFromModel;
-import br.com.robson.qualitycontrol.models.notice.response.NoticeObserverResponse;
+import br.com.robson.qualitycontrol.models.notice.Notice;
+import br.com.robson.qualitycontrol.models.notice.response.NoticeResponse;
 
 @Component
-public class NoticeToNoticeObserverResponse implements ConvertFromModel<Notice>{
+public class NoticeToNoticeResponse implements ConvertFromModel<Notice>{
 
 	@Override
-	public NoticeObserverResponse executa(Notice model) {
-		
-		return NoticeObserverResponse.builder()	
+	public NoticeResponse executa(Notice model) {
+				
+		return NoticeResponse.builder()	
 				.id(model.getId())
 				.title(model.getTitle())
 				.description(model.getDescription())
 				.acronym(model.getSectorNoticed().getAcronym())
+				.sectorId(model.getSectorNoticed().getId())
 				.emailFromObserver(model.getObserver().getEmail())
-				.createdAt(model.getCreatedAt())
+				.observationDate(model.getObservationDate())
 				.emailFromQuality(model.getQualityAssuranceOrigin().getEmail())
 				.resultClassification(model.getNonConformingType().getDescription())
 				.descriptionPublic(model.getDescriptionPublic())

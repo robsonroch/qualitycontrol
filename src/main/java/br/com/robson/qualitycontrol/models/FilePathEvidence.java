@@ -17,6 +17,7 @@ import org.springframework.data.annotation.CreatedDate;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
+import br.com.robson.qualitycontrol.models.notice.Notice;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;

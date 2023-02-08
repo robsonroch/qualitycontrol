@@ -11,7 +11,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import br.com.robson.qualitycontrol.exceptions.ObjectNotFoundException;
 import br.com.robson.qualitycontrol.models.FilePathEvidence;
-import br.com.robson.qualitycontrol.models.Notice;
+import br.com.robson.qualitycontrol.models.notice.Notice;
 import br.com.robson.qualitycontrol.repositories.FilePathEvidenceRepository;
 
 @Service

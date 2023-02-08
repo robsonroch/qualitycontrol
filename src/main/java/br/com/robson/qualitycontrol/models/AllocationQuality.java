@@ -4,6 +4,7 @@ import javax.persistence.Column;
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 
+import br.com.robson.qualitycontrol.models.utils.AllocationTypeEnum;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -23,7 +24,7 @@ public class AllocationQuality extends Allocation{
 	private boolean typeQuality = true;
 
 	public AllocationQuality(Employee employee, Sector sector) {
-		super(employee, sector);
+		super(employee, sector, AllocationTypeEnum.QUALITY);
 	}
 
 }

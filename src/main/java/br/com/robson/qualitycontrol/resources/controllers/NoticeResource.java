@@ -1,5 +1,8 @@
 package br.com.robson.qualitycontrol.resources.controllers;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,8 +13,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import br.com.robson.qualitycontrol.models.Notice;
+import br.com.robson.qualitycontrol.models.notice.Notice;
+import br.com.robson.qualitycontrol.models.notice.converters.NoticeToNoticeResponse;
 import br.com.robson.qualitycontrol.models.notice.request.NoticeRequest;
+import br.com.robson.qualitycontrol.models.notice.response.NoticeResponse;
+import br.com.robson.qualitycontrol.resources.response.SectorResponse;
 import br.com.robson.qualitycontrol.services.NoticeService;
 
 @RestController
@@ -21,15 +27,25 @@ public class NoticeResource {
 	@Autowired
 	private NoticeService noticeSevice;
 	
+	@Autowired
+	private NoticeToNoticeResponse builderResponse;
+	
 	@RequestMapping(value="/{id}", method=RequestMethod.GET)
-	public ResponseEntity<Notice> find(@PathVariable Long id) {
+	public ResponseEntity<NoticeResponse> find(@PathVariable Long id) {
 		Notice notice = noticeSevice.findById(id);		
 				
-		return ResponseEntity.ok().body(notice);
+		return ResponseEntity.ok().body(builderResponse.executa(notice));
+	}
+	
+	@RequestMapping(method=RequestMethod.GET)
+	public ResponseEntity<List<NoticeResponse>> findAll() {
+		List<Notice> list = noticeSevice.findAll();
+		List<NoticeResponse> listDto = list.stream().map(obj -> builderResponse.executa(obj)).collect(Collectors.toList());  
+		return ResponseEntity.ok().body(listDto);
 	}
 	
 	@RequestMapping(method=RequestMethod.POST)
-	public ResponseEntity<br.com.robson.qualitycontrol.models.notice.request.NoticeRequest> insert(@Valid @RequestBody NoticeRequest noticeRequest) {
+	public ResponseEntity<NoticeRequest> insert(@Valid @RequestBody NoticeRequest noticeRequest) {
 		
 		Notice insert = noticeSevice.insert(noticeRequest);
 		

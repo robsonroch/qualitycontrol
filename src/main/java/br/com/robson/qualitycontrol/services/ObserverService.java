@@ -43,7 +43,7 @@ public class ObserverService  {
 	@Autowired
 	private BCryptPasswordEncoder pe;
 			
-	public User find(Long id) {
+	public User findUserFromToken(Long id) {
 		
 		UserSS user = UserService.authenticated();
 		if (user==null || !user.hasRole(Perfil.ADMIN) && !id.equals(user.getId())) {
@@ -53,6 +53,17 @@ public class ObserverService  {
 		Optional<User> obj = repo.findById(id);
 		return obj.orElseThrow(() -> new ObjectNotFoundException(
 				"Objeto não encontrado! Id: " + id + ", Tipo: " + User.class.getName()));
+	}
+	
+	public User findAutenticateUserFromBase() {
+		
+		UserSS user = UserService.authenticated();
+		if (user==null) {
+			throw new AuthorizationException("Acesso negado");
+		}
+		
+		 User frombase = repo.findByEmail(user.getUsername());
+		return frombase;
 	}
 	
 	@Transactional
@@ -143,13 +154,13 @@ public class ObserverService  {
 	
 	public User update(UserRequest obj) {
 		User fromRequest = converter.executa(obj);
-		User fromBase = find(obj.getId());
+		User fromBase = findUserFromToken(obj.getId());
 		updateData(fromRequest, fromBase);
 		return repo.save(fromRequest);
 	}
 
 	public void delete(Long id) {
-		find(id);
+		findUserFromToken(id);
 		try {
 			repo.deleteById(id);
 		}

@@ -1,6 +1,7 @@
-package br.com.robson.qualitycontrol.models;
+package br.com.robson.qualitycontrol.models.notice;
 
 import java.io.Serializable;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -22,6 +23,11 @@ import javax.persistence.Table;
 
 import org.springframework.data.annotation.CreatedDate;
 
+import br.com.robson.qualitycontrol.models.Employee;
+import br.com.robson.qualitycontrol.models.FilePathEvidence;
+import br.com.robson.qualitycontrol.models.Sector;
+import br.com.robson.qualitycontrol.models.SolvedNotice;
+import br.com.robson.qualitycontrol.models.User;
 import br.com.robson.qualitycontrol.models.enums.NonConformingType;
 import br.com.robson.qualitycontrol.models.enums.NoticeStatus;
 import br.com.robson.qualitycontrol.models.enums.SlaEnum;
@@ -68,6 +74,10 @@ public class Notice implements Serializable{
 	@CreatedDate
 	@Column(name = "CREATED_AT")
 	private Date createdAt;
+	
+	@CreatedDate
+	@Column(name = "OBSERVATION_DATE")
+	private Date observationDate;
 	//Fim Campos da criação
 	
 	//Campos para classificação		
@@ -77,7 +87,7 @@ public class Notice implements Serializable{
 	
 	@Enumerated(EnumType.STRING)
 	@Column(name = "NON_CONFORMING_TYPE")
-	private NonConformingType NonConformingType;
+	private NonConformingType nonConformingType;
 	
 	@Column(name = "RECIDIVISM")
 	private boolean recidivism;
@@ -105,11 +115,13 @@ public class Notice implements Serializable{
 	private SolvedNotice solvedNotice;
 			
 	@Builder
-	public Notice(String title, String description, Sector sectorNoticed) {
+	public Notice(String title, String description, Sector sectorNoticed, Date observationDate, NonConformingType nonConformingType) {
 		super();
 		this.title = title;
 		this.description = description;
 		this.sectorNoticed = sectorNoticed;
+		this.observationDate = observationDate;
+		this.nonConformingType = nonConformingType;
 	}
 			
 }

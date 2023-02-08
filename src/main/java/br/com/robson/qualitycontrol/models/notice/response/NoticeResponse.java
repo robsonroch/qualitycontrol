@@ -7,7 +7,7 @@ import lombok.Data;
 
 @Data
 @Builder
-public class NoticeObserverResponse{
+public class NoticeResponse{
 	
 	private Long id;
 	
@@ -15,8 +15,10 @@ public class NoticeObserverResponse{
 	
 	private String description;
 	private String acronym;
+	private Long sectorId;
 	private String emailFromObserver;
 	private Date createdAt;
+	private Date observationDate;
 	private String emailFromQuality;
 	private String resultClassification;
 	private String descriptionPublic;

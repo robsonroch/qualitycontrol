@@ -4,6 +4,7 @@ import javax.persistence.Column;
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 
+import br.com.robson.qualitycontrol.models.utils.AllocationTypeEnum;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
@@ -21,7 +22,7 @@ public class AllocationBoss extends Allocation{
 	private boolean typeBoss = true;
 	
 	public AllocationBoss(Employee employee, Sector sector) {
-		super(employee, sector);
+		super(employee, sector, AllocationTypeEnum.BOSS);
 	}
 
 }

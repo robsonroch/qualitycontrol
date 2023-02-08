@@ -10,7 +10,8 @@ import br.com.robson.qualitycontrol.models.Employee;
 @Repository
 public interface EmployeeRepository extends JpaRepository<Employee, Long> {
 	
-	public Employee findByCpf(String cpf);
+	Employee findByCpf(String cpf);
 	
-	public List<Employee> findAllByAllocationOfEmployeeIdSectorId(Long sectorId);
+	List<Employee> findAllByAllocationOfEmployeeIdSectorId(Long sectorId);
+	
 }

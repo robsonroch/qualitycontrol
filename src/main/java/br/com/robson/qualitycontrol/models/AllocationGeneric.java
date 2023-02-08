@@ -8,7 +8,7 @@ public interface AllocationGeneric {
 	
 	String getSectorName();
 	
-	String getEmployeeName();
+	String getFirstName();
 	
 	String getCpf();
 	

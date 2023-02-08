@@ -3,6 +3,8 @@ package br.com.robson.qualitycontrol.resources.controllers;
 import java.net.URI;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 import javax.validation.Valid;
@@ -20,9 +22,13 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import br.com.robson.qualitycontrol.models.Allocation;
+import br.com.robson.qualitycontrol.models.AllocationEmployee;
 import br.com.robson.qualitycontrol.models.Employee;
+import br.com.robson.qualitycontrol.models.converters.EmployeeToEmployeeAllocationResponse;
 import br.com.robson.qualitycontrol.models.converters.EmployeeToResponse;
 import br.com.robson.qualitycontrol.resources.requests.EmployeeRequest;
+import br.com.robson.qualitycontrol.resources.response.EmployeeAllocationResponse;
 import br.com.robson.qualitycontrol.resources.response.EmployeeResponse;
 import br.com.robson.qualitycontrol.services.EmailService;
 import br.com.robson.qualitycontrol.services.EmployeeService;
@@ -39,6 +45,9 @@ public class EmployeeResource {
 	private EmployeeToResponse builderResponse;
 	
 	@Autowired
+	private EmployeeToEmployeeAllocationResponse builderEmployeeAllocationResponse;
+	
+	@Autowired
 	private EmailService mailService;
 		
 	@PreAuthorize("hasAnyRole('ADMIN')")
@@ -49,16 +58,23 @@ public class EmployeeResource {
 		return ResponseEntity.ok().body(builderResponse.executa(func));
 	}
 	
+	@PreAuthorize("hasAnyRole('ADMIN')")
+	@RequestMapping(value="/withAllocation/{id}", method=RequestMethod.GET)
+	public ResponseEntity<Object> findOneWithAllocation(@PathVariable Long id) {
+		Employee func = service.findById(id);		
+				
+		return ResponseEntity.ok().body(builderResponse.executa(func));
+	}
+	
 	@RequestMapping(value="/setor", method=RequestMethod.GET)
-	public ResponseEntity<List<EmployeeResponse>> findBySectorId(@RequestParam(value="id") Long sectorId) {
+	public ResponseEntity<List<EmployeeAllocationResponse>> findBySectorId(@RequestParam("id") Optional<Long> sectorId) {
 		List<Employee> list = new ArrayList<>();
-		if(sectorId !=null) {
-			list =service.findAllSectorId(sectorId);	
+		if(sectorId.isPresent()) {
+			list =service.findAllSectorId(sectorId.get());	
 		}else {
 			list = service.findAll();
 		}
-		
-		List<EmployeeResponse> responseList = list.stream().map(e -> builderResponse.executa(e)).collect(Collectors.toList());
+		List<EmployeeAllocationResponse> responseList = list.stream().map(e -> builderEmployeeAllocationResponse.executa(e)).collect(Collectors.toList());
 		return ResponseEntity.ok().body(responseList);
 	}
 	

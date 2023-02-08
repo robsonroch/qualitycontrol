@@ -18,7 +18,7 @@ public class AllocationGenericToResponse implements ConvertFromModel<AllocationG
 		
 		return AllocationResponse.builder()		
 		.sectorName(model.getSectorName())
-		.employeeName(model.getEmployeeName())
+		.employeeName(model.getFirstName())
 		.typeAllocation(model.getTypeAllocation())
 		.cpf(model.getCpf())
 		.startAllocationDate(model.getStartAllocationDate())

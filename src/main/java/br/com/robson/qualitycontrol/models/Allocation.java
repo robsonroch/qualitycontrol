@@ -9,11 +9,14 @@ import javax.persistence.DiscriminatorColumn;
 import javax.persistence.DiscriminatorType;
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 
+import br.com.robson.qualitycontrol.models.utils.AllocationTypeEnum;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -38,14 +41,19 @@ public class Allocation implements Serializable{
 		
 	@Column(name = "END_ALLOCATION_DATE")
 	private Date endAllocationDate = new GregorianCalendar(3000, 1 - 1, 1).getTime();
+	
+	@Column(name = "TYPE_FROM_CHILD")
+	@Enumerated(EnumType.STRING)
+	private AllocationTypeEnum typeAllocation;
 			
 	@EmbeddedId
 	private AllocationPK id = new AllocationPK();
 	
 	@Builder
-	public Allocation(Employee employee, Sector sector) {
+	public Allocation(Employee employee, Sector sector, AllocationTypeEnum typeFromChild) {
 		this.id.setEmployee(employee);
 		this.id.setSector(sector);
+		this.typeAllocation =typeFromChild;
 	}
 
 	public Employee getEmployee() {

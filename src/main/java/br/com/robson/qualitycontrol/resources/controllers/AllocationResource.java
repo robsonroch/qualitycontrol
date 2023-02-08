@@ -1,6 +1,10 @@
 package br.com.robson.qualitycontrol.resources.controllers;
 
 import java.net.URI;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
+import java.util.stream.Collectors;
 
 import javax.validation.Valid;
 
@@ -18,8 +22,11 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import br.com.robson.qualitycontrol.models.Allocation;
 import br.com.robson.qualitycontrol.models.AllocationGeneric;
+import br.com.robson.qualitycontrol.models.converters.AllocationToAllocationEmployeeResponse;
 import br.com.robson.qualitycontrol.models.converters.AllocationToResponse;
 import br.com.robson.qualitycontrol.resources.requests.AllocationRequest;
+import br.com.robson.qualitycontrol.resources.response.AllocationEmployeeResponse;
+import br.com.robson.qualitycontrol.resources.response.EmployeeAllocationResponse;
 import br.com.robson.qualitycontrol.services.AllocationService;
 
 @RestController
@@ -32,13 +39,31 @@ public class AllocationResource {
 	
 	@Autowired
 	private AllocationToResponse builderResponse;
+	
+	@Autowired
+	private AllocationToAllocationEmployeeResponse builderEmployee;
 		
 	@RequestMapping(value="/{cpf}", method=RequestMethod.GET)
 	public ResponseEntity<Object> find(@PathVariable String cpf) {
 		
-		Allocation findByFuncionarioAndSetor = alocService.findByCpfFuncionario(cpf);
+		Optional<Allocation> findByFuncionarioAndSetor = alocService.findByCpfFuncionario(cpf);
 								
-		return ResponseEntity.ok().body(findByFuncionarioAndSetor);
+		return ResponseEntity.ok().body(findByFuncionarioAndSetor.get());
+	}
+	
+	@RequestMapping(value="/setor", method=RequestMethod.GET)
+	public ResponseEntity<List<AllocationEmployeeResponse>> findBySectorId(@RequestParam("id") Optional<Long> sectorId) {
+		
+		List<Allocation> result = new ArrayList<>();
+		
+		if(sectorId.isPresent()) {			
+			result = alocService.findByIdSectorIdAndEndAllocationDate(sectorId.get());
+		}else {
+			result = alocService.findAllActiveAllocations();
+		}
+		
+								
+		return ResponseEntity.ok().body(result.stream().map(a -> builderEmployee.executa(a)).collect(Collectors.toList()));
 	}
 	
 	@RequestMapping(method=RequestMethod.POST)
